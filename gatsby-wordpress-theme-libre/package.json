@@ -57,6 +57,8 @@
     "gatsby-plugin-react-helmet": "^3.1.23",
     "gatsby-plugin-sharp": "^2.4.11",
     "gatsby-source-filesystem": "^2.1.53",
+    "gatsby-source-wordpress": "^3.1.69",
+    "gatsby-transformer-sharp": "^2.3.18",
     "react-helmet": "^5.2.1"
   }
 }

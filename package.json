@@ -4,12 +4,10 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "develop": "yarn workspace try-ghost develop",
-    "build": "yarn workspace try-ghost build",
-    "clean": "yarn workspace try-ghost clean",
-    "serve": "yarn workspace try-ghost serve",
-    "bootstrap": "lerna bootstrap --use-workspaces",
-    "pack": "lerna run build --scope={$(ls ./packages | xargs echo | sed 's/ /,/g')}"
+    "develop": "yarn workspace example develop",
+    "build": "yarn workspace example build",
+    "clean": "yarn workspace example clean",
+    "serve": "yarn workspace example serve"
   },
   "workspaces": [
     "gatsby-wordpress-theme-libre",
