@@ -6,10 +6,12 @@
 
 // You can delete this file if you're not using it
 const path = require(`path`);
+const { paginate } = require(`gatsby-awesome-pagination`);
 
 exports.createPages = async ({ graphql, actions, reporter }) => {
+  const indexTemplate = require.resolve("./src/templates/index.js");
   const postTemplate = require.resolve("./src/templates/post.js");
-  console.log(postTemplate, "template");
+
   const { createPage } = actions;
   const result = await graphql(
     `
@@ -22,6 +24,12 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
             }
           }
         }
+
+        site {
+          siteMetadata {
+            postsPerPage
+          }
+        }
       }
     `
   );
@@ -31,6 +39,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     return;
   }
 
+  const postsPerPage = result.data.site.siteMetadata.postsPerPage;
   const posts = result.data.allWordpressPost.edges;
 
   posts.forEach((post, i, arr) => {
@@ -41,5 +50,19 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
         slug: post.node.slug
       }
     });
+  });
+
+  paginate({
+    createPage,
+    items: posts,
+    itemsPerPage: postsPerPage,
+    component: indexTemplate,
+    pathPrefix: ({ pageNumber }) => {
+      if (pageNumber === 0) {
+        return `/`;
+      } else {
+        return `/page`;
+      }
+    }
   });
 };
