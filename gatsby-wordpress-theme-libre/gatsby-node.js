@@ -47,7 +47,9 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       path: `/${post.node.slug}`,
       component: postTemplate,
       context: {
-        slug: post.node.slug
+        slug: post.node.slug,
+        next: i === arr.length - 1 ? null : arr[i + 1].node.id,
+        prev: i !== 0 ? arr[i - 1].node.id : null
       }
     });
   });

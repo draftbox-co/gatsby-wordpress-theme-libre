@@ -12,33 +12,34 @@ import { graphql } from "gatsby";
  */
 
 // Used for site config
-export const wordPressPostsData = graphql`
-  fragment WordPressPostsData on wordpress__POSTConnection {
-    edges {
-      node {
-        title
-        excerpt
-        slug
-        categories {
-          name
-          slug
-        }
-        jetpack_featured_media_url {
-          localFile {
-            childImageSharp {
-              fluid {
-                srcSet
-                src
-              }
-            }
+export const wordPressPostData = graphql`
+  fragment WordPressPostData on wordpress__POST {
+    title
+    content
+    excerpt
+    slug
+    categories {
+      name
+      slug
+    }
+    jetpack_featured_media_url {
+      localFile {
+        childImageSharp {
+          fluid {
+            srcSet
+            src
           }
         }
-        author {
-          name
-          slug
-        }
-        date(formatString: "MMMM DD YYYY")
       }
     }
+    author {
+      name
+      slug
+      avatar_urls {
+        wordpress_96
+      }
+      description
+    }
+    date(formatString: "MMMM DD YYYY")
   }
 `;

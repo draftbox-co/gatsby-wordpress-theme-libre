@@ -37,7 +37,11 @@ export const pageQuery = graphql`
       skip: $skip
       limit: $limit
     ) {
-      ...WordPressPostsData
+      edges {
+        node {
+          ...WordPressPostData
+        }
+      }
     }
   }
 `;
