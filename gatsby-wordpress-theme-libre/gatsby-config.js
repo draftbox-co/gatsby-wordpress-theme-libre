@@ -41,6 +41,58 @@ module.exports = themeOptions => {
       },
       `gatsby-plugin-sharp`,
       `gatsby-transformer-sharp`,
+      {
+        resolve: `gatsby-plugin-advanced-sitemap`,
+        options: {
+          query: `
+                    {
+                      allWordpressPost {
+                        edges {
+                          node {
+                            id
+                            slug
+                            date
+                          }
+                        }
+                      }
+                      allWordpressCategory(filter: { count: { gt: 0 } }) {
+                        edges {
+                          node {
+                            name
+                            slug
+                          }
+                        }
+                      }
+                      allWordpressWpUsers {
+                        edges {
+                          node {
+                            name
+                            slug
+                          }
+                        }
+                      }
+                    }`,
+          mapping: {
+            allWordpressPost: {
+              sitemap: `posts`
+            },
+            allWordpressCategory: {
+              sitemap: `tags`
+            },
+            allWordpressWpUsers: {
+              sitemap: `authors`
+            }
+          },
+          exclude: [
+            `/dev-404-page`,
+            `/404`,
+            `/404.html`,
+            `/offline-plugin-app-shell-fallback`
+          ],
+          createLinkInHead: true,
+          addUncaughtPages: true
+        }
+      },
       `gatsby-plugin-catch-links`,
       `gatsby-plugin-react-helmet`,
       `gatsby-plugin-force-trailing-slashes`,
