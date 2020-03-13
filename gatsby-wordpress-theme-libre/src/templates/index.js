@@ -4,10 +4,12 @@ import Navbar from "../components/navbar";
 import PostCard from "../components/post-card";
 import Pagination from "../components/pagination";
 import Footer from "../components/footer";
+import WebsiteMeta from "../components/meta/website-meta";
 
 const Index = ({ data, pageContext }) => {
   return (
     <Layout>
+      <WebsiteMeta />
       <div className="home blog wp-embed-responsive">
         <div id="page" className="hfeed site">
           <Navbar />

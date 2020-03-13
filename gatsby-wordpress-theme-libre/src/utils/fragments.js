@@ -43,3 +43,11 @@ export const wordPressPostData = graphql`
     date(formatString: "MMMM DD YYYY")
   }
 `;
+
+export const wordpressSiteMetaData = graphql`
+  fragment WordpressSiteMetaData on wordpress__site_metadata {
+    name
+    description
+    url
+  }
+`;

@@ -3,9 +3,11 @@ import Layout from "../components/layout";
 import PostCard from "../components/post-card";
 import Navbar from "../components/Navbar";
 import Footer from "../components/footer";
+import WebsiteMeta from "../components/meta/website-meta";
 
 const PostByAuthor = ({ data }) => (
   <Layout>
+    <WebsiteMeta />
     <div className="home blog wp-embed-responsive">
       <div id="page" className="hfeed site">
         <Navbar />

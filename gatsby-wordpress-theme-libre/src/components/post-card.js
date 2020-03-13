@@ -15,7 +15,7 @@ const PostCard = ({ index, node }) => {
       <header className="entry-header">
         <h2 className="entry-title">
           <Link
-            to={node.slug}
+            to={`/${node.slug}`}
             dangerouslySetInnerHTML={{ __html: node.title }}
           ></Link>
         </h2>
@@ -23,7 +23,7 @@ const PostCard = ({ index, node }) => {
           <span className="posted-on">{node.date}</span>
           <span className="byline">
             <div className="author vcard">
-              <Link to={`author/${node.author.slug}`} className="url fn n">
+              <Link to={`/author/${node.author.slug}`} className="url fn n">
                 {node.author.name}
               </Link>
             </div>
@@ -33,7 +33,7 @@ const PostCard = ({ index, node }) => {
       <div className="entry-content">
         {node.jetpack_featured_media_url.localFile && (
           <div className="post-thumbnail">
-            <Link to={node.slug} className="no-line">
+            <Link to={`/${node.slug}`} className="no-line">
               <img
                 width="1088"
                 height="726"
@@ -61,7 +61,7 @@ const PostCard = ({ index, node }) => {
           {node.categories.map((category, index, arr) => {
             return (
               <Link
-                to={`category/${category.slug}`}
+                to={`/category/${category.slug}`}
                 key={index}
                 rel="category tag"
               >
