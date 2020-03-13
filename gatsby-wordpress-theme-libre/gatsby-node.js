@@ -11,6 +11,10 @@ const { paginate } = require(`gatsby-awesome-pagination`);
 exports.createPages = async ({ graphql, actions, reporter }) => {
   const indexTemplate = require.resolve("./src/templates/index.js");
   const postTemplate = require.resolve("./src/templates/post.js");
+  const authorTemplate = require.resolve("./src/templates/post-by-author.js");
+  const categoryTemplate = require.resolve(
+    "./src/templates/post-by-category.js"
+  );
 
   const { createPage } = actions;
   const result = await graphql(
@@ -20,6 +24,24 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
           edges {
             node {
               id
+              slug
+            }
+          }
+        }
+
+        allWordpressCategory(filter: { count: { gt: 0 } }) {
+          edges {
+            node {
+              name
+              slug
+            }
+          }
+        }
+
+        allWordpressWpUsers {
+          edges {
+            node {
+              name
               slug
             }
           }
@@ -41,6 +63,8 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
 
   const postsPerPage = result.data.site.siteMetadata.postsPerPage;
   const posts = result.data.allWordpressPost.edges;
+  const authors = result.data.allWordpressWpUsers.edges;
+  const categories = result.data.allWordpressCategory.edges;
 
   posts.forEach((post, i, arr) => {
     createPage({
@@ -50,6 +74,26 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
         slug: post.node.slug,
         next: i === arr.length - 1 ? null : arr[i + 1].node.id,
         prev: i !== 0 ? arr[i - 1].node.id : null
+      }
+    });
+  });
+
+  authors.forEach(post => {
+    createPage({
+      path: `/author/${post.node.slug}`,
+      component: authorTemplate,
+      context: {
+        slug: post.node.slug
+      }
+    });
+  });
+
+  categories.forEach(post => {
+    createPage({
+      path: `/category/${post.node.slug}`,
+      component: categoryTemplate,
+      context: {
+        slug: post.node.slug
       }
     });
   });
