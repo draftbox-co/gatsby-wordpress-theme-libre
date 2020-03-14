@@ -8,9 +8,6 @@
 const path = require(`path`);
 const { paginate } = require(`gatsby-awesome-pagination`);
 
-
-const fullNameResolver = source => `${source.title} ${source.slug}`
-
 exports.createSchemaCustomization = ({ actions, schema }) => {
   const { createFieldExtension, createTypes } = actions
   createFieldExtension({
@@ -18,14 +15,15 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
     extend(options, prevFieldConfig) {
       return {
         resolve(source) {
-          return `${source.title} ${source.slug}`
+          // TODO convert excerpt to plain text for seo purpose
+          return `${source.excerpt}`
         },
       }
     },
   })
   createTypes(`
     type wordpress__POST implements Node {
-      fullName: String @fullName
+      plainExcerpt: String @fullName
     }
   `)
 }
