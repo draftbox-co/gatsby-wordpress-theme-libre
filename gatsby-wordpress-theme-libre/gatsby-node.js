@@ -8,6 +8,28 @@
 const path = require(`path`);
 const { paginate } = require(`gatsby-awesome-pagination`);
 
+
+const fullNameResolver = source => `${source.title} ${source.slug}`
+
+exports.createSchemaCustomization = ({ actions, schema }) => {
+  const { createFieldExtension, createTypes } = actions
+  createFieldExtension({
+    name: "fullName",
+    extend(options, prevFieldConfig) {
+      return {
+        resolve(source) {
+          return `${source.title} ${source.slug}`
+        },
+      }
+    },
+  })
+  createTypes(`
+    type wordpress__POST implements Node {
+      fullName: String @fullName
+    }
+  `)
+}
+
 exports.createPages = async ({ graphql, actions, reporter }) => {
   const indexTemplate = require.resolve("./src/templates/index.js");
   const postTemplate = require.resolve("./src/templates/post.js");

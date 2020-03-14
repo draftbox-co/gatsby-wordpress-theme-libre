@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Helmet from "react-helmet";
 import { graphql, useStaticQuery } from "gatsby";
 import url from "url";
+import propTypes from "prop-types";
+import { globalHistory } from "@reach/router";
 
 const WebsiteMeta = () => {
   const {
@@ -14,7 +16,7 @@ const WebsiteMeta = () => {
     }
   `);
 
-  const canonicalUrl = url.resolve(baseUrl, window.location.pathname);
+  const canonicalUrl = url.resolve(baseUrl, globalHistory.location.pathname);
 
   return (
     <>
@@ -33,6 +35,12 @@ const WebsiteMeta = () => {
       </Helmet>
     </>
   );
+};
+
+WebsiteMeta.propTypes = {
+  location: propTypes.shape({
+    pathName: propTypes.string.isRequired
+  }).isRequired
 };
 
 export default WebsiteMeta;

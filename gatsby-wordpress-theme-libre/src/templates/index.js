@@ -5,30 +5,37 @@ import PostCard from "../components/post-card";
 import Pagination from "../components/pagination";
 import Footer from "../components/footer";
 import WebsiteMeta from "../components/meta/website-meta";
+import propTypes from 'prop-types';
 
 const Index = ({ data, pageContext }) => {
   return (
-    <Layout>
-      <WebsiteMeta />
-      <div className="home blog wp-embed-responsive">
-        <div id="page" className="hfeed site">
-          <Navbar />
-          <div id="content" className="site-content">
-            <div id="primary" className="content-area">
-              <main id="main" className="site-main">
-                {data.allWordpressPost.edges.map(({ node }, index) => (
-                  <PostCard key={index} node={node} />
-                ))}
-                <Pagination pageContext={pageContext} />
-              </main>
+    <>
+      <Layout>
+        <WebsiteMeta/>
+        <div className="home blog wp-embed-responsive">
+          <div id="page" className="hfeed site">
+            <Navbar />
+            <div id="content" className="site-content">
+              <div id="primary" className="content-area">
+                <main id="main" className="site-main">
+                  {data.allWordpressPost.edges.map(({ node }, index) => (
+                    <PostCard key={index} node={node} />
+                  ))}
+                  <Pagination pageContext={pageContext} />
+                </main>
+              </div>
             </div>
+            <Footer />
           </div>
-          <Footer />
         </div>
-      </div>
-    </Layout>
+      </Layout>
+    </>
   );
 };
+
+Index.propTypes = {
+  location: propTypes.object.is
+}
 
 export default Index;
 
