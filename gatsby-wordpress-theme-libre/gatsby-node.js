@@ -29,8 +29,15 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
       };
     }
   });
+
   createTypes(`
     type wordpress__POST implements Node {
+      plainExcerpt: String @plainExcerpt
+    }
+  `);
+
+  createTypes(`
+    type wordpress__PAGE implements Node {
       plainExcerpt: String @plainExcerpt
     }
   `);
@@ -43,6 +50,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   const categoryTemplate = require.resolve(
     "./src/templates/post-by-category.js"
   );
+  const pageTemplate = require.resolve("./src/templates/page.js");
 
   const { createPage } = actions;
   const result = await graphql(
@@ -75,6 +83,14 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
           }
         }
 
+        allWordpressPage {
+          edges {
+            node {
+              slug
+            }
+          }
+        }
+
         site {
           siteMetadata {
             postsPerPage
@@ -93,6 +109,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   const posts = result.data.allWordpressPost.edges;
   const authors = result.data.allWordpressWpUsers.edges;
   const categories = result.data.allWordpressCategory.edges;
+  const pages = result.data.allWordpressPage.edges;
 
   posts.forEach((post, i, arr) => {
     createPage({
@@ -122,6 +139,16 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       component: categoryTemplate,
       context: {
         slug: post.node.slug
+      }
+    });
+  });
+
+  pages.forEach(page => {
+    createPage({
+      path: `/${page.node.slug}`,
+      component: pageTemplate,
+      context: {
+        slug: page.node.slug
       }
     });
   });
