@@ -19,7 +19,6 @@ const Navbar = () => {
     const stickyHeaderOffset = siteHeaderRect.top + document.body.scrollTop;
 
     const addStcikyClass = () => {
-      console.log(window.scrollY, stickyHeaderOffset);
       if (window.scrollY > stickyHeaderOffset) {
         document.body.classList.add("sticking");
       } else {

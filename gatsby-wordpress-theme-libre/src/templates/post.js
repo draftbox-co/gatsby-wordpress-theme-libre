@@ -3,10 +3,12 @@ import Layout from "../components/layout";
 import Navbar from "../components/navbar";
 import { graphql, Link } from "gatsby";
 import Footer from "../components/footer";
+import ArticleMeta from "../components/meta/article-meta";
 
 const Post = ({ data }) => {
   return (
     <Layout>
+      <ArticleMeta data={data.wordpressPost} />
       <div
         className="post-template-default single single-post single-format-standard wp-embed-responsive singular"
         style={{ overflowX: "hidden" }}

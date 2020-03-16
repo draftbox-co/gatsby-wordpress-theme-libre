@@ -4,29 +4,37 @@
  * See: https://www.gatsbyjs.org/docs/node-apis/
  */
 
-// You can delete this file if you're not using it
-const path = require(`path`);
 const { paginate } = require(`gatsby-awesome-pagination`);
+const htmlToText = require("html-to-text");
 
 exports.createSchemaCustomization = ({ actions, schema }) => {
-  const { createFieldExtension, createTypes } = actions
+  const { createFieldExtension, createTypes } = actions;
   createFieldExtension({
-    name: "fullName",
+    name: "plainExcerpt",
     extend(options, prevFieldConfig) {
       return {
         resolve(source) {
-          // TODO convert excerpt to plain text for seo purpose
-          return `${source.excerpt}`
-        },
-      }
-    },
-  })
+          let plainExcerpt = htmlToText
+            .fromString(source.excerpt, {
+              wordWrap: 155,
+              ignoreHref: true
+            })
+            .slice(0, 156);
+
+          if (plainExcerpt.length > 155) {
+            plainExcerpt = plainExcerpt.slice(0, 152) + "...";
+          }
+          return plainExcerpt;
+        }
+      };
+    }
+  });
   createTypes(`
     type wordpress__POST implements Node {
-      plainExcerpt: String @fullName
+      plainExcerpt: String @plainExcerpt
     }
-  `)
-}
+  `);
+};
 
 exports.createPages = async ({ graphql, actions, reporter }) => {
   const indexTemplate = require.resolve("./src/templates/index.js");

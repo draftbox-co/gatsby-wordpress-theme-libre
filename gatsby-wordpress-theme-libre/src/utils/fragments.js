@@ -17,6 +17,7 @@ export const wordPressPostData = graphql`
     title
     content
     excerpt
+    plainExcerpt
     slug
     categories {
       name

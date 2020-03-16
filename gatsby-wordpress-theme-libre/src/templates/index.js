@@ -5,7 +5,6 @@ import PostCard from "../components/post-card";
 import Pagination from "../components/pagination";
 import Footer from "../components/footer";
 import WebsiteMeta from "../components/meta/website-meta";
-import propTypes from 'prop-types';
 
 const Index = ({ data, pageContext }) => {
   return (
@@ -32,10 +31,6 @@ const Index = ({ data, pageContext }) => {
     </>
   );
 };
-
-Index.propTypes = {
-  location: propTypes.object.is
-}
 
 export default Index;
 
