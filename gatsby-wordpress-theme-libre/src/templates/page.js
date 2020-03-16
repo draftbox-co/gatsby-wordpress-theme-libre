@@ -2,11 +2,13 @@ import React from "react";
 import Layout from "../components/layout";
 import Navbar from "../components/navbar";
 import Footer from "../components/footer";
+import ArticleMeta from "../components/meta/article-meta";
 
-const Page = ({ data, pageContext }) => {
+const Page = ({ data }) => {
   return (
     <>
       <Layout>
+        <ArticleMeta data={data.wordpressPage} />
         <div className="home blog wp-embed-responsive">
           <div id="page" className="hfeed site">
             <Navbar />
@@ -14,8 +16,10 @@ const Page = ({ data, pageContext }) => {
               <div id="primary" className="content-area">
                 <main id="main" className="site-main">
                   <article className="post-109 page type-page status-publish hentry">
-                    <header class="entry-header">
-                      <h1 class="entry-title">{data.wordpressPage.title}</h1>{" "}
+                    <header className="entry-header">
+                      <h1 className="entry-title">
+                        {data.wordpressPage.title}
+                      </h1>{" "}
                     </header>
                     <div
                       className="entry-content"
@@ -40,11 +44,7 @@ export default Page;
 export const pageQuery = graphql`
   query($slug: String!) {
     wordpressPage(slug: { eq: $slug }) {
-      slug
-      title
-      excerpt
-      plainExcerpt
-      content
+      ...wordpressPageData
     }
   }
 `;

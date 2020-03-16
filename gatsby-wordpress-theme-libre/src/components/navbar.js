@@ -1,14 +1,23 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useStaticQuery, graphql } from "gatsby";
 import { Link } from "gatsby";
 
 const Navbar = () => {
+  const [isMenuToggled, setIsMenuToggled] = useState(false);
+
   const data = useStaticQuery(graphql`
     query MyQuery {
       wordpressSiteMetadata {
-        name
-        url
-        description
+        ...WordpressSiteMetaData
+      }
+
+      allWordpressPage {
+        edges {
+          node {
+            slug
+            title
+          }
+        }
       }
     }
   `);
@@ -44,6 +53,35 @@ const Navbar = () => {
         <p className="site-description">
           {data.wordpressSiteMetadata.description}
         </p>
+      </div>
+      <div className="nav-wrapper">
+        {" "}
+        <nav
+          id="site-navigation"
+          className={"main-navigation " + (isMenuToggled ? "toggled" : "")}
+          role="navigation"
+        >
+          {" "}
+          <button
+            onClick={e => setIsMenuToggled(!isMenuToggled)}
+            className="menu-toggle"
+            aria-controls="primary-menu"
+            aria-expanded="false"
+          >
+            ☰ Menu
+          </button>
+          <div id="primary-menu" className="menu">
+            <ul>
+              {data.allWordpressPage.edges.map((pageMeta, i) => {
+                return (
+                  <li key={i}>
+                    <Link to={pageMeta.node.slug}>{pageMeta.node.title}</Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>{" "}
+        </nav>
       </div>
     </header>
   );

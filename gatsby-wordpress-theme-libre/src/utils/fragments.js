@@ -52,3 +52,13 @@ export const wordpressSiteMetaData = graphql`
     url
   }
 `;
+
+export const wordpressPageData = graphql`
+  fragment wordpressPageData on wordpress__PAGE {
+    slug
+    title
+    excerpt
+    plainExcerpt
+    content
+  }
+`;

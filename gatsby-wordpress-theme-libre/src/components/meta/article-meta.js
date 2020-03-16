@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Helmet from "react-helmet";
 import { graphql, useStaticQuery } from "gatsby";
 import url from "url";
@@ -18,7 +18,9 @@ const ArticleMeta = ({ data }) => {
 
   const canonicalUrl = url.resolve(baseUrl, globalHistory.location.pathname);
 
-  const feature_image = data.jetpack_featured_media_url.localFile;
+  const feature_image =
+    data.jetpack_featured_media_url &&
+    data.jetpack_featured_media_url.localFile;
 
   console.log(feature_image, "feature image is here ");
 
@@ -51,10 +53,12 @@ const ArticleMeta = ({ data }) => {
         {feature_image && (
           <meta name="twitter:card" content="summary_large_image" />
         )}
-        <meta
-          name="twitter:image"
-          content={feature_image.childImageSharp.fluid.src}
-        />
+        {feature_image && (
+          <meta
+            name="twitter:image"
+            content={feature_image.childImageSharp.fluid.src}
+          />
+        )}
       </Helmet>
     </>
   );

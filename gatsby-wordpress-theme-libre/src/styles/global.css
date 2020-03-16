@@ -660,11 +660,10 @@ textarea {
 }
 .site-title {
   clear: none;
-  display: inline-block;
+  display: block;
   font-weight: bold;
   line-height: 1.2;
   margin: 0 0.4375em 0 0;
-  vertical-align: baseline;
 }
 .singular .site-title {
   font-size: 29px;
@@ -1870,7 +1869,7 @@ object {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    align-items: flex-end;
+    align-items: center;
   }
   .sticking .site {
     margin-top: 208px;
