@@ -2,6 +2,7 @@ let wordpressConfig;
 
 try {
   wordpressConfig = require(`./.wordpress-config`);
+  siteConfig = require("./site-config");
 } catch (e) {
   console.log(e);
 }
@@ -9,9 +10,10 @@ try {
 module.exports = {
   plugins: [
     {
-      resolve: `gatsby-wordpress-theme-libre`,
+      resolve: `@armada-inc/gatsby-wordpress-theme-libre`,
       options: {
-        wordpressConfig
+        wordpressConfig,
+        siteConfig
       }
     }
   ]

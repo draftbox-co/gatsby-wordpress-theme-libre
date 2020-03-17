@@ -1,11 +1,11 @@
 {
-  "name": "gatsby-wordpress-theme-libre",
+  "name": "@armada-inc/gatsby-wordpress-theme-libre",
   "version": "1.0.0",
   "license": "MIT",
   "resolutions": {
     "sharp": "0.23.4"
   },
-  "author": "styxlab",
+  "author": "Armada Intelligence Inc",
   "homepage": "https://github.com/armada-inc/",
   "main": "index.js",
   "repository": {
@@ -53,7 +53,7 @@
     "gatsby-plugin-catch-links": "^2.1.27",
     "gatsby-plugin-feed": "^2.3.28",
     "gatsby-plugin-force-trailing-slashes": "^1.0.4",
-    "gatsby-plugin-manifest": "^2.2.47",
+    "gatsby-plugin-manifest": "^2.2.48",
     "gatsby-plugin-offline": "^3.0.40",
     "gatsby-plugin-react-helmet": "^3.1.23",
     "gatsby-plugin-sharp": "^2.4.11",

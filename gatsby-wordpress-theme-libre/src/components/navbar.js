@@ -75,7 +75,9 @@ const Navbar = () => {
               {data.allWordpressPage.edges.map((pageMeta, i) => {
                 return (
                   <li key={i}>
-                    <Link to={pageMeta.node.slug}>{pageMeta.node.title}</Link>
+                    <Link to={`/${pageMeta.node.slug}`}>
+                      {pageMeta.node.title}
+                    </Link>
                   </li>
                 );
               })}

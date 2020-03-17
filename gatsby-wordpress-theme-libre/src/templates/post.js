@@ -47,23 +47,18 @@ const Post = ({ data }) => {
                       {" "}
                       <span className="posted-on">
                         Posted on{" "}
-                        <a
-                          href="https://virajz.com/things-i-wish-i-could-have-told-my-younger-self/"
-                          rel="bookmark"
+                        <time
+                          className="entry-date published"
+                          dateTime="2019-09-15T21:16:31+05:30"
                         >
-                          <time
-                            className="entry-date published"
-                            dateTime="2019-09-15T21:16:31+05:30"
-                          >
-                            {data.wordpressPost.date}
-                          </time>
-                          <time
-                            className="updated"
-                            dateTime="2019-09-15T21:25:22+05:30"
-                          >
-                            {data.wordpressPost.date}
-                          </time>
-                        </a>
+                          {data.wordpressPost.date}
+                        </time>
+                        <time
+                          className="updated"
+                          dateTime="2019-09-15T21:25:22+05:30"
+                        >
+                          {data.wordpressPost.date}
+                        </time>
                       </span>
                       <span className="byline">
                         {" "}
@@ -92,7 +87,7 @@ const Post = ({ data }) => {
                       {data.wordpressPost.categories.map(
                         (category, index, arr) => {
                           return (
-                            <Link key={index} to={`category/${category.slug}`}>
+                            <Link key={index} to={`/category/${category.slug}`}>
                               {category.name}
                               {index !== arr.length - 1 && ", "}
                             </Link>
@@ -123,7 +118,7 @@ const Post = ({ data }) => {
                       {data.wordpressPost.author.description}
                       <Link
                         className="author-link"
-                        to={`author/${data.wordpressPost.author.slug}`}
+                        to={`/author/${data.wordpressPost.author.slug}`}
                         rel="author"
                       >
                         {" "}
@@ -136,7 +131,7 @@ const Post = ({ data }) => {
                     <div className="nav-links">
                       {data.prev && (
                         <div className="nav-previous">
-                          <Link to={data.prev.slug} rel="prev">
+                          <Link to={`/${data.prev.slug}`} rel="prev">
                             <span className="meta-nav">Previous Post</span>{" "}
                             <span
                               dangerouslySetInnerHTML={{
@@ -149,7 +144,7 @@ const Post = ({ data }) => {
 
                       {data.next && (
                         <div className="nav-next">
-                          <Link to={data.next.slug} rel="next">
+                          <Link to={`/${data.next.slug}`} rel="next">
                             <span className="meta-nav">Next Post</span>{" "}
                             <span
                               dangerouslySetInnerHTML={{
