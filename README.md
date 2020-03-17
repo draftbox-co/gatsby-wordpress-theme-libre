@@ -15,6 +15,10 @@ Play with the [Demo](https://gatsby-wordpress-libre.netlify.com/) to get a first
 - Fully responsive
 - Composable and extensible
 
+## Quick Start
+
+Head over to the [starter repo](https://github.com/armada-inc/gatsby-wordpress-libre-starter) to get up and running quickly! The starter is recommended if you are creating a new site.
+
 ## Installation
 
 This repository contains the example code **and** the Gatsby theme. If you are here to install the Gatsby theme plugin in your existing project, check out the [theme specific README](/gatsby-wordpress-theme-libre/README.md) for further details.
@@ -32,7 +36,7 @@ create `.wordpress-config.json` in example directory and add your wordpress conf
 
 If your wordpress blog is self hosted it should look like
 
-```json
+```bash
 {
   "baseUrl": "yourwordpressblog.com",
   "protocol": "https",
