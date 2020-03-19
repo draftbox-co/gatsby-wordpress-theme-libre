@@ -1,6 +1,6 @@
 {
   "name": "@armada-inc/gatsby-wordpress-theme-libre",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "license": "MIT",
   "resolutions": {
     "sharp": "0.23.4"

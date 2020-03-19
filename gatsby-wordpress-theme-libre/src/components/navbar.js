@@ -7,7 +7,7 @@ const Navbar = () => {
 
   const data = useStaticQuery(graphql`
     query MyQuery {
-      wordpressSiteMetadata {
+      wpSiteMetaData {
         ...WordpressSiteMetaData
       }
 
@@ -47,11 +47,11 @@ const Navbar = () => {
       <div className="site-branding">
         <h1 className="site-title">
           <Link to="/" rel="home">
-            {data.wordpressSiteMetadata.name}
+            {data.wpSiteMetaData.name}
           </Link>
         </h1>
         <p className="site-description">
-          {data.wordpressSiteMetadata.description}
+          {data.wpSiteMetaData.description}
         </p>
       </div>
       <div className="nav-wrapper">
@@ -76,7 +76,7 @@ const Navbar = () => {
                 return (
                   <li key={i}>
                     <Link to={`/${pageMeta.node.slug}`}>
-                      {pageMeta.node.title}
+                     <span dangerouslySetInnerHTML ={{__html: pageMeta.node.title}}></span>
                     </Link>
                   </li>
                 );

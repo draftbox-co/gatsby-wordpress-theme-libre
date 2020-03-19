@@ -23,7 +23,7 @@ export const wordPressPostData = graphql`
       name
       slug
     }
-    jetpack_featured_media_url {
+    featured_media {
       localFile {
         childImageSharp {
           fluid {
@@ -46,10 +46,9 @@ export const wordPressPostData = graphql`
 `;
 
 export const wordpressSiteMetaData = graphql`
-  fragment WordpressSiteMetaData on wordpress__site_metadata {
-    name
-    description
-    url
+  fragment WordpressSiteMetaData on WPSiteMetaData {
+    name: siteName
+    description: siteDescription
   }
 `;
 

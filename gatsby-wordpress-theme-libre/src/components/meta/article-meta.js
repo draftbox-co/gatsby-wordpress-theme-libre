@@ -6,21 +6,28 @@ import { globalHistory } from "@reach/router";
 import capitalize from "../../utils/capitalizeString";
 
 const ArticleMeta = ({ data }) => {
-  const {
-    wordpressSiteMetadata: { name, url: baseUrl }
-  } = useStaticQuery(graphql`
+  const staticQueryData = useStaticQuery(graphql`
     query {
-      wordpressSiteMetadata {
+      wpSiteMetaData {
         ...WordpressSiteMetaData
       }
+      site {
+        siteMetadata {
+          siteUrl
+        }
+      }
     }
+    
   `);
-
+  const {
+    wpSiteMetaData: { name }
+  } = staticQueryData;
+  const baseUrl = staticQueryData.site.siteMetadata.siteUrl;
   const canonicalUrl = url.resolve(baseUrl, globalHistory.location.pathname);
 
   const feature_image =
-    data.jetpack_featured_media_url &&
-    data.jetpack_featured_media_url.localFile;
+    data.featured_media &&
+    data.featured_media.localFile;
 
   console.log(feature_image, "feature image is here ");
 
