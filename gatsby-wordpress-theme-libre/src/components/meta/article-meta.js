@@ -6,7 +6,7 @@ import { globalHistory } from "@reach/router";
 import capitalize from "../../utils/capitalizeString";
 
 const ArticleMeta = ({ data }) => {
-  const staticQueryData = useStaticQuery(graphql`
+  const queryData = useStaticQuery(graphql`
     query {
       wpSiteMetaData {
         ...WordpressSiteMetaData
@@ -21,8 +21,8 @@ const ArticleMeta = ({ data }) => {
   `);
   const {
     wpSiteMetaData: { name }
-  } = staticQueryData;
-  const baseUrl = staticQueryData.site.siteMetadata.siteUrl;
+  } = queryData;
+  const baseUrl = queryData.site.siteMetadata.siteUrl;
   const canonicalUrl = url.resolve(baseUrl, globalHistory.location.pathname);
 
   const feature_image =
