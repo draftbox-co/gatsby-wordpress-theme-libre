@@ -104,9 +104,56 @@ module.exports = themeOptions => {
           short_name: siteConfig.shortTitle,
           start_url: `/`,
           background_color: siteConfig.backgroundColor,
-          theme_color: siteConfig.themeColor ,
+          theme_color: siteConfig.themeColor,
           display: `standalone`,
           icon: "static/favicon.png"
+        }
+      },
+      {
+        resolve: `gatsby-plugin-feed`,
+        options: {
+          query: `
+            {
+              site {
+                siteMetadata {
+                  siteUrl
+                }
+              }
+            }
+          `,
+          feeds: [
+            {
+              serialize: ({ query: { site, allWordpressPost } }) => {
+                return allWordpressPost.edges.map(edge => {
+                  return {
+                    title: edge.node.title,
+                    description: edge.node.excerpt,
+                    date: edge.node.date,
+                    url: site.siteMetadata.siteUrl + edge.node.slug,
+                    guid: site.siteMetadata.siteUrl + edge.node.slug,
+                    custom_elements: [{ "content:encoded": edge.node.content }]
+                  };
+                });
+              },
+              query: `
+                {
+                  allWordpressPost(sort: {fields: date, order: DESC}) {
+                    edges {
+                      node {
+                        slug
+                        content
+                        title
+                        excerpt
+                        date
+                      }
+                    }
+                  }
+                }
+              `,
+              output: "/rss.xml",
+              title: "Your Site's RSS Feed"
+            }
+          ]
         }
       }
     ]
