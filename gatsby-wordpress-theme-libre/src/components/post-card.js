@@ -7,8 +7,8 @@ const PostCard = ({ index, node }) => {
       key={index}
       className={
         "post type-post status-publish format-standard hentry " +
-        (node.jetpack_featured_media_url.localFile
-          ? "jetpack_featured_media_url"
+        (node.featured_media.localFile
+          ? "featured_media"
           : "")
       }
     >
@@ -31,20 +31,20 @@ const PostCard = ({ index, node }) => {
         </div>
       </header>
       <div className="entry-content">
-        {node.jetpack_featured_media_url.localFile && (
+        {node.featured_media.localFile && (
           <div className="post-thumbnail">
             <Link to={`/${node.slug}`} className="no-line">
               <img
                 width="1088"
                 height="726"
                 src={
-                  node.jetpack_featured_media_url.localFile.childImageSharp
+                  node.featured_media.localFile.childImageSharp
                     .fluid.src
                 }
                 className="attachment-libre-2-post-thumbnail size-libre-2-post-thumbnail wp-post-image jetpack-lazy-image jetpack-lazy-image--handled"
                 alt=""
                 srcSet={
-                  node.jetpack_featured_media_url.localFile.childImageSharp
+                  node.featured_media.localFile.childImageSharp
                     .fluid.srcSet
                 }
                 data-lazy-loaded="1"

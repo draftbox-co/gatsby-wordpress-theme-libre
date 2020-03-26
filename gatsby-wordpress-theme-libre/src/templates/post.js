@@ -26,11 +26,11 @@ const Post = ({ data }) => {
                     <img
                       className="attachment-libre-2-post-thumbnail size-libre-2-post-thumbnail wp-post-image jetpack-lazy-image jetpack-lazy-image--handled"
                       src={
-                        data.wordpressPost.jetpack_featured_media_url.localFile
+                        data.wordpressPost.featured_media.localFile
                           .childImageSharp.fluid.src
                       }
                       srcSet={
-                        data.wordpressPost.jetpack_featured_media_url.localFile
+                        data.wordpressPost.featured_media.localFile
                           .childImageSharp.fluid.srcSet
                       }
                       alt=""

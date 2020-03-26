@@ -5,15 +5,23 @@ import url from "url";
 import { globalHistory } from "@reach/router";
 
 const WebsiteMeta = () => {
-  const {
-    wordpressSiteMetadata: { name, description, url: baseUrl }
-  } = useStaticQuery(graphql`
+  const data = useStaticQuery(graphql`
     query {
-      wordpressSiteMetadata {
+      wpSiteMetaData {
         ...WordpressSiteMetaData
       }
+      site {
+        siteMetadata {
+          siteUrl
+        }
+      }
     }
+    
   `);
+  const {
+    wpSiteMetaData: { name, description }
+  } = data;
+  const baseUrl = data.site.siteMetadata.siteUrl;
 
   const canonicalUrl = url.resolve(baseUrl, globalHistory.location.pathname);
 

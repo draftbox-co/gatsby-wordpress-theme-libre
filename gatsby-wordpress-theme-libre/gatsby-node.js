@@ -41,6 +41,54 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
       plainExcerpt: String @plainExcerpt
     }
   `);
+
+  const typeDefs = `
+  type WPSiteMetaData implements Node {
+    siteDescription: String
+    siteName: String
+  }
+`;
+  createTypes(typeDefs);
+};
+
+exports.createResolvers = async ({
+  actions,
+  cache,
+  createNodeId,
+  createResolvers,
+  store,
+  reporter
+}) => {
+  const { createNode } = actions;
+  console.log("createResolvers called");
+
+  createResolvers({
+    Query: {
+      wpSiteMetaData: {
+        type: `WPSiteMetaData`,
+        resolve(source, args, context, info) {
+          let title = "";
+          let description = "";
+          const metadata = context.nodeModel.getAllNodes({
+            type: `wordpress__site_metadata`
+          });
+          const wordPressSetting = context.nodeModel.getAllNodes({
+            type: `wordpress__wp_settings`
+          });
+          title = metadata[0].name
+            ? metadata[0].name
+            : wordPressSetting[0].title;
+          description = metadata[0].description
+            ? metadata[0].description
+            : wordPressSetting[0].description;
+          return {
+            siteName: title,
+            siteDescription: description
+          };
+        }
+      }
+    }
+  });
 };
 
 exports.createPages = async ({ graphql, actions, reporter }) => {
