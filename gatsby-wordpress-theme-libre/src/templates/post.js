@@ -22,20 +22,22 @@ const Post = ({ data }) => {
             <div id="primary" className="content-area">
               <main id="main" className="site-main" role="main">
                 <article className="post type-post status-publish format-standard has-post-thumbnail hentry">
-                  <div className="post-thumbnail">
-                    <img
-                      className="attachment-libre-2-post-thumbnail size-libre-2-post-thumbnail wp-post-image jetpack-lazy-image jetpack-lazy-image--handled"
-                      src={
-                        data.wordpressPost.featured_media.localFile
-                          .childImageSharp.fluid.src
-                      }
-                      srcSet={
-                        data.wordpressPost.featured_media.localFile
-                          .childImageSharp.fluid.srcSet
-                      }
-                      alt=""
-                    />
-                  </div>
+                  {data.wordpressPost.featured_media.localFile && (
+                    <div className="post-thumbnail">
+                      <img
+                        className="attachment-libre-2-post-thumbnail size-libre-2-post-thumbnail wp-post-image jetpack-lazy-image jetpack-lazy-image--handled"
+                        src={
+                          data.wordpressPost.featured_media.localFile
+                            .childImageSharp.fluid.src
+                        }
+                        srcSet={
+                          data.wordpressPost.featured_media.localFile
+                            .childImageSharp.fluid.srcSet
+                        }
+                        alt=""
+                      />
+                    </div>
+                  )}
                   <header className="entry-header">
                     <h1
                       className="entry-title"
