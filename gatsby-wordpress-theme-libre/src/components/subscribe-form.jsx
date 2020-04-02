@@ -4,7 +4,7 @@ import { useForm } from "../hook/useForm";
 import '../styles/subscribe-form.css';
 
 const SubscribeForm = () => {
-  const [{ handleSubmit, submitting, succeeded, errors }] = useForm(
+  const [{ handleSubmit, submitting, succeeded }] = useForm(
     "subscribe"
   );
 

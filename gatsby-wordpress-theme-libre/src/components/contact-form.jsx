@@ -10,7 +10,7 @@ const ContactForm = () => {
     message: ""
   });
 
-  const [{ handleSubmit: submitForm, submitting, succeeded, errors }] = useForm(
+  const [{ handleSubmit: submitForm, submitting, succeeded }] = useForm(
     "contact"
   );
 
@@ -30,6 +30,8 @@ const ContactForm = () => {
         break;
       case "message":
         setFormValues({ ...formValues, message: value });
+        break;
+      default:
         break;
     }
   };
