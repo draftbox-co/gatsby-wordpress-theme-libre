@@ -4,6 +4,8 @@ import Navbar from "../components/navbar";
 import { graphql, Link } from "gatsby";
 import Footer from "../components/footer";
 import ArticleMeta from "../components/meta/article-meta";
+import SubscribeForm from "../components/subscribe-form";
+import Disqus from "../components/disqus";
 
 const Post = ({ data }) => {
   return (
@@ -159,6 +161,8 @@ const Post = ({ data }) => {
                     </div>{" "}
                   </nav>
                 </article>
+                <Disqus/>
+                <SubscribeForm />
               </main>
             </div>
             <div

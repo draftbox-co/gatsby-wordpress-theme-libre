@@ -46,6 +46,7 @@
     "react-dom": "^16.13.0"
   },
   "dependencies": {
+    "@armada-inc/gatsby-plugin-amp": "^0.2.3",
     "@reach/router": "^1.3.3",
     "gatsby-awesome-pagination": "^0.3.5",
     "gatsby-image": "^2.2.43",

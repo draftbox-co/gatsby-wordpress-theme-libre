@@ -504,6 +504,7 @@ caption {
 --------------------------------------------------------------*/
 label {
   font-style: italic;
+  margin-right: 10px;
 }
 button,
 input[type="button"],
@@ -947,7 +948,7 @@ a:active {
   border-bottom: 1px solid;
   font-weight: bold;
   line-height: 1.3;
-  margin: 0 0 3.5em;
+  margin: 0 0 0.5em;
   overflow: hidden;
   padding: 0.875em 0;
 }

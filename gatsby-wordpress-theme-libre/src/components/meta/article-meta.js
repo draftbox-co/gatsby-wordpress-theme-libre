@@ -5,7 +5,7 @@ import url from "url";
 import { globalHistory } from "@reach/router";
 import capitalize from "../../utils/capitalizeString";
 
-const ArticleMeta = ({ data }) => {
+const ArticleMeta = ({ data, amp }) => {
   const queryData = useStaticQuery(graphql`
     query {
       wpSiteMetaData {
@@ -17,7 +17,6 @@ const ArticleMeta = ({ data }) => {
         }
       }
     }
-    
   `);
   const {
     wpSiteMetaData: { name }
@@ -25,18 +24,15 @@ const ArticleMeta = ({ data }) => {
   const baseUrl = queryData.site.siteMetadata.siteUrl;
   const canonicalUrl = url.resolve(baseUrl, globalHistory.location.pathname);
 
-  const feature_image =
-    data.featured_media &&
-    data.featured_media.localFile;
-
-  console.log(feature_image, "feature image is here ");
+  const feature_image = data.featured_media && data.featured_media.localFile;
 
   return (
     <>
       <Helmet>
         <title>{`${name} | ${capitalize(data.title)}`}</title>
+        {!amp && <link rel="ampHtml" href={`${canonicalUrl}/amp`} />}
         <meta name="description" content={data.plainExcerpt} />
-        <link rel="canonical" href={canonicalUrl} />
+        {!amp && <link rel="canonical" href={canonicalUrl} />}
         <meta property="og:site_name" content={name} />
         <meta property="og:type" content="website" />
         <meta

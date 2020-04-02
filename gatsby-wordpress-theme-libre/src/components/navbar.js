@@ -50,9 +50,7 @@ const Navbar = () => {
             {data.wpSiteMetaData.name}
           </Link>
         </h1>
-        <p className="site-description">
-          {data.wpSiteMetaData.description}
-        </p>
+        <p className="site-description">{data.wpSiteMetaData.description}</p>
       </div>
       <div className="nav-wrapper">
         {" "}
@@ -72,15 +70,24 @@ const Navbar = () => {
           </button>
           <div id="primary-menu" className="menu">
             <ul>
-              {data.allWordpressPage.edges.map((pageMeta, i) => {
-                return (
-                  <li key={i}>
-                    <Link to={`/${pageMeta.node.slug}`}>
-                     <span dangerouslySetInnerHTML ={{__html: pageMeta.node.title}}></span>
-                    </Link>
-                  </li>
-                );
-              })}
+              {data.allWordpressPage.edges
+                .filter(({ node }) => !node.slug.startsWith("contact"))
+                .map((pageMeta, i) => {
+                  return (
+                    <li key={i}>
+                      <Link to={`/${pageMeta.node.slug}`}>
+                        <span
+                          dangerouslySetInnerHTML={{
+                            __html: pageMeta.node.title
+                          }}
+                        ></span>
+                      </Link>
+                    </li>
+                  );
+                })}
+              <li>
+                <Link to="/contact">Contact Us</Link>
+              </li>
             </ul>
           </div>{" "}
         </nav>

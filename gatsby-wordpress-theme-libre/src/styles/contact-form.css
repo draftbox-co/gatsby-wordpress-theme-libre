@@ -1,0 +1,20 @@
+.entry-title-header {
+  margin-bottom: 1em;
+}
+
+.form-content label {
+  display: block;
+}
+
+.form-content input {
+  width: 325px;
+  margin-bottom: 1em;
+}
+
+.form-content textarea {
+  width: 325px;
+}
+
+.form-content button {
+    margin: 1em auto;
+}

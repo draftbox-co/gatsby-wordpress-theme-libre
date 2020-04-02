@@ -10,8 +10,9 @@
     "serve": "gatsby serve"
   },
   "dependencies": {
-    "gatsby": "^2.19.39",
     "@armada-inc/gatsby-wordpress-theme-libre": "*",
+    "disqus-react": "^1.0.8",
+    "gatsby": "^2.19.39",
     "react": "^16.13.0",
     "react-dom": "^16.13.0"
   }

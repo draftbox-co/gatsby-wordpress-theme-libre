@@ -7,11 +7,14 @@
 
 import React from "react";
 import "../styles/global.css";
+import { ArmadaFormsProvider } from "../context/form-context";
 
 const Layout = ({ children }) => {
   return (
     <>
-      <main>{children}</main>
+      <ArmadaFormsProvider client="armada-form">
+        <main>{children}</main>
+      </ArmadaFormsProvider>
     </>
   );
 };

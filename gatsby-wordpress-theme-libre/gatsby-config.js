@@ -155,6 +155,19 @@ module.exports = themeOptions => {
             }
           ]
         }
+      },
+      {
+        resolve: "@armada-inc/gatsby-plugin-amp",
+        options: {
+          canonicalBaseUrl: siteConfig.siteUrl,
+          components: [`amp-form`],
+          excludedPaths: [`/404*`, `/`],
+          pathIdentifier: `amp/`,
+          relAmpHtmlPattern: `{{canonicalBaseUrl}}{{pathname}}{{pathIdentifier}}`,
+          useAmpClientIdApi: true,
+          dirName: __dirname,
+          themePath: `src/amp-styles/post.amp.css`
+        }
       }
     ]
   };

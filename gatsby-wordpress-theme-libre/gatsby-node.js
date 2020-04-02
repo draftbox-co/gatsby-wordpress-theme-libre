@@ -99,6 +99,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     "./src/templates/post-by-category.js"
   );
   const pageTemplate = require.resolve("./src/templates/page.js");
+  const postAmpTemplate = require.resolve("./src/templates/post.amp.js");
 
   const { createPage } = actions;
   const result = await graphql(
@@ -144,6 +145,10 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
             postsPerPage
           }
         }
+
+        wpSiteMetaData {
+          siteName
+        }
       }
     `
   );
@@ -158,6 +163,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   const authors = result.data.allWordpressWpUsers.edges;
   const categories = result.data.allWordpressCategory.edges;
   const pages = result.data.allWordpressPage.edges;
+  const siteTitle = result.data.wpSiteMetaData.siteName;
 
   posts.forEach((post, i, arr) => {
     createPage({
@@ -167,6 +173,16 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
         slug: post.node.slug,
         next: i === arr.length - 1 ? null : arr[i + 1].node.id,
         prev: i !== 0 ? arr[i - 1].node.id : null
+      }
+    });
+
+    createPage({
+      path: `/${post.node.slug}/amp`,
+      component: postAmpTemplate,
+      context: {
+        slug: post.node.slug,
+        amp: true,
+        title: siteTitle
       }
     });
   });
@@ -191,15 +207,17 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     });
   });
 
-  pages.forEach(page => {
-    createPage({
-      path: `/${page.node.slug}`,
-      component: pageTemplate,
-      context: {
-        slug: page.node.slug
-      }
+  pages
+    .filter(page => !page.node.slug.startsWith("contact"))
+    .forEach(page => {
+      createPage({
+        path: `/${page.node.slug}`,
+        component: pageTemplate,
+        context: {
+          slug: page.node.slug
+        }
+      });
     });
-  });
 
   paginate({
     createPage,
