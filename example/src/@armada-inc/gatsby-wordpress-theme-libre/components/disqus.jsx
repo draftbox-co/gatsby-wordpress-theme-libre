@@ -8,10 +8,10 @@ const Disqus = props => {
     title: props.slug
   };
 
-  return (
-    <div>
-      <DiscussionEmbed {...disqusConfig} />
-    </div>
+  return process.env.DISQUS_SHORTNAME ? (
+    <DiscussionEmbed {...disqusConfig} />
+  ) : (
+    <></>
   );
 };
 

@@ -12,10 +12,11 @@ import { ArmadaFormsProvider } from "../context/form-context";
 const Layout = ({ children }) => {
   return (
     <>
-      <ArmadaFormsProvider client="armada-form">
+      <ArmadaFormsProvider client={process.env.FORM_URL}>
         <main>{children}</main>
       </ArmadaFormsProvider>
     </>
+    
   );
 };
 
