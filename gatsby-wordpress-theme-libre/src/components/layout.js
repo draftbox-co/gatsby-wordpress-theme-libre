@@ -12,7 +12,7 @@ import { ArmadaFormsProvider } from "../context/form-context";
 const Layout = ({ children }) => {
   return (
     <>
-      <ArmadaFormsProvider client={process.env.FORM_URL}>
+      <ArmadaFormsProvider client={process.env.GATSBY_FORM_URL}>
         <main>{children}</main>
       </ArmadaFormsProvider>
     </>
