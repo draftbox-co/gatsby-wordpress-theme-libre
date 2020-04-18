@@ -32,11 +32,11 @@ const PostTemplate = ({ data, location, pageContext }) => {
               </time>{" "}
             </div>
           </header>
-          {data.wordpressPost.jetpack_featured_media_url.localFile && (
+          {data.wordpressPost.featured_media.localFile && (
             <figure className="post-image">
               <img
                 src={
-                  data.wordpressPost.jetpack_featured_media_url.localFile
+                  data.wordpressPost.featured_media.localFile
                     .childImageSharp.fluid.src
                 }
                 alt={data.wordpressPost.title}
@@ -63,7 +63,7 @@ export const pageQuery = graphql`
       slug
       content
       date(formatString: "DD MMMM YYYY")
-      jetpack_featured_media_url {
+      featured_media {
         localFile {
           childImageSharp {
             fluid {
