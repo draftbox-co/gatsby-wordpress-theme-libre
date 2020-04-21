@@ -1912,6 +1912,9 @@ object {
     font-size: 18px;
     margin-right: 0;
   }
+  .sticking form {
+    margin-bottom: 10em;
+  }
   .main-navigation {
     display: inline-block;
     margin-top: 0;

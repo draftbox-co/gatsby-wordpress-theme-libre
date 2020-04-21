@@ -6,7 +6,7 @@ const Pagination = ({ pageContext }) => {
 
   return (
     <>
-      <nav className="navigation posts-navigation" role="navigation">
+    {(nextPagePath || previousPagePath) && <nav className="navigation posts-navigation" role="navigation">
         <h2 className="screen-reader-text">Posts navigation</h2>
         <div className="nav-links">
           {nextPagePath && (
@@ -24,7 +24,8 @@ const Pagination = ({ pageContext }) => {
             </div>
           )}
         </div>{" "}
-      </nav>
+      </nav>}
+      
     </>
   );
 };
