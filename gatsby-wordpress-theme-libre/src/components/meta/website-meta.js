@@ -27,7 +27,7 @@ const WebsiteMeta = () => {
 
   return (
     <>
-      <Helmet>
+      <Helmet htmlAttributes={{"lang": "en"}}>
         <title>{name}</title>
         <meta name="description" content={description} />
         <link rel="canonical" href={canonicalUrl} />

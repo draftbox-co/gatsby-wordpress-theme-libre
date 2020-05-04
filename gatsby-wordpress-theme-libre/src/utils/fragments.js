@@ -32,6 +32,7 @@ export const wordPressPostData = graphql`
           }
         }
       }
+      title
     }
     author {
       name
@@ -42,6 +43,11 @@ export const wordPressPostData = graphql`
       description
     }
     date(formatString: "MMMM DD YYYY")
+    readingTime
+    tags {
+      name
+      slug
+    }
   }
 `;
 

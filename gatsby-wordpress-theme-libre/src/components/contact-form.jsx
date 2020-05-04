@@ -47,8 +47,7 @@ const ContactForm = () => {
                   <div className="inner">
                     {succeeded && (
                       <h1 className="entry-title-header">
-                        {" "}
-                        Message Sent Successfully
+                        We’ll get in touch with you soon.
                       </h1>
                     )}
                     {!succeeded && (
@@ -66,6 +65,7 @@ const ContactForm = () => {
                               }
                               id="name"
                               type="text"
+                              placeholder="Your name (optional)"
                             />
                           </div>
                           <br />
@@ -78,6 +78,7 @@ const ContactForm = () => {
                               required
                               id="email"
                               type="email"
+                              placeholder="Your email address"
                             />
                           </div>
                           <br />
@@ -88,6 +89,7 @@ const ContactForm = () => {
                               handleChange(e.target.id, e.target.value)
                             }
                             id="message"
+                            placeholder="Your message"
                           />
                           <br />
                           <button disabled={submitting} type="submit">

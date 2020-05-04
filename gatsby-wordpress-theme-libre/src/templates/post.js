@@ -76,6 +76,8 @@ const Post = ({ data }) => {
                           </Link>
                         </span>
                       </span>
+                      {" "}
+                      &bull; {data.wordpressPost.readingTime}
                     </div>
                   </header>
                   <div
@@ -86,19 +88,19 @@ const Post = ({ data }) => {
                   ></div>
                   <footer className="entry-footer">
                     {" "}
-                    <span className="cat-links">
+                    {data.wordpressPost.tags && <span className="cat-links">
                       Posted in{" "}
-                      {data.wordpressPost.categories.map(
-                        (category, index, arr) => {
+                      {data.wordpressPost.tags.map(
+                        (tag, index, arr) => {
                           return (
-                            <Link key={index} to={`/category/${category.slug}`}>
-                              {category.name}
+                            <Link key={index} to={`/tag/${tag.slug}`}>
+                              {tag.name}
                               {index !== arr.length - 1 && ", "}
                             </Link>
                           );
                         }
                       )}
-                    </span>
+                    </span>}
                   </footer>
                   <div className="entry-author">
                     <div className="author-avatar">

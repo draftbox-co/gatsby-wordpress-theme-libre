@@ -5,7 +5,7 @@ import Navbar from "../components/navbar";
 import Footer from "../components/footer";
 import WebsiteMeta from "../components/meta/website-meta";
 
-const PostByCategory = ({ data, pageContext }) => (
+const PostByTag = ({ data, pageContext }) => (
   <Layout>
     <WebsiteMeta />
     <div className="home blog wp-embed-responsive">
@@ -26,12 +26,12 @@ const PostByCategory = ({ data, pageContext }) => (
   </Layout>
 );
 
-export default PostByCategory;
+export default PostByTag;
 
 export const pageQuery = graphql`
   query($slug: String) {
     allWordpressPost(
-      filter: { categories: { elemMatch: { slug: { eq: $slug } } } }
+      filter: { tags: { elemMatch: { slug: { eq: $slug } } } }
     ) {
       edges {
         node {

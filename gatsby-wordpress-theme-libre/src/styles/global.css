@@ -1969,3 +1969,7 @@ object {
     width: 1144px;
   }
 }
+
+.hidden {
+    display: none;
+}

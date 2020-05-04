@@ -12,7 +12,7 @@
   "dependencies": {
     "@armada-inc/gatsby-wordpress-theme-libre": "*",
     "disqus-react": "^1.0.8",
-    "gatsby": "^2.19.39",
+    "gatsby": "2.20.24",
     "react": "^16.13.0",
     "react-dom": "^16.13.0"
   }

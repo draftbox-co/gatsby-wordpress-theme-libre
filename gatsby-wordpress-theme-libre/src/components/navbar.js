@@ -70,7 +70,7 @@ const Navbar = () => {
           </button>
           <div id="primary-menu" className="menu">
             <ul>
-              {data.allWordpressPage.edges
+              {/* {data.allWordpressPage.edges
                 .filter(({ node }) => !node.slug.startsWith("contact"))
                 .map((pageMeta, i) => {
                   return (
@@ -84,7 +84,7 @@ const Navbar = () => {
                       </Link>
                     </li>
                   );
-                })}
+                })} */}
               <li>
                 <Link to="/contact">Contact Us</Link>
               </li>

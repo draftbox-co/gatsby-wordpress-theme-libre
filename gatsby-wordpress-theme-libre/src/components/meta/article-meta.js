@@ -28,7 +28,7 @@ const ArticleMeta = ({ data, amp }) => {
 
   return (
     <>
-      <Helmet>
+      <Helmet htmlAttributes={{"lang": "en"}}>
         <title>{`${name} | ${capitalize(data.title)}`}</title>
         {!amp && <link rel="ampHtml" href={`${canonicalUrl}/amp`} />}
         <meta name="description" content={data.plainExcerpt} />

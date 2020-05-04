@@ -20,7 +20,8 @@ const PostCard = ({ index, node }) => {
           ></Link>
         </h2>
         <div className="entry-meta">
-          <span className="posted-on">{node.date}</span>
+          <div>
+          <span className="posted-on">{node.date}</span> &bull; <span className="readTime">{node.readingTime}</span></div>
           <span className="byline">
             <div className="author vcard">
               <Link to={`/author/${node.author.slug}`} className="url fn n">
@@ -33,7 +34,7 @@ const PostCard = ({ index, node }) => {
       <div className="entry-content">
         {node.featured_media.localFile && (
           <div className="post-thumbnail">
-            <Link to={`/${node.slug}`} className="no-line">
+            <Link aria-hidden="true" aria-label={node.featured_media.title} title={node.featured_media.title} to={`/${node.slug}`} className="no-line">
               <img
                 width="1088"
                 height="726"
@@ -42,7 +43,7 @@ const PostCard = ({ index, node }) => {
                     .fluid.src
                 }
                 className="attachment-libre-2-post-thumbnail size-libre-2-post-thumbnail wp-post-image jetpack-lazy-image jetpack-lazy-image--handled"
-                alt=""
+                alt={node.featured_media.title}
                 srcSet={
                   node.featured_media.localFile.childImageSharp
                     .fluid.srcSet
@@ -56,20 +57,20 @@ const PostCard = ({ index, node }) => {
         <p dangerouslySetInnerHTML={{ __html: node.excerpt }}></p>
       </div>
       <footer className="entry-footer">
-        <span className="cat-links">
+        {node.tags && <span className="cat-links">
           Posted in{" "}
-          {node.categories.map((category, index, arr) => {
+          {node.tags.map((tag, index, arr) => {
             return (
               <Link
-                to={`/category/${category.slug}`}
+                to={`/tag/${tag.slug}`}
                 key={index}
-                rel="category tag"
+                rel="tag"
               >
-                {category.name} {index !== arr.length - 1 && ", "}
+                {tag.name} {index !== arr.length - 1 && ", "}
               </Link>
             );
           })}
-        </span>
+        </span>}
       </footer>
     </article>
   );

@@ -6,12 +6,13 @@
 
 const { paginate } = require(`gatsby-awesome-pagination`);
 const htmlToText = require("html-to-text");
+const readingTime = require('reading-time');
 
 exports.createSchemaCustomization = ({ actions, schema }) => {
   const { createFieldExtension, createTypes } = actions;
   createFieldExtension({
     name: "plainExcerpt",
-    extend(options, prevFieldConfig) {
+    extend() {
       return {
         resolve(source) {
           let plainExcerpt = htmlToText
@@ -30,15 +31,29 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
     }
   });
 
+  createFieldExtension({
+    name: "readingTime",
+    extend() {
+      return {
+        resolve(source) {
+          const readingTimeValue = readingTime(source.content);
+          return readingTimeValue.text;
+        }
+      };
+    }
+  });
+
   createTypes(`
     type wordpress__POST implements Node {
       plainExcerpt: String @plainExcerpt
+      readingTime: String @readingTime
     }
   `);
 
   createTypes(`
     type wordpress__PAGE implements Node {
       plainExcerpt: String @plainExcerpt
+      readingTime: String @readingTime
     }
   `);
 
@@ -95,8 +110,8 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   const indexTemplate = require.resolve("./src/templates/index.js");
   const postTemplate = require.resolve("./src/templates/post.js");
   const authorTemplate = require.resolve("./src/templates/post-by-author.js");
-  const categoryTemplate = require.resolve(
-    "./src/templates/post-by-category.js"
+  const tagTemplate = require.resolve(
+    "./src/templates/post-by-tag.js"
   );
   const pageTemplate = require.resolve("./src/templates/page.js");
   const postAmpTemplate = require.resolve("./src/templates/post.amp.js");
@@ -114,7 +129,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
           }
         }
 
-        allWordpressCategory(filter: { count: { gt: 0 } }) {
+        allWordpressTag(filter: { count: { gt: 0 } }) {
           edges {
             node {
               name
@@ -161,7 +176,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   const postsPerPage = result.data.site.siteMetadata.postsPerPage;
   const posts = result.data.allWordpressPost.edges;
   const authors = result.data.allWordpressWpUsers.edges;
-  const categories = result.data.allWordpressCategory.edges;
+  const tags = result.data.allWordpressTag.edges;
   const pages = result.data.allWordpressPage.edges;
   const siteTitle = result.data.wpSiteMetaData.siteName;
 
@@ -197,12 +212,12 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     });
   });
 
-  categories.forEach(post => {
+  tags.forEach(tag => {
     createPage({
-      path: `/category/${post.node.slug}`,
-      component: categoryTemplate,
+      path: `/tag/${tag.node.slug}`,
+      component: tagTemplate,
       context: {
-        slug: post.node.slug
+        slug: tag.node.slug
       }
     });
   });

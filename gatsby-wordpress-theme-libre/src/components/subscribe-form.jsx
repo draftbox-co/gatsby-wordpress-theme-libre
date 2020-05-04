@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { useForm } from "../hook/useForm";
 import '../styles/subscribe-form.css';
+import { useStaticQuery, graphql } from "gatsby";
 
 const SubscribeForm = () => {
   const [{ handleSubmit, submitting, succeeded }] = useForm(
@@ -15,21 +16,28 @@ const SubscribeForm = () => {
     handleSubmit({ email });
   };
 
+  const data = useStaticQuery(graphql`
+    query SiteData {
+      wpSiteMetaData {
+        ...WordpressSiteMetaData
+      }
+    }
+  `);
+
   return (
     <div className="subscribe-form">
       <form onSubmit={e => onSubmit(e)}>
         {succeeded && (
-          <h1 className="subscribe-title">Subscribed successfully</h1>
+          <h1 className="subscribe-title">You’ve successfully subscribed to {data.wpSiteMetaData.name}</h1>
         )}
         {!succeeded && (
           <>
-            <h1 className="subscribe-title">Subscribe for new updates</h1>
+            <h1 className="subscribe-title">Subscribe to {data.wpSiteMetaData.name}</h1>
             <p className="subscribe-description">
-              Subscribe to my email newsletter to receive useful articles and
-              special offers. <br /> This monthly email is sent out on the first
-              of every month.
+              Get the latest posts delivered right to your inbox.
             </p>
             <div>
+              <label className="hidden" htmlFor="email">Email</label>
               <input
                 onChange={e => setEmail(e.target.value)}
                 required
