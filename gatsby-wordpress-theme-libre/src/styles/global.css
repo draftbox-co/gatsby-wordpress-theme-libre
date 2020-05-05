@@ -766,6 +766,42 @@ textarea {
   clear: none;
 }
 
+/* Social Icons */
+
+.social-icons-container {
+  display: flex;
+  align-items: center;
+  margin: 4rem 0;
+}
+
+.social-icons ul {
+  display: flex;
+  list-style: none;
+  align-items: center;
+  margin-bottom: 0;
+  padding-left: 1em;
+}
+
+.social-icons ul a {
+  padding: 0.7rem;
+  border-radius: 9999px;
+  background-color: #404040;
+  display: block;
+  margin-right: 0.8em;
+  width: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.social-icons a:hover {
+  background: #202020;
+}
+
+.social-icons img {
+  width: 1rem;
+}
+
 /*-- Footer */
 
 .footer-container a:hover,

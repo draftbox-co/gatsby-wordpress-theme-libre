@@ -6,8 +6,20 @@ import Footer from "../components/footer";
 import ArticleMeta from "../components/meta/article-meta";
 import SubscribeForm from "../components/subscribe-form";
 import Disqus from "../components/disqus";
+import facebookShare from "../images/facebook-share.svg";
+import twitterShare from "../images/twitter-share.svg";
+import linkedInShare from "../images/linkedin.svg";
+import mailShare from "../images/mail.svg";
 
-const Post = ({ data }) => {
+const Post = ({ data, location }) => {
+  const twitterShareUrl = `https://twitter.com/share?text=${data.wordpressPost.title}&url=${location.href}`;
+
+  const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${location.href}`;
+
+  const linkedInShareUrl = `https://www.linkedin.com/shareArticle?mini=true&amp;url=${location.href}/&amp;title=${data.wordpressPost.title}`;
+
+  const mailShareUrl = `mailto:?subject=${data.wordpressPost.title}&amp;body=${location.href}`;
+
   return (
     <Layout>
       <ArticleMeta data={data.wordpressPost} />
@@ -44,7 +56,7 @@ const Post = ({ data }) => {
                     <h1
                       className="entry-title"
                       dangerouslySetInnerHTML={{
-                        __html: data.wordpressPost.title
+                        __html: data.wordpressPost.title,
                       }}
                     ></h1>
                     <div className="entry-meta">
@@ -75,33 +87,79 @@ const Post = ({ data }) => {
                             {data.wordpressPost.author.name}
                           </Link>
                         </span>
-                      </span>
-                      {" "}
+                      </span>{" "}
                       &bull; {data.wordpressPost.readingTime}
                     </div>
                   </header>
                   <div
                     className="entry-content"
                     dangerouslySetInnerHTML={{
-                      __html: data.wordpressPost.content
+                      __html: data.wordpressPost.content,
                     }}
                   ></div>
                   <footer className="entry-footer">
                     {" "}
-                    {data.wordpressPost.tags && <span className="cat-links">
-                      Posted in{" "}
-                      {data.wordpressPost.tags.map(
-                        (tag, index, arr) => {
+                    {data.wordpressPost.tags && (
+                      <span className="cat-links">
+                        Posted in{" "}
+                        {data.wordpressPost.tags.map((tag, index, arr) => {
                           return (
                             <Link key={index} to={`/tag/${tag.slug}`}>
                               {tag.name}
                               {index !== arr.length - 1 && ", "}
                             </Link>
                           );
-                        }
-                      )}
-                    </span>}
+                        })}
+                      </span>
+                    )}
                   </footer>
+                  <div className="social-icons-container flex items-center max-w-3xl mt-8 mx-4 lg:mx-auto">
+                    <span className="mr-2 text-lg text-gray-700">Share:</span>
+                    <div className="social-icons">
+                      <ul className="flex">
+                        <li>
+                          <a
+                            href={facebookShareUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <img
+                              className="h-4"
+                              src={facebookShare}
+                              alt="Facebook Share"
+                            />
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            href={twitterShareUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <img className="h-4" src={twitterShare} alt="" />
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            href={linkedInShareUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <img className="h-4" src={linkedInShare} alt="" />
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            href={mailShareUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <img className="h-4" src={mailShare} alt="" />
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
                   <div className="entry-author">
                     <div className="author-avatar">
                       <img
@@ -112,6 +170,7 @@ const Post = ({ data }) => {
                         width={100}
                       />
                     </div>
+
                     <div className="author-heading">
                       <h2 className="author-title">
                         Published by{" "}
@@ -141,7 +200,7 @@ const Post = ({ data }) => {
                             <span className="meta-nav">Previous Post</span>{" "}
                             <span
                               dangerouslySetInnerHTML={{
-                                __html: data.prev.title
+                                __html: data.prev.title,
                               }}
                             ></span>
                           </Link>
@@ -154,7 +213,7 @@ const Post = ({ data }) => {
                             <span className="meta-nav">Next Post</span>{" "}
                             <span
                               dangerouslySetInnerHTML={{
-                                __html: data.next.title
+                                __html: data.next.title,
                               }}
                             ></span>
                           </Link>
@@ -163,7 +222,8 @@ const Post = ({ data }) => {
                     </div>{" "}
                   </nav>
                 </article>
-                <Disqus/>
+
+                <Disqus />
                 <SubscribeForm />
               </main>
             </div>
