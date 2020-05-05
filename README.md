@@ -17,7 +17,7 @@ Play with the [Demo](https://gatsby-wordpress-libre.netlify.com/) to get a first
 
 ## Quick Start
 
-Head over to the [starter repo](https://github.com/armada-inc/gatsby-wordpress-libre-starter) to get up and running quickly! The starter is recommended if you are creating a new site.
+Head over to the [starter repo](https://github.com/draftbox-co/gatsby-wordpress-libre-starter) to get up and running quickly! The starter is recommended if you are creating a new site.
 
 ## Installation
 
@@ -28,7 +28,7 @@ In case you want to work with this repository (for local development, pull reque
 1. Clone or fork this repository:
 
 ```bash
-git clone https://github.com/armada-inc/gatsby-wordpress-theme-libre.git
+git clone https://github.com/draftbox-co/gatsby-wordpress-theme-libre.git
 cd gatsby-wordpress-theme-libre
 ```
 
@@ -62,4 +62,4 @@ if your blog is hosted on wordpress.com you will have to add few extra keys for 
 
 # Copyright & License
 
-Copyright (c) 2020 Armada Intelligence Inc - Released under the [MIT license](LICENSE).
+Copyright (c) 2020 Draftbox - Released under the [MIT license](LICENSE).

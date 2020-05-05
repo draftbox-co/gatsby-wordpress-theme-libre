@@ -17,16 +17,16 @@ Play with the [Demo](https://gatsby-wordpress-libre.netlify.com/) to get a first
 
 ## Installation
 
-> Head over to the [starter repo](https://github.com/armada-inc/gatsby-wordpress-libre-starter) to get up and running quickly!
+> Head over to the [starter repo](https://github.com/draftbox-co/gatsby-wordpress-libre-starter) to get up and running quickly!
 
 If you want to add this blog theme to an existing site, follow these instructions:
 
 1. Install the blog theme
 
    ```bash
-   yarn add @armada-inc/gatsby-wordpress-theme-libre
+   yarn add @draftbox-co/gatsby-wordpress-theme-libre
    # or
-   npm install @armada-inc/gatsby-wordpress-theme-libre --save
+   npm install @draftbox-co/gatsby-wordpress-theme-libre --save
    ```
 
 2. Create following files in your root directory with your desired config.
@@ -100,7 +100,7 @@ If your blog is hosted on wordpress.com you will have to add few extra keys for 
    module.exports = {
      plugins: [
        {
-         resolve: `@armada-inc/gatsby-wordpress-theme-libre`,
+         resolve: `@draftbox-co/gatsby-wordpress-theme-libre`,
          options: {
            wordpressConfig,
            siteConfig: siteConfig
@@ -112,4 +112,4 @@ If your blog is hosted on wordpress.com you will have to add few extra keys for 
 
 # Copyright & License
 
-Copyright (c) 2020 Armada Intelligence Inc - Released under the [MIT license](LICENSE).
+Copyright (c) 2020 Draftbox - Released under the [MIT license](LICENSE).
