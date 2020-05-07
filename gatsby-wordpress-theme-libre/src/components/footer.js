@@ -4,9 +4,9 @@ import { Link, useStaticQuery } from "gatsby";
 
 const Footer = () => {
   const data = useStaticQuery(graphql`
-    query {
-      wordpressSiteMetadata {
-        name
+    query FooterSiteData {
+      wpSiteMetaData {
+        ...WordpressSiteMetaData
       }
     }
   `);
@@ -14,7 +14,7 @@ const Footer = () => {
     <div className="footer-container">
       <footer id="colophon" className="site-footer" role="contentinfo">
         <div className="copyright">
-          {data.wordpressSiteMetadata.name} © {new Date().getFullYear()}
+          {data.wpSiteMetaData.name} © {new Date().getFullYear()}
         </div>
 
         <ul className="footer-links">
