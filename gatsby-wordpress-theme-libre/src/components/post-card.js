@@ -7,7 +7,7 @@ const PostCard = ({ index, node }) => {
       key={index}
       className={
         "post type-post status-publish format-standard hentry " +
-        (node.featured_media.localFile
+        (node.featured_media && node.featured_media.localFile
           ? "featured_media"
           : "")
       }
@@ -32,7 +32,7 @@ const PostCard = ({ index, node }) => {
         </div>
       </header>
       <div className="entry-content">
-        {node.featured_media.localFile && (
+        {node.featured_media && node.featured_media.localFile && (
           <div className="post-thumbnail">
             <Link aria-hidden="true" aria-label={node.featured_media.title} title={node.featured_media.title} to={`/${node.slug}`} className="no-line">
               <img

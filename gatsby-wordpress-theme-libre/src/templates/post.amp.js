@@ -32,7 +32,7 @@ const PostTemplate = ({ data, location, pageContext }) => {
               </time>{" "}
             </div>
           </header>
-          {data.wordpressPost.featured_media.localFile && (
+          {data.wordpressPost.featured_media && data.wordpressPost.featured_media.localFile && (
             <figure className="post-image">
               <img
                 src={

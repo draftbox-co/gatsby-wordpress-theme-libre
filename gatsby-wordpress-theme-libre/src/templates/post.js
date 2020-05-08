@@ -45,7 +45,7 @@ const Post = ({ data, location }) => {
             <div id="primary" className="content-area">
               <main id="main" className="site-main" role="main">
                 <article className="post type-post status-publish format-standard has-post-thumbnail hentry">
-                  {data.wordpressPost.featured_media.localFile && (
+                  {data.wordpressPost.featured_media && data.wordpressPost.featured_media.localFile && (
                     <div className="post-thumbnail">
                       <img
                         className="attachment-libre-2-post-thumbnail size-libre-2-post-thumbnail wp-post-image jetpack-lazy-image jetpack-lazy-image--handled"
