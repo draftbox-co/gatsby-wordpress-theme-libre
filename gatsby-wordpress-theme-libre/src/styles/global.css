@@ -2057,3 +2057,12 @@ object {
   opacity: 0;
   height: 0.25rem;
 }
+
+@media screen and (max-width: 425px) {
+  iframe {
+    max-width: 100%;
+  }
+  figure img {
+    max-width: 100%;
+  }
+}

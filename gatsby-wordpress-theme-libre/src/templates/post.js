@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Layout from "../components/layout";
 import Navbar from "../components/navbar";
 import { graphql, Link } from "gatsby";
@@ -12,13 +12,22 @@ import linkedInShare from "../images/linkedin.svg";
 import mailShare from "../images/mail.svg";
 
 const Post = ({ data, location }) => {
-  const twitterShareUrl = `https://twitter.com/share?text=${data.wordpressPost.title}&url=${location.href}`;
 
-  const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${location.href}`;
+  const [href, sethref] = useState("");
 
-  const linkedInShareUrl = `https://www.linkedin.com/shareArticle?mini=true&amp;url=${location.href}/&amp;title=${data.wordpressPost.title}`;
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      sethref(window.location.href);
+    }
+  }, []);
+  const twitterShareUrl = `https://twitter.com/share?text=${data.wordpressPost.plainTitle}&url=${href}`;
 
-  const mailShareUrl = `mailto:?subject=${data.wordpressPost.title}&amp;body=${location.href}`;
+  const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${href}`;
+
+  const linkedInShareUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${href}&title=${data.wordpressPost.plainTitle}`;
+
+  const mailShareUrl = `mailto:?subject=${data.wordpressPost.plainTitle}&body=${href}`;
+
 
   return (
     <Layout>

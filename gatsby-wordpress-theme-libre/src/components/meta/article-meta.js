@@ -29,7 +29,7 @@ const ArticleMeta = ({ data, amp }) => {
   return (
     <>
       <Helmet htmlAttributes={{"lang": "en"}}>
-        <title>{`${name} | ${capitalize(data.title)}`}</title>
+        <title>{`${name} | ${capitalize(data.plainTitle)}`}</title>
         {!amp && <link rel="ampHtml" href={`${canonicalUrl}/amp`} />}
         <meta name="description" content={data.plainExcerpt} />
         {!amp && <link rel="canonical" href={canonicalUrl} />}
@@ -37,7 +37,7 @@ const ArticleMeta = ({ data, amp }) => {
         <meta property="og:type" content="website" />
         <meta
           property="og:title"
-          content={`${name} | ${capitalize(data.title)}`}
+          content={`${name} | ${capitalize(data.plainTitle)}`}
         />
         <meta property="og:description" content={data.plainExcerpt} />
         <meta property="og:url" content={canonicalUrl} />
@@ -49,7 +49,7 @@ const ArticleMeta = ({ data, amp }) => {
         )}
         <meta
           name="twitter:title"
-          content={`${name} | ${capitalize(data.title)}`}
+          content={`${name} | ${capitalize(data.plainTitle)}`}
         />
         <meta name="twitter:description" content={data.plainExcerpt} />
         <meta name="twitter:url" content={canonicalUrl} />

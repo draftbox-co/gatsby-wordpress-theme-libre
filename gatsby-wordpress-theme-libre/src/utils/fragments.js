@@ -48,6 +48,7 @@ export const wordPressPostData = graphql`
       name
       slug
     }
+    plainTitle
   }
 `;
 
@@ -65,5 +66,6 @@ export const wordpressPageData = graphql`
     excerpt
     plainExcerpt
     content
+    plainTitle
   }
 `;

@@ -43,10 +43,25 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
     }
   });
 
+  createFieldExtension({
+    name: "plainTitle",
+    extend(options, prevFieldConfig) {
+      return {
+        resolve(source) {
+          let plainTitle = htmlToText
+            .fromString(source.title)
+            .slice(0, 156);
+          return plainTitle;
+        },
+      };
+    },
+  });
+
   createTypes(`
     type wordpress__POST implements Node {
       plainExcerpt: String @plainExcerpt
       readingTime: String @readingTime
+      plainTitle: String @plainTitle
     }
   `);
 
@@ -54,6 +69,7 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
     type wordpress__PAGE implements Node {
       plainExcerpt: String @plainExcerpt
       readingTime: String @readingTime
+      plainTitle: String @plainTitle
     }
   `);
 
