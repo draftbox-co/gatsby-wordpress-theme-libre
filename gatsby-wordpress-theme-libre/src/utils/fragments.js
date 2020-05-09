@@ -32,6 +32,7 @@ export const wordPressPostData = graphql`
           }
         }
       }
+      alt_text
       title
     }
     author {

@@ -54,7 +54,7 @@ const PostCard = ({ index, node }) => {
             </Link>
           </div>
         )}
-        <p dangerouslySetInnerHTML={{ __html: node.excerpt }}></p>
+        <p dangerouslySetInnerHTML={{ __html: node.plainExcerpt }}></p>
       </div>
       <footer className="entry-footer">
         {node.tags && <span className="cat-links">

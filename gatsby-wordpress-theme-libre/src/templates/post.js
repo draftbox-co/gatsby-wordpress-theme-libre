@@ -57,7 +57,7 @@ const Post = ({ data, location }) => {
                           data.wordpressPost.featured_media.localFile
                             .childImageSharp.fluid.srcSet
                         }
-                        alt=""
+                        alt={data.wordpressPost.featured_media.alt_text ? data.wordpressPost.featured_media.alt_text : data.wordpressPost.featured_media.title}
                       />
                     </div>
                   )}
@@ -172,7 +172,7 @@ const Post = ({ data, location }) => {
                   <div className="entry-author">
                     <div className="author-avatar">
                       <img
-                        alt=""
+                        alt={data.wordpressPost.author.name}
                         src={data.wordpressPost.author.avatar_urls.wordpress_96}
                         className="avatar avatar-100 photo jetpack-lazy-image jetpack-lazy-image--handled"
                         height={100}

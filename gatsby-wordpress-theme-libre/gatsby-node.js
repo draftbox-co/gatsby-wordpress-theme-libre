@@ -17,14 +17,18 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
         resolve(source) {
           let plainExcerpt = htmlToText
             .fromString(source.excerpt, {
-              wordWrap: 155,
+              // wordWrap: 155,
+              wordwrap: false,
               ignoreHref: true
             })
-            .slice(0, 156);
+            //.slice(0, 156);
 
-          if (plainExcerpt.length > 155) {
-            plainExcerpt = plainExcerpt.slice(0, 152) + "...";
+          if (plainExcerpt.includes('Continue reading')) {
+            plainExcerpt = plainExcerpt.substring(0, plainExcerpt.indexOf('Continue reading'));
           }
+          // if (plainExcerpt.length > 155) {
+          //   plainExcerpt = plainExcerpt.slice(0, 152) + "...";
+          // }
           return plainExcerpt;
         }
       };
