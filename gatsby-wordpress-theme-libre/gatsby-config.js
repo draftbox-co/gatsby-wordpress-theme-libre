@@ -151,7 +151,7 @@ module.exports = themeOptions => {
                 }
               `,
               output: "/rss.xml",
-              title: "Your Site's RSS Feed"
+              title: siteConfig.siteTitleMeta,
             }
           ]
         }
