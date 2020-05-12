@@ -782,11 +782,11 @@ textarea {
   padding-left: 1em;
 }
 
-.social-icons ul a {
+.social-icons ul a, .social-icons ul button {
   padding: 0.7rem;
   border-radius: 9999px;
   background-color: #404040;
-  display: block;
+  box-shadow: none;
   margin-right: 0.8em;
   width: 35px;
   display: flex;
@@ -794,8 +794,12 @@ textarea {
   align-items: center;
 }
 
-.social-icons a:hover {
+.social-icons a:hover, .social-icons button:hover {
   background: #202020;
+}
+
+.social-icons button:hover {
+  box-shadow: none;
 }
 
 .social-icons img {
