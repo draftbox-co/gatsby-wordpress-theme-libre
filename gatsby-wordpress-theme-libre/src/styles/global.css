@@ -2066,3 +2066,30 @@ object {
     max-width: 100%;
   }
 }
+
+/* Error Page Styling */
+.error-message-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+}
+
+.error-message {
+  max-width: 42rem;
+  padding: 1.5rem;
+}
+
+.error-message-container a:hover,
+.error-message-container a:focus,
+.error-message-container a:active {
+  box-shadow: 0 2px 0 0 currentColor;
+}
+
+@media screen and (min-width: 1000px) {
+  .error-message {
+    padding: 3rem;
+  }
+}
