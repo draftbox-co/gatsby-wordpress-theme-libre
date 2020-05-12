@@ -10,9 +10,9 @@ import facebookShare from "../images/facebook-share.svg";
 import twitterShare from "../images/twitter-share.svg";
 import linkedInShare from "../images/linkedin.svg";
 import mailShare from "../images/mail.svg";
+import CopyLink from "../components/copy-link";
 
 const Post = ({ data, location }) => {
-
   const [href, sethref] = useState("");
 
   useEffect(() => {
@@ -27,7 +27,6 @@ const Post = ({ data, location }) => {
   const linkedInShareUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${href}&title=${data.wordpressPost.plainTitle}`;
 
   const mailShareUrl = `mailto:?subject=${data.wordpressPost.plainTitle}&body=${href}`;
-
 
   return (
     <Layout>
@@ -45,22 +44,27 @@ const Post = ({ data, location }) => {
             <div id="primary" className="content-area">
               <main id="main" className="site-main" role="main">
                 <article className="post type-post status-publish format-standard has-post-thumbnail hentry">
-                  {data.wordpressPost.featured_media && data.wordpressPost.featured_media.localFile && (
-                    <div className="post-thumbnail">
-                      <img
-                        className="attachment-libre-2-post-thumbnail size-libre-2-post-thumbnail wp-post-image jetpack-lazy-image jetpack-lazy-image--handled"
-                        src={
-                          data.wordpressPost.featured_media.localFile
-                            .childImageSharp.fluid.src
-                        }
-                        srcSet={
-                          data.wordpressPost.featured_media.localFile
-                            .childImageSharp.fluid.srcSet
-                        }
-                        alt={data.wordpressPost.featured_media.alt_text ? data.wordpressPost.featured_media.alt_text : data.wordpressPost.featured_media.title}
-                      />
-                    </div>
-                  )}
+                  {data.wordpressPost.featured_media &&
+                    data.wordpressPost.featured_media.localFile && (
+                      <div className="post-thumbnail">
+                        <img
+                          className="attachment-libre-2-post-thumbnail size-libre-2-post-thumbnail wp-post-image jetpack-lazy-image jetpack-lazy-image--handled"
+                          src={
+                            data.wordpressPost.featured_media.localFile
+                              .childImageSharp.fluid.src
+                          }
+                          srcSet={
+                            data.wordpressPost.featured_media.localFile
+                              .childImageSharp.fluid.srcSet
+                          }
+                          alt={
+                            data.wordpressPost.featured_media.alt_text
+                              ? data.wordpressPost.featured_media.alt_text
+                              : data.wordpressPost.featured_media.title
+                          }
+                        />
+                      </div>
+                    )}
                   <header className="entry-header">
                     <h1
                       className="entry-title"
@@ -145,7 +149,11 @@ const Post = ({ data, location }) => {
                             target="_blank"
                             rel="noopener noreferrer"
                           >
-                            <img className="h-4" src={twitterShare} alt="Twitter Share" />
+                            <img
+                              className="h-4"
+                              src={twitterShare}
+                              alt="Twitter Share"
+                            />
                           </a>
                         </li>
                         <li>
@@ -154,7 +162,11 @@ const Post = ({ data, location }) => {
                             target="_blank"
                             rel="noopener noreferrer"
                           >
-                            <img className="h-4" src={linkedInShare} alt="LinkedIn Share" />
+                            <img
+                              className="h-4"
+                              src={linkedInShare}
+                              alt="LinkedIn Share"
+                            />
                           </a>
                         </li>
                         <li>
@@ -163,8 +175,15 @@ const Post = ({ data, location }) => {
                             target="_blank"
                             rel="noopener noreferrer"
                           >
-                            <img className="h-4" src={mailShare} alt="Share via Mail" />
+                            <img
+                              className="h-4"
+                              src={mailShare}
+                              alt="Share via Mail"
+                            />
                           </a>
+                        </li>
+                        <li>
+                          <CopyLink textToCopy={href} />
                         </li>
                       </ul>
                     </div>

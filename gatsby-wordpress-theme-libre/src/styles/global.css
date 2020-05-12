@@ -782,11 +782,11 @@ textarea {
   padding-left: 1em;
 }
 
-.social-icons ul a {
+.social-icons ul a, .social-icons ul button {
   padding: 0.7rem;
   border-radius: 9999px;
   background-color: #404040;
-  display: block;
+  box-shadow: none;
   margin-right: 0.8em;
   width: 35px;
   display: flex;
@@ -794,8 +794,12 @@ textarea {
   align-items: center;
 }
 
-.social-icons a:hover {
+.social-icons a:hover, .social-icons button:hover {
   background: #202020;
+}
+
+.social-icons button:hover {
+  box-shadow: none;
 }
 
 .social-icons img {
@@ -2064,5 +2068,32 @@ object {
   }
   figure img {
     max-width: 100%;
+  }
+}
+
+/* Error Page Styling */
+.error-message-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+}
+
+.error-message {
+  max-width: 42rem;
+  padding: 1.5rem;
+}
+
+.error-message-container a:hover,
+.error-message-container a:focus,
+.error-message-container a:active {
+  box-shadow: 0 2px 0 0 currentColor;
+}
+
+@media screen and (min-width: 1000px) {
+  .error-message {
+    padding: 3rem;
   }
 }

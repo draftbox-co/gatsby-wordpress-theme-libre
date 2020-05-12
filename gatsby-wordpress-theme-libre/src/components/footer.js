@@ -1,5 +1,4 @@
 import React from "react";
-import rssLogo from "../images/rss.svg";
 import { Link, useStaticQuery } from "gatsby";
 
 const Footer = () => {
@@ -41,7 +40,9 @@ const Footer = () => {
       </footer>
       <hr />
       <div className="credits">
-        <a href="">Published with DraftBox</a>
+        <a href="https://draftbox.co" rel="noopener noreferrer" target="_blank">
+          Published with DraftBox
+        </a>
       </div>
     </div>
   );
