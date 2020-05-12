@@ -129,8 +129,8 @@ module.exports = themeOptions => {
                     title: edge.node.title,
                     description: edge.node.excerpt,
                     date: edge.node.date,
-                    url: site.siteMetadata.siteUrl + edge.node.slug,
-                    guid: site.siteMetadata.siteUrl + edge.node.slug,
+                    url: site.siteMetadata.siteUrl + "/" + edge.node.slug,
+                    guid: site.siteMetadata.siteUrl + "/" + edge.node.slug,
                     custom_elements: [{ "content:encoded": edge.node.content }]
                   };
                 });
@@ -151,7 +151,7 @@ module.exports = themeOptions => {
                 }
               `,
               output: "/rss.xml",
-              title: "Your Site's RSS Feed"
+              title: siteConfig.siteTitleMeta,
             }
           ]
         }
