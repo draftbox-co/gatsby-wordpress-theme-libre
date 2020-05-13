@@ -74,6 +74,32 @@ summary {
   display: block;
 }
 
+[class^="wp-block-"]:not(.wp-block-gallery) figcaption {
+  text-align: left;
+}
+
+[class^="wp-block-"] figcaption {
+  color: inherit;
+  font-size: 14px;
+  font-style: italic;
+  position: relative;
+}
+
+.wp-block-embed figcaption {
+  margin-top: 0.5em;
+  margin-bottom: 1em;
+}
+
+[class^="wp-block-"]:not(.wp-block-gallery) figcaption:after {
+  border-top: 1px solid;
+  clear: both;
+  content: "";
+  display: block;
+  margin-top: 0.875em;
+  padding-top: 0.875em;
+  width: 25%;
+}
+
 audio,
 canvas,
 progress,
@@ -782,7 +808,8 @@ textarea {
   padding-left: 1em;
 }
 
-.social-icons ul a, .social-icons ul button {
+.social-icons ul a,
+.social-icons ul button {
   padding: 0.7rem;
   border-radius: 9999px;
   background-color: #404040;
@@ -794,7 +821,8 @@ textarea {
   align-items: center;
 }
 
-.social-icons a:hover, .social-icons button:hover {
+.social-icons a:hover,
+.social-icons button:hover {
   background: #202020;
 }
 
