@@ -41,7 +41,7 @@ const Footer = () => {
       <hr />
       <div className="credits">
         <a href="https://draftbox.co" rel="noopener noreferrer" target="_blank">
-          Published with DraftBox
+          Published with Draftbox
         </a>
       </div>
     </div>
