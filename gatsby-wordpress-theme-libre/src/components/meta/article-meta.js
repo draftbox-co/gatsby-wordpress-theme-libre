@@ -4,6 +4,7 @@ import { graphql, useStaticQuery } from "gatsby";
 import url from "url";
 import { globalHistory } from "@reach/router";
 import capitalize from "../../utils/capitalizeString";
+import htmlToText from "html-to-text";
 
 const ArticleMeta = ({ data, amp }) => {
   const queryData = useStaticQuery(graphql`
@@ -19,17 +20,17 @@ const ArticleMeta = ({ data, amp }) => {
     }
   `);
   const {
-    wpSiteMetaData: { name }
+    wpSiteMetaData: { name },
   } = queryData;
   const baseUrl = queryData.site.siteMetadata.siteUrl;
   const canonicalUrl = url.resolve(baseUrl, globalHistory.location.pathname);
 
   const feature_image = data.featured_media && data.featured_media.localFile;
-
+  let plainName = htmlToText.fromString(name);
   return (
     <>
-      <Helmet htmlAttributes={{"lang": "en"}}>
-        <title>{`${name} | ${capitalize(data.plainTitle)}`}</title>
+      <Helmet htmlAttributes={{ lang: "en" }}>
+        <title>{`${plainName} | ${capitalize(data.plainTitle)}`}</title>
         {!amp && <link rel="ampHtml" href={`${canonicalUrl}/amp`} />}
         <meta name="description" content={data.plainExcerpt} />
         {!amp && <link rel="canonical" href={canonicalUrl} />}

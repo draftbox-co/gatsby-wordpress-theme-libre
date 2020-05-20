@@ -17,8 +17,7 @@ const Page = ({ data }) => {
                 <main id="main" className="site-main">
                   <article className="post-109 page type-page status-publish hentry">
                     <header className="entry-header">
-                      <h1 className="entry-title">
-                        {data.wordpressPage.title}
+                      <h1 className="entry-title" dangerouslySetInnerHTML={{__html: data.wordpressPage.title}}>
                       </h1>{" "}
                     </header>
                     <div

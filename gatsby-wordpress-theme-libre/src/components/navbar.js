@@ -47,10 +47,10 @@ const Navbar = () => {
       <div className="site-branding">
         <h1 className="site-title">
           <Link to="/" rel="home">
-            {data.wpSiteMetaData.name}
+            <span dangerouslySetInnerHTML={{__html:data.wpSiteMetaData.name}}></span>
           </Link>
         </h1>
-        <p className="site-description">{data.wpSiteMetaData.description}</p>
+        <p className="site-description" dangerouslySetInnerHTML={{__html: data.wpSiteMetaData.description}}></p>
       </div>
       <div className="nav-wrapper">
         {" "}

@@ -31,7 +31,7 @@ export default PostByTag;
 export const pageQuery = graphql`
   query($slug: String) {
     allWordpressPost(
-      filter: { tags: { elemMatch: { slug: { eq: $slug } } } }
+      filter: { tags_custom: { elemMatch: { slug: { eq: $slug } } } }
     ) {
       edges {
         node {

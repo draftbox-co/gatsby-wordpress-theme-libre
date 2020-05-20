@@ -8,8 +8,47 @@ const { paginate } = require(`gatsby-awesome-pagination`);
 const htmlToText = require("html-to-text");
 const readingTime = require('reading-time');
 
+exports.sourceNodes = require("./fix-source-nodes");
+
 exports.createSchemaCustomization = ({ actions, schema }) => {
   const { createFieldExtension, createTypes } = actions;
+
+  createFieldExtension({
+    name: "featured_media_custom",
+    extend() {
+      return {
+        resolve(source, args, context, info) {
+          if (source.featured_media___NODE) {
+            return context.nodeModel.getNodeById({
+              id: source.featured_media___NODE,
+              type: "wordpress__wp_media",
+            });
+          }
+          return null;
+        },
+      };
+    },
+  });
+
+  createFieldExtension({
+    name: "tags_custom",
+    extend() {
+      return {
+        resolve(sources, args, context, info) {
+          if (sources.tags___NODE && sources.tags___NODE.length > 0) {
+            return sources.tags___NODE.map((tagNode) =>
+              context.nodeModel.getNodeById({
+                id: tagNode,
+                type: `wordpress__TAG`,
+              })
+            );
+          }
+          return [];
+        },
+      };
+    },
+  });
+
   createFieldExtension({
     name: "plainExcerpt",
     extend() {
@@ -66,6 +105,8 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
       plainExcerpt: String @plainExcerpt
       readingTime: String @readingTime
       plainTitle: String @plainTitle
+      tags_custom: [wordpress__TAG] @tags_custom
+      featured_media_custom: wordpress__wp_media @featured_media_custom
     }
   `);
 
@@ -74,6 +115,7 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
       plainExcerpt: String @plainExcerpt
       readingTime: String @readingTime
       plainTitle: String @plainTitle
+      featured_media_custom: wordpress__wp_media @featured_media_custom
     }
   `);
 

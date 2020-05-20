@@ -23,7 +23,7 @@ export const wordPressPostData = graphql`
       name
       slug
     }
-    featured_media {
+    featured_media: featured_media_custom {
       localFile {
         childImageSharp {
           fluid {
@@ -45,7 +45,7 @@ export const wordPressPostData = graphql`
     }
     date(formatString: "MMMM DD YYYY")
     readingTime
-    tags {
+    tags: tags_custom {
       name
       slug
     }

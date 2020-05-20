@@ -13,7 +13,8 @@ const Footer = () => {
     <div className="footer-container">
       <footer id="colophon" className="site-footer" role="contentinfo">
         <div className="copyright">
-          {data.wpSiteMetaData.name} © {new Date().getFullYear()}
+          <span dangerouslySetInnerHTML={{__html: data.wpSiteMetaData.name}}></span>
+  {" "}© {new Date().getFullYear()}
         </div>
 
         <ul className="footer-links">

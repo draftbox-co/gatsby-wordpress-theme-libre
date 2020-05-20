@@ -3,6 +3,7 @@ import Helmet from "react-helmet";
 import { graphql, useStaticQuery } from "gatsby";
 import url from "url";
 import { globalHistory } from "@reach/router";
+import htmlToText from "html-to-text";
 
 const WebsiteMeta = () => {
   const data = useStaticQuery(graphql`
@@ -24,11 +25,11 @@ const WebsiteMeta = () => {
   const baseUrl = data.site.siteMetadata.siteUrl;
 
   const canonicalUrl = url.resolve(baseUrl, globalHistory.location.pathname);
-
+  let plainName = htmlToText.fromString(name);
   return (
     <>
       <Helmet htmlAttributes={{"lang": "en"}}>
-        <title>{name}</title>
+        <title>{plainName}</title>
         <meta name="description" content={description} />
         <link rel="canonical" href={canonicalUrl} />
         <meta property="og:site_name" content={name} />

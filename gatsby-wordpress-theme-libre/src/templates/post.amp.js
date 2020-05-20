@@ -13,7 +13,7 @@ const PostTemplate = ({ data, location, pageContext }) => {
       />
       <header className="main-header">
         <nav className="blog-title">
-          <Link to="/">{pageContext.title}</Link>
+          <Link to="/"><span dangerouslySetInnerHTML={{__html: pageContext.title}}></span></Link>
         </nav>
       </header>
       <main className="content" role="main">
@@ -63,7 +63,7 @@ export const pageQuery = graphql`
       slug
       content
       date(formatString: "DD MMMM YYYY")
-      featured_media {
+      featured_media: featured_media_custom {
         localFile {
           childImageSharp {
             fluid {
