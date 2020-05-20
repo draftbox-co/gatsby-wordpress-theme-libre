@@ -21,7 +21,9 @@ const PostCard = ({ index, node }) => {
         </h2>
         <div className="entry-meta">
           <div>
-          <span className="posted-on">{node.date}</span> &bull; <span className="readTime">{node.readingTime}</span></div>
+            <span className="posted-on">{node.date}</span> &bull;{" "}
+            <span className="readTime">{node.readingTime}</span>
+          </div>
           <span className="byline">
             <div className="author vcard">
               <Link to={`/author/${node.author.slug}`} className="url fn n">
@@ -34,19 +36,21 @@ const PostCard = ({ index, node }) => {
       <div className="entry-content">
         {node.featured_media && node.featured_media.localFile && (
           <div className="post-thumbnail">
-            <Link aria-hidden="true" aria-label={node.featured_media.title} title={node.featured_media.title} to={`/${node.slug}`} className="no-line">
+            <Link
+              aria-hidden="true"
+              aria-label={node.featured_media.title}
+              title={node.featured_media.title}
+              to={`/${node.slug}`}
+              className="no-line"
+            >
               <img
                 width="1088"
                 height="726"
-                src={
-                  node.featured_media.localFile.childImageSharp
-                    .fluid.src
-                }
+                src={node.featured_media.localFile.childImageSharp.fluid.src}
                 className="attachment-libre-2-post-thumbnail size-libre-2-post-thumbnail wp-post-image jetpack-lazy-image jetpack-lazy-image--handled"
                 alt={node.featured_media.title}
                 srcSet={
-                  node.featured_media.localFile.childImageSharp
-                    .fluid.srcSet
+                  node.featured_media.localFile.childImageSharp.fluid.srcSet
                 }
                 data-lazy-loaded="1"
                 sizes="(max-width: 1088px) 100vw, 1088px"
@@ -57,20 +61,18 @@ const PostCard = ({ index, node }) => {
         <p dangerouslySetInnerHTML={{ __html: node.plainExcerpt }}></p>
       </div>
       <footer className="entry-footer">
-        {node.tags && <span className="cat-links">
-          Posted in{" "}
-          {node.tags.map((tag, index, arr) => {
-            return (
-              <Link
-                to={`/tag/${tag.slug}`}
-                key={index}
-                rel="tag"
-              >
-                {tag.name} {index !== arr.length - 1 && ", "}
-              </Link>
-            );
-          })}
-        </span>}
+        {node.tags && node.tags.length > 0 && (
+          <span className="cat-links">
+            Posted in{" "}
+            {node.tags.map((tag, index, arr) => {
+              return (
+                <Link to={`/tag/${tag.slug}`} key={index} rel="tag">
+                  {tag.name} {index !== arr.length - 1 && ", "}
+                </Link>
+              );
+            })}
+          </span>
+        )}
       </footer>
     </article>
   );

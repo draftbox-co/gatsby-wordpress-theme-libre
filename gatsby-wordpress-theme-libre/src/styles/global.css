@@ -713,7 +713,7 @@ textarea {
   margin: 0 0 0.4375em;
 }
 .single .hentry .entry-title {
-  word-wrap: normal;
+  word-wrap: break-word;
 }
 
 .entry-meta,
@@ -1598,6 +1598,10 @@ object {
   text-align: center;
   vertical-align: top;
   width: 100%;
+}
+
+.gallery-item .gallery-icon.portrait a {
+  box-shadow: none;
 }
 
 .gallery-columns-2 .gallery-item {
