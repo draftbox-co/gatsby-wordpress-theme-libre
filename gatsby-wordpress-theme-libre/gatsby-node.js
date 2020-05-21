@@ -137,7 +137,6 @@ exports.createResolvers = async ({
   reporter
 }) => {
   const { createNode } = actions;
-  console.log("createResolvers called");
 
   createResolvers({
     Query: {

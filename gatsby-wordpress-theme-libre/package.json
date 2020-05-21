@@ -1,6 +1,6 @@
 {
   "name": "@draftbox-co/gatsby-wordpress-theme-libre",
-  "version": "1.0.20",
+  "version": "1.0.21",
   "license": "MIT",
   "resolutions": {
     "sharp": "0.23.4"

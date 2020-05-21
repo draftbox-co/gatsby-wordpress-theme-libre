@@ -137,8 +137,6 @@ module.exports = async function sourceNodes({
 
   const wordPressTagExists = getNodesByType("wordpress__TAG");
 
-  console.log(wordPressTagExists, "tags exists check");
-
   if (!wordPressTagExists || wordPressTagExists.length === 0) {
     let node = {
       ...createTag,
@@ -153,8 +151,6 @@ module.exports = async function sourceNodes({
   }
 
   const mediaExists = getNodesByType("wordpress__wp_media");
-
-  console.log(mediaExists, "media exists check");
 
   if (!mediaExists || mediaExists.length === 0) {
     
