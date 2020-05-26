@@ -45,7 +45,7 @@ const ArticleMeta = ({ data, amp }) => {
         {feature_image && (
           <meta
             property="og:image"
-            content={feature_image.childImageSharp.fluid.src}
+            content={feature_image.publicURL}
           />
         )}
         <meta
@@ -60,7 +60,7 @@ const ArticleMeta = ({ data, amp }) => {
         {feature_image && (
           <meta
             name="twitter:image"
-            content={feature_image.childImageSharp.fluid.src}
+            content={feature_image.publicURL}
           />
         )}
       </Helmet>

@@ -13,7 +13,11 @@ const PostTemplate = ({ data, location, pageContext }) => {
       />
       <header className="main-header">
         <nav className="blog-title">
-          <Link to="/"><span dangerouslySetInnerHTML={{__html: pageContext.title}}></span></Link>
+          <Link to="/">
+            <span
+              dangerouslySetInnerHTML={{ __html: pageContext.title }}
+            ></span>
+          </Link>
         </nav>
       </header>
       <main className="content" role="main">
@@ -32,17 +36,30 @@ const PostTemplate = ({ data, location, pageContext }) => {
               </time>{" "}
             </div>
           </header>
-          {data.wordpressPost.featured_media && data.wordpressPost.featured_media.localFile && (
-            <figure className="post-image">
-              <img
-                src={
-                  data.wordpressPost.featured_media.localFile
-                    .childImageSharp.fluid.src
-                }
-                alt={data.wordpressPost.title}
-              />
-            </figure>
-          )}
+          {data.wordpressPost.featured_media &&
+            data.wordpressPost.featured_media.localFile && (
+              <figure className="post-image">
+                {data.wordpressPost.featured_media.localFile.childImageSharp &&
+                  data.wordpressPost.featured_media.localFile.childImageSharp
+                    .fluid && (
+                    <img
+                      src={
+                        data.wordpressPost.featured_media.localFile
+                          .childImageSharp.fluid.src
+                      }
+                      alt={data.wordpressPost.title}
+                    />
+                  )}
+
+                {!data.wordpressPost.featured_media.localFile
+                  .childImageSharp && (
+                  <img
+                    src={data.wordpressPost.featured_media.localFile.publicURL}
+                    alt={data.wordpressPost.title}
+                  />
+                )}
+              </figure>
+            )}
           <section
             className="post-content"
             dangerouslySetInnerHTML={{ __html: data.wordpressPost.content }}
@@ -70,6 +87,7 @@ export const pageQuery = graphql`
               src
             }
           }
+          publicURL
         }
       }
       author {

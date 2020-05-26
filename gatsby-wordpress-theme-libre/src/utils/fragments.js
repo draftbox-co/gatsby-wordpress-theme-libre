@@ -31,6 +31,7 @@ export const wordPressPostData = graphql`
             src
           }
         }
+        publicURL
       }
       alt_text
       title

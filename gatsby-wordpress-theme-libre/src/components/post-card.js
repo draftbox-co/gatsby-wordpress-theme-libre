@@ -43,18 +43,34 @@ const PostCard = ({ index, node }) => {
               to={`/${node.slug}`}
               className="no-line"
             >
-              <img
-                width="1088"
-                height="726"
-                src={node.featured_media.localFile.childImageSharp.fluid.src}
-                className="attachment-libre-2-post-thumbnail size-libre-2-post-thumbnail wp-post-image jetpack-lazy-image jetpack-lazy-image--handled"
-                alt={node.featured_media.title}
-                srcSet={
-                  node.featured_media.localFile.childImageSharp.fluid.srcSet
-                }
-                data-lazy-loaded="1"
-                sizes="(max-width: 1088px) 100vw, 1088px"
-              />
+              {node.featured_media.localFile.childImageSharp &&
+                node.featured_media.localFile.childImageSharp.fluid && (
+                  <img
+                    width="1088"
+                    height="726"
+                    src={
+                      node.featured_media.localFile.childImageSharp.fluid.src
+                    }
+                    className="attachment-libre-2-post-thumbnail size-libre-2-post-thumbnail wp-post-image jetpack-lazy-image jetpack-lazy-image--handled"
+                    alt={node.featured_media.title}
+                    srcSet={
+                      node.featured_media.localFile.childImageSharp.fluid.srcSet
+                    }
+                    data-lazy-loaded="1"
+                    sizes="(max-width: 1088px) 100vw, 1088px"
+                  />
+                )}
+              {!node.featured_media.localFile.childImageSharp && (
+                <img
+                  width="1088"
+                  height="726"
+                  src={node.featured_media.localFile.publicURL}
+                  className="attachment-libre-2-post-thumbnail size-libre-2-post-thumbnail wp-post-image jetpack-lazy-image jetpack-lazy-image--handled"
+                  alt={node.featured_media.title}
+                  data-lazy-loaded="1"
+                  sizes="(max-width: 1088px) 100vw, 1088px"
+                />
+              )}
             </Link>
           </div>
         )}

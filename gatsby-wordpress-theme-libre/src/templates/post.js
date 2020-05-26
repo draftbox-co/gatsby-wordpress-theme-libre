@@ -47,22 +47,42 @@ const Post = ({ data, location }) => {
                   {data.wordpressPost.featured_media &&
                     data.wordpressPost.featured_media.localFile && (
                       <div className="post-thumbnail">
-                        <img
-                          className="attachment-libre-2-post-thumbnail size-libre-2-post-thumbnail wp-post-image jetpack-lazy-image jetpack-lazy-image--handled"
-                          src={
-                            data.wordpressPost.featured_media.localFile
-                              .childImageSharp.fluid.src
-                          }
-                          srcSet={
-                            data.wordpressPost.featured_media.localFile
-                              .childImageSharp.fluid.srcSet
-                          }
-                          alt={
-                            data.wordpressPost.featured_media.alt_text
-                              ? data.wordpressPost.featured_media.alt_text
-                              : data.wordpressPost.featured_media.title
-                          }
-                        />
+                        {data.wordpressPost.featured_media.localFile
+                          .childImageSharp &&
+                          data.wordpressPost.featured_media.localFile
+                            .childImageSharp.fluid && (
+                            <img
+                              className="attachment-libre-2-post-thumbnail size-libre-2-post-thumbnail wp-post-image jetpack-lazy-image jetpack-lazy-image--handled"
+                              src={
+                                data.wordpressPost.featured_media.localFile
+                                  .childImageSharp.fluid.src
+                              }
+                              srcSet={
+                                data.wordpressPost.featured_media.localFile
+                                  .childImageSharp.fluid.srcSet
+                              }
+                              alt={
+                                data.wordpressPost.featured_media.alt_text
+                                  ? data.wordpressPost.featured_media.alt_text
+                                  : data.wordpressPost.featured_media.title
+                              }
+                            />
+                          )}
+                        {!data.wordpressPost.featured_media.localFile
+                          .childImageSharp && (
+                          <img
+                            className="attachment-libre-2-post-thumbnail size-libre-2-post-thumbnail wp-post-image jetpack-lazy-image jetpack-lazy-image--handled"
+                            src={
+                              data.wordpressPost.featured_media.localFile
+                                .publicURL
+                            }
+                            alt={
+                              data.wordpressPost.featured_media.alt_text
+                                ? data.wordpressPost.featured_media.alt_text
+                                : data.wordpressPost.featured_media.title
+                            }
+                          />
+                        )}
                       </div>
                     )}
                   <header className="entry-header">
