@@ -6,7 +6,8 @@
 
 const { paginate } = require(`gatsby-awesome-pagination`);
 const htmlToText = require("html-to-text");
-const readingTime = require('reading-time');
+const readingTime = require("reading-time");
+const fetch = require("node-fetch");
 
 exports.sourceNodes = require("./fix-source-nodes");
 
@@ -54,24 +55,26 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
     extend() {
       return {
         resolve(source) {
-          let plainExcerpt = htmlToText
-            .fromString(source.excerpt, {
-              // wordWrap: 155,
-              wordwrap: false,
-              ignoreHref: true
-            })
-            //.slice(0, 156);
+          let plainExcerpt = htmlToText.fromString(source.excerpt, {
+            // wordWrap: 155,
+            wordwrap: false,
+            ignoreHref: true,
+          });
+          //.slice(0, 156);
 
-          if (plainExcerpt.includes('Continue reading')) {
-            plainExcerpt = plainExcerpt.substring(0, plainExcerpt.indexOf('Continue reading'));
+          if (plainExcerpt.includes("Continue reading")) {
+            plainExcerpt = plainExcerpt.substring(
+              0,
+              plainExcerpt.indexOf("Continue reading")
+            );
           }
           // if (plainExcerpt.length > 155) {
           //   plainExcerpt = plainExcerpt.slice(0, 152) + "...";
           // }
           return plainExcerpt;
-        }
+        },
       };
-    }
+    },
   });
 
   createFieldExtension({
@@ -81,9 +84,9 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
         resolve(source) {
           const readingTimeValue = readingTime(source.content);
           return readingTimeValue.text;
-        }
+        },
       };
-    }
+    },
   });
 
   createFieldExtension({
@@ -91,9 +94,7 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
     extend(options, prevFieldConfig) {
       return {
         resolve(source) {
-          let plainTitle = htmlToText
-            .fromString(source.title)
-            .slice(0, 156);
+          let plainTitle = htmlToText.fromString(source.title).slice(0, 156);
           return plainTitle;
         },
       };
@@ -123,6 +124,7 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
   type WPSiteMetaData implements Node {
     siteDescription: String
     siteName: String
+    language: String
   }
 `;
   createTypes(typeDefs);
@@ -134,7 +136,7 @@ exports.createResolvers = async ({
   createNodeId,
   createResolvers,
   store,
-  reporter
+  reporter,
 }) => {
   const { createNode } = actions;
 
@@ -142,14 +144,16 @@ exports.createResolvers = async ({
     Query: {
       wpSiteMetaData: {
         type: `WPSiteMetaData`,
-        resolve(source, args, context, info) {
+        async resolve(source, args, context, info) {
           let title = "";
           let description = "";
+          let language = "auto";
+
           const metadata = context.nodeModel.getAllNodes({
-            type: `wordpress__site_metadata`
+            type: `wordpress__site_metadata`,
           });
           const wordPressSetting = context.nodeModel.getAllNodes({
-            type: `wordpress__wp_settings`
+            type: `wordpress__wp_settings`,
           });
           title = metadata[0].name
             ? metadata[0].name
@@ -157,13 +161,30 @@ exports.createResolvers = async ({
           description = metadata[0].description
             ? metadata[0].description
             : wordPressSetting[0].description;
+
+          if (wordPressSetting && wordPressSetting.length > 0) {
+            language = wordPressSetting[0].language;
+          } else {
+            try {
+              const response = await fetch(metadata[0].url);
+              const responseHTML = await response.text();
+              const firstValue = responseHTML.match(
+                /(?<=")(?:\\.|[^"\\])*(?=")/
+              )[0];
+              language = firstValue;
+            } catch (error) {
+              console.log("fetching html error");
+              language = "auto";
+            }
+          }
           return {
             siteName: title,
-            siteDescription: description
+            siteDescription: description,
+            language: language,
           };
-        }
-      }
-    }
+        },
+      },
+    },
   });
 };
 
@@ -171,9 +192,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   const indexTemplate = require.resolve("./src/templates/index.js");
   const postTemplate = require.resolve("./src/templates/post.js");
   const authorTemplate = require.resolve("./src/templates/post-by-author.js");
-  const tagTemplate = require.resolve(
-    "./src/templates/post-by-tag.js"
-  );
+  const tagTemplate = require.resolve("./src/templates/post-by-tag.js");
   const pageTemplate = require.resolve("./src/templates/page.js");
   const postAmpTemplate = require.resolve("./src/templates/post.amp.js");
 
@@ -248,8 +267,8 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       context: {
         slug: post.node.slug,
         next: i === arr.length - 1 ? null : arr[i + 1].node.id,
-        prev: i !== 0 ? arr[i - 1].node.id : null
-      }
+        prev: i !== 0 ? arr[i - 1].node.id : null,
+      },
     });
 
     createPage({
@@ -258,40 +277,40 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       context: {
         slug: post.node.slug,
         amp: true,
-        title: siteTitle
-      }
+        title: siteTitle,
+      },
     });
   });
 
-  authors.forEach(post => {
+  authors.forEach((post) => {
     createPage({
       path: `/author/${post.node.slug}`,
       component: authorTemplate,
       context: {
-        slug: post.node.slug
-      }
+        slug: post.node.slug,
+      },
     });
   });
 
-  tags.forEach(tag => {
+  tags.forEach((tag) => {
     createPage({
       path: `/tag/${tag.node.slug}`,
       component: tagTemplate,
       context: {
-        slug: tag.node.slug
-      }
+        slug: tag.node.slug,
+      },
     });
   });
 
   pages
-    .filter(page => !page.node.slug.startsWith("contact"))
-    .forEach(page => {
+    .filter((page) => !page.node.slug.startsWith("contact"))
+    .forEach((page) => {
       createPage({
         path: `/${page.node.slug}`,
         component: pageTemplate,
         context: {
-          slug: page.node.slug
-        }
+          slug: page.node.slug,
+        },
       });
     });
 
@@ -306,6 +325,6 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       } else {
         return `/page`;
       }
-    }
+    },
   });
 };

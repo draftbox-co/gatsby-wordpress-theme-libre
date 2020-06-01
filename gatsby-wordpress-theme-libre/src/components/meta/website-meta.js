@@ -20,7 +20,7 @@ const WebsiteMeta = () => {
     
   `);
   const {
-    wpSiteMetaData: { name, description }
+    wpSiteMetaData: { name, description, language }
   } = data;
   const baseUrl = data.site.siteMetadata.siteUrl;
 
@@ -28,7 +28,7 @@ const WebsiteMeta = () => {
   let plainName = htmlToText.fromString(name);
   return (
     <>
-      <Helmet htmlAttributes={{"lang": "en"}}>
+      <Helmet htmlAttributes={{"lang": language}}>
         <title>{plainName}</title>
         <meta name="description" content={description} />
         <link rel="canonical" href={canonicalUrl} />

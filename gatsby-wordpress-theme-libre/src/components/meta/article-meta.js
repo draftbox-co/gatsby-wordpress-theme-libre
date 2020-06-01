@@ -20,7 +20,7 @@ const ArticleMeta = ({ data, amp }) => {
     }
   `);
   const {
-    wpSiteMetaData: { name },
+    wpSiteMetaData: { name, language },
   } = queryData;
   const baseUrl = queryData.site.siteMetadata.siteUrl;
   const canonicalUrl = url.resolve(baseUrl, globalHistory.location.pathname);
@@ -29,7 +29,7 @@ const ArticleMeta = ({ data, amp }) => {
   let plainName = htmlToText.fromString(name);
   return (
     <>
-      <Helmet htmlAttributes={{ lang: "en" }}>
+      <Helmet htmlAttributes={{ lang: language }}>
         <title>{`${plainName} | ${capitalize(data.plainTitle)}`}</title>
         {!amp && <link rel="ampHtml" href={`${canonicalUrl}/amp`} />}
         <meta name="description" content={data.plainExcerpt} />

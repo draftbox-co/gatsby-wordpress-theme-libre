@@ -58,6 +58,7 @@ export const wordpressSiteMetaData = graphql`
   fragment WordpressSiteMetaData on WPSiteMetaData {
     name: siteName
     description: siteDescription
+    language: language
   }
 `;
 
