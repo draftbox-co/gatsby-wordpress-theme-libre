@@ -27,9 +27,8 @@ const SubscribeForm = () => {
       <form onSubmit={(e) => onSubmit(e)}>
         {succeeded && (
           <h1 className="subscribe-title">
-            You’ve successfully subscribed to{" "}
             <span
-              dangerouslySetInnerHTML={{ __html: data.wpSiteMetaData.name }}
+              dangerouslySetInnerHTML={{ __html: `You’ve successfully subscribed to ${data.wpSiteMetaData.name}.` }}
             ></span>
           </h1>
         )}
