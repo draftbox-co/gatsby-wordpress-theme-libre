@@ -51,6 +51,7 @@ export const wordPressPostData = graphql`
       slug
     }
     plainTitle
+    sticky
   }
 `;
 

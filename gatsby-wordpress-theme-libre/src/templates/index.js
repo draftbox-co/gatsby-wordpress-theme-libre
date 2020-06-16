@@ -37,7 +37,7 @@ export default Index;
 export const pageQuery = graphql`
   query WordpressQuery($skip: Int!, $limit: Int!) {
     allWordpressPost(
-      sort: { fields: date, order: DESC }
+      sort: { fields: [sticky, date], order: [DESC,DESC] }
       skip: $skip
       limit: $limit
     ) {

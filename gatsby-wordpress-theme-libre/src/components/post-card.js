@@ -20,10 +20,16 @@ const PostCard = ({ index, node }) => {
           ></Link>
         </h2>
         <div className="entry-meta">
-          <div>
+          {node.sticky && <div>
+            <span className="posted-on">Featured</span> &bull;{" "}
+            <span className="readTime">{node.readingTime}</span>
+          </div>}
+
+          {!node.sticky && <div>
             <span className="posted-on">{node.date}</span> &bull;{" "}
             <span className="readTime">{node.readingTime}</span>
-          </div>
+          </div>}
+          
           <span className="byline">
             <div className="author vcard">
               <Link to={`/author/${node.author.slug}`} className="url fn n">

@@ -7,29 +7,61 @@ const Footer = () => {
       wpSiteMetaData {
         ...WordpressSiteMetaData
       }
+      site {
+        siteMetadata {
+          siteUrl
+          apiUrl
+          footer {
+            copyright
+            navigation {
+              label
+              url
+            }
+          }
+        }
+      }
     }
   `);
+  const copyright = data.site.siteMetadata.footer.copyright;
+  const navigation = data.site.siteMetadata.footer.navigation;
+  const siteUrl = data.site.siteMetadata.siteUrl;
+  const apiUrl = data.site.siteMetadata.apiUrl;
+
   return (
     <div className="footer-container">
       <footer id="colophon" className="site-footer" role="contentinfo">
         <div className="copyright">
-          <span dangerouslySetInnerHTML={{__html: data.wpSiteMetaData.name}}></span>
+          <span dangerouslySetInnerHTML={{__html:  copyright ? copyright: data.wpSiteMetaData.name}}></span>
   {" "}© {new Date().getFullYear()}
         </div>
 
         <ul className="footer-links">
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <a href="/sitemap.xml">Sitemap</a>
-          </li>
-          <li>
-            <a href="/rss.xml">RSS</a>
-          </li>
-          <li>
-            <Link to="/contact">Contact Us</Link>
-          </li>
+        {navigation.map(({ label, url }, i) => {
+              return url.startsWith("/") ||
+                url.startsWith(siteUrl) ||
+                url.startsWith(apiUrl) ? (
+                <li key={i} role="presentation">
+                  <Link
+                    to={`${
+                      url.startsWith("/")
+                        ? url
+                        : url.startsWith(siteUrl)
+                        ? url.slice(siteUrl.length, url.length)
+                        : url.slice(apiUrl.length, url.length)
+                    }`}
+                    activeClassName="active"
+                  >
+                    <span>{label}</span>
+                  </Link>
+                </li>
+              ) : (
+                <li key={i} role="presentation">
+                  <a href={url} target="_blank" rel="noreferrer noopener">
+                    {label}
+                  </a>
+                </li>
+              );
+            })}
         </ul>
 
         {/* <div className="site-info">

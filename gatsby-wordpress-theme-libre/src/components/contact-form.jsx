@@ -52,7 +52,7 @@ const ContactForm = () => {
                     )}
                     {!succeeded && (
                       <>
-                        <h1 className="entry-title-header">Contact Us</h1>
+                        <h1 className="entry-title-header">Contact</h1>
                         <form
                           className="form-content"
                           onSubmit={e => handleSubmit(e)}

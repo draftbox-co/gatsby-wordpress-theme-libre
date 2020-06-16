@@ -19,8 +19,33 @@ const Navbar = () => {
           }
         }
       }
+
+      site {
+        siteMetadata {
+          apiUrl
+          siteUrl
+          header {
+            navigation {
+              label
+              url
+            }
+          }
+          socialLinks {
+            twitter
+            facebook
+            instagram
+            linkedin
+            github
+          }
+        }
+      }
     }
   `);
+
+  const navigation = data.site.siteMetadata.header.navigation;
+  const siteUrl = data.site.siteMetadata.siteUrl;
+  const apiUrl = data.site.siteMetadata.apiUrl;
+  const socialLinks = data.site.siteMetadata.socialLinks;
 
   useEffect(() => {
     const siteHeader = document.querySelector(".site-header");
@@ -70,26 +95,100 @@ const Navbar = () => {
           </button>
           <div id="primary-menu" className="menu">
             <ul>
-              {/* {data.allWordpressPage.edges
-                .filter(({ node }) => !node.slug.startsWith("contact"))
-                .map((pageMeta, i) => {
-                  return (
-                    <li key={i}>
-                      <Link to={`/${pageMeta.node.slug}`}>
-                        <span
-                          dangerouslySetInnerHTML={{
-                            __html: pageMeta.node.title
-                          }}
-                        ></span>
-                      </Link>
-                    </li>
-                  );
-                })} */}
-              <li>
-                <Link to="/contact">Contact Us</Link>
-              </li>
+              {navigation.map(({ label, url }, i) => {
+              return url.startsWith("/") ||
+                url.startsWith(siteUrl) ||
+                url.startsWith(apiUrl) ? (
+                <li key={i} role="presentation">
+                  <Link
+                    to={`${
+                      url.startsWith("/")
+                        ? url
+                        : url.startsWith(siteUrl)
+                        ? url.slice(siteUrl.length, url.length)
+                        : url.slice(apiUrl.length, url.length)
+                    }`}
+                    activeClassName="active"
+                  >
+                    <span>{label}</span>
+                  </Link>
+                </li>
+              ) : (
+                <li key={i} role="presentation">
+                  <a href={url} target="_blank" rel="noreferrer noopener">
+                    {label}
+                  </a>
+                </li>
+              );
+            })}
             </ul>
           </div>{" "}
+          <nav className="jetpack-social-navigation" role="navigation">
+          <div class="menu-social-container"><ul id="menu-social" class="menu">
+          {socialLinks.facebook && (
+              <li className="menu-item">
+                <a
+                  href={socialLinks.facebook}
+                  title="Facebook"
+                  target="_blank"
+                  rel="noreferrer noopener"
+                >
+                  <i className="icon icon-facebook"></i>
+                  
+                </a>
+              </li>
+            )}
+            {socialLinks.twitter && (
+              <li className="menu-item">
+                <a
+                  href={socialLinks.twitter}
+                  title="Twitter"
+                  target="_blank"
+                  rel="noreferrer noopener"
+                >
+                  <i className="icon icon-twitter"></i>
+                  
+                </a>
+              </li>
+            )}
+            {socialLinks.instagram && (
+              <li className="menu-item">
+                <a
+                  href={socialLinks.instagram}
+                  title="Instagram"
+                  target="_blank"
+                  rel="noreferrer noopener"
+                >
+                  <i className="icon icon-instagram"></i>
+                  
+                </a>
+              </li>
+            )}
+            {socialLinks.linkedin && (
+              <li className="menu-item">
+                <a
+                  href={socialLinks.linkedin}
+                  title="LinkedIn"
+                  target="_blank"
+                  rel="noreferrer noopener"
+                >
+                  <i className="icon icon-linkedin"></i>
+                </a>
+              </li>
+            )}
+            {socialLinks.github && (
+              <li className="menu-item">
+                <a
+                  href={socialLinks.github}
+                  title="GitHub"
+                  target="_blank"
+                  rel="noreferrer noopener"
+                >
+                  <i className="icon icon-github-circled"></i>
+                </a>
+              </li>
+            )}</ul></div>
+            </nav>
         </nav>
       </div>
     </header>
