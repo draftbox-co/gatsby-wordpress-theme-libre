@@ -1,5 +1,5 @@
 module.exports = {
-  siteUrl: "https://yourwordpressblog.com", // Site domain. Do not include a trailing slash!
+  siteUrl: "https://wp-balsa-preview.draftbox.co", // Site domain. Do not include a trailing slash!
 
   postsPerPage: 10, // Number of posts shown on paginated pages (changes this requires sometimes to delete the cache)
 
@@ -13,47 +13,47 @@ module.exports = {
   shortTitle: "Wordpress", // Used for App manifest e.g. Mobile Home Screen
   siteIcon: "favicon.png", // Logo in /static dir used for SEO, RSS, and App manifest
   backgroundColor: "#e9e9e9", // Used for Offline Manifest
-  themeColor: "#15171A", // Used for Offline Manifest,
-  apiUrl: "https://gatsbylibre2.wordpress.com", 
+  themeColor: "#15171A", // Used for Offline Manifest
+  apiUrl: "https://wordpress.theasdfghjkl.com", 
   subscribeWidget: {
     title: "Subscribe to Draftbox",
     helpText: "Get the latest posts delivered right to your inbox.",
-    successMessage: "Thanks for subscribing to Built with Draftbox.",
+    successMessage: "Thanks for subscribing to Draftbox.",
   },
   header: {
     navigation: [
       {
         label: "Home",
-        url: "https://gatsbylibre2.wordpress.com/",
+        url: "https://wp-balsa-preview.draftbox.co/",
       },
       {
         label: "Contact",
-        url: "https://gatsbylibre2.wordpress.com/contact",
+        url: "https://wp-balsa-preview.draftbox.co/contact",
       },
       {
         label: "Contact1111",
-        url: "https://gatsbylibre2.wordpress.com/contact111",
+        url: "https://wp-balsa-preview.draftbox.co/contact111",
       },
     ],
   },
   footer: {
-    copyright: "Built with Draftbox122",
+    copyright: "Built with Draftbox",
     navigation: [
       {
         label: "Home",
-        url: "https://gatsbylibre2.wordpress.com/",
+        url: "https://wp-balsa-preview.draftbox.co/",
       },
       {
         label: "Sitemap",
-        url: "https://gatsbylibre2.wordpress.com/sitemap.xml",
+        url: "https://wp-balsa-preview.draftbox.co/sitemap.xml",
       },
       {
         label: "RSS",
-        url: "https://gatsbylibre2.wordpress.com/rss.xml",
+        url: "https://wp-balsa-preview.draftbox.co/rss.xml",
       },
       {
         label: "Contact",
-        url: "https://gatsbylibre2.wordpress.com/contact",
+        url: "https://wp-balsa-preview.draftbox.co/contact",
       },
       {
         label: "External Link",
@@ -63,9 +63,13 @@ module.exports = {
   },
   socialLinks: {
     twitter: "https://twitter.com/draftboxhq",
-    facebook: "https://facebook.com/draftboxhq",
-    instagram: "https://www.instagram.com/draftboxhq_uploads",
+    facebook: "https://facebook.com/",
+    instagram: "https://www.instagram.com/",
     linkedin: "https://linkedin.com/",
     github: "https://github.com/draftbox-co",
+  },
+  contactWidget: {
+    title: "Contact Built with Draftbox",
+    successMessage: "We’ll get in touch with you soon.",
   },
 };

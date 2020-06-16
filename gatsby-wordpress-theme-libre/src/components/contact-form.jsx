@@ -2,8 +2,29 @@ import React, { useState } from "react";
 import { useForm } from "../hook/useForm";
 import Navbar from "./navbar";
 import "../styles/contact-form.css";
+import { useStaticQuery, graphql } from "gatsby";
 
 const ContactForm = () => {
+
+  const {
+    wpSiteMetaData: { name },
+    site: {siteMetadata: {contactWidget}}
+  } = useStaticQuery(graphql`
+    query {
+      wpSiteMetaData {
+        ...WordpressSiteMetaData
+      }
+      site {
+        siteMetadata {
+          contactWidget {
+            title
+            successMessage
+          }
+        }
+      }
+    }
+  `);
+
   const [formValues, setFormValues] = useState({
     name: "",
     email: "",
@@ -47,12 +68,14 @@ const ContactForm = () => {
                   <div className="inner">
                     {succeeded && (
                       <h1 className="entry-title-header">
-                        We’ll get in touch with you soon.
+                        {contactWidget.successMessage ? contactWidget.successMessage : `We'll get in touch with you soon.`}
                       </h1>
                     )}
                     {!succeeded && (
                       <>
-                        <h1 className="entry-title-header">Contact</h1>
+                        <h1 className="entry-title-header">
+                        <span dangerouslySetInnerHTML={{ __html: contactWidget.title ? contactWidget.title : `Contact ` + name }}></span>
+                        </h1>
                         <form
                           className="form-content"
                           onSubmit={e => handleSubmit(e)}
