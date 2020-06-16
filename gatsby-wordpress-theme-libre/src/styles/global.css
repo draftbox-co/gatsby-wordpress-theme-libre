@@ -2134,3 +2134,5 @@ object {
     padding: 3rem;
   }
 }
+
+.fb-comments iframe { width: 100% !important; }
