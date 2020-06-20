@@ -2259,3 +2259,4 @@ object {
 .icon-instagram:before {
   content: "\f16d";
 } /* '' */
+.fb-comments iframe { width: 100% !important; }

@@ -6,6 +6,7 @@ import Footer from "../components/footer";
 import ArticleMeta from "../components/meta/article-meta";
 import SubscribeForm from "../components/subscribe-form";
 import Disqus from "../components/disqus";
+import FbComments from "../components/fb-comments";
 import facebookShare from "../images/facebook-share.svg";
 import twitterShare from "../images/twitter-share.svg";
 import linkedInShare from "../images/linkedin.svg";
@@ -272,6 +273,7 @@ const Post = ({ data, location }) => {
                 </article>
 
                 <Disqus />
+                <FbComments href={href} />
                 <SubscribeForm />
               </main>
             </div>
