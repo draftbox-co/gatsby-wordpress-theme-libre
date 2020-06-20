@@ -2058,10 +2058,12 @@ object {
     margin-bottom: 10em;
   }
   .main-navigation {
-    display: inline-block;
+    display: flex;
+    align-items: center;
     margin-top: 0;
     text-align: right;
     vertical-align: middle;
+    flex-direction: column;
   }
   .main-navigation li {
     display: inline-block;
@@ -2074,6 +2076,8 @@ object {
   }
   .jetpack-social-navigation {
     margin-left: 1.75em;
+    display: flex;
+    align-self: flex-end;
   }
   .comment .comment-content {
     float: right;
@@ -2155,7 +2159,7 @@ object {
 }
 
 .active {
-  box-shadow: 0 2px 0 0 currentColor;
+  box-shadow: 0 2px 0 0 currentColor !important;
 }
 
 @font-face {

@@ -93,8 +93,8 @@ const Navbar = () => {
           >
             ☰ Menu
           </button>
-          <div id="primary-menu" className="menu">
-            <ul>
+          <div className="menu-primary-container">
+            <ul id="primary-menu" className="menu">
               {navigation.map(({ label, url }, i) => {
               return url.startsWith("/") ||
                 url.startsWith(siteUrl) ||
@@ -124,7 +124,7 @@ const Navbar = () => {
             </ul>
           </div>{" "}
           <nav className="jetpack-social-navigation" role="navigation">
-          <div class="menu-social-container"><ul id="menu-social" class="menu">
+          <div className="menu-social-container"><ul id="menu-social" className="menu">
           {socialLinks.facebook && (
               <li className="menu-item">
                 <a
