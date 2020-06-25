@@ -18,7 +18,7 @@ export const wordPressPostData = graphql`
     content
     excerpt
     plainExcerpt
-    slug
+    slug: permaLinkSlug
     categories {
       name
       slug

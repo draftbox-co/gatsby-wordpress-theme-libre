@@ -294,18 +294,18 @@ export default Post;
 
 export const postQuery = graphql`
   query($slug: String, $prev: String, $next: String) {
-    wordpressPost(slug: { eq: $slug }) {
+    wordpressPost(permaLinkSlug: { eq: $slug }) {
       ...WordPressPostData
     }
 
     prev: wordpressPost(id: { eq: $prev }) {
       title
-      slug
+      slug: permaLinkSlug
     }
 
     next: wordpressPost(id: { eq: $next }) {
       title
-      slug
+      slug: permaLinkSlug
     }
   }
 `;

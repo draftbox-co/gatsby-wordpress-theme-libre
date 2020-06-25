@@ -15,7 +15,7 @@ const PostTemplate = ({ data, location, pageContext }) => {
         <nav className="blog-title">
           <Link to="/">
             <span
-              dangerouslySetInnerHTML={{ __html: pageContext.title }}
+              dangerouslySetInnerHTML={{ __html: data.wordpressPost.title }}
             ></span>
           </Link>
         </nav>
@@ -64,6 +64,24 @@ const PostTemplate = ({ data, location, pageContext }) => {
             className="post-content"
             dangerouslySetInnerHTML={{ __html: data.wordpressPost.content }}
           ></section>
+
+          {data.wordpressPost.tags && data.wordpressPost.tags.length > 0 && (
+            <div className="tags">
+              <span>Tag:</span>
+              <a
+                className="tag"
+                href={`/tag/${data.wordpressPost.tags[0].slug}`}
+              >
+                {data.wordpressPost.tags[0].name}
+              </a>
+            </div>
+          )}
+
+          <div className="comment-button-container">
+            <button>
+              <a href={`${data.wordpressPost.slug}`}>Leave a comment</a>
+            </button>
+          </div>
         </article>
       </main>
     </>
@@ -74,10 +92,10 @@ export default PostTemplate;
 
 export const pageQuery = graphql`
   query($slug: String!) {
-    wordpressPost(slug: { eq: $slug }) {
+    wordpressPost(permaLinkSlug: { eq: $slug }) {
       title
       plainExcerpt
-      slug
+      slug: permaLinkSlug
       content
       date(formatString: "DD MMMM YYYY")
       featured_media: featured_media_custom {
@@ -91,6 +109,10 @@ export const pageQuery = graphql`
         }
       }
       author {
+        name
+        slug
+      }
+      tags: tags_custom {
         name
         slug
       }

@@ -1,5 +1,5 @@
 module.exports = {
-  siteUrl: "https://wp-balsa-preview.draftbox.co", // Site domain. Do not include a trailing slash!
+  siteUrl: "https://wp-libre-preview.draftbox.co", // Site domain. Do not include a trailing slash!
 
   postsPerPage: 10, // Number of posts shown on paginated pages (changes this requires sometimes to delete the cache)
 
@@ -14,7 +14,7 @@ module.exports = {
   siteIcon: "favicon.png", // Logo in /static dir used for SEO, RSS, and App manifest
   backgroundColor: "#e9e9e9", // Used for Offline Manifest
   themeColor: "#15171A", // Used for Offline Manifest
-  apiUrl: "https://wordpress.theasdfghjkl.com", 
+  apiUrl: "https://wordpress.theasdfghjkl.com",
   subscribeWidget: {
     title: "Subscribe to Draftbox",
     helpText: "Get the latest posts delivered right to your inbox.",
@@ -24,11 +24,11 @@ module.exports = {
     navigation: [
       {
         label: "Home",
-        url: "https://wp-balsa-preview.draftbox.co/",
+        url: "https://wp-libre-preview.draftbox.co/",
       },
       {
         label: "Contact",
-        url: "https://wp-balsa-preview.draftbox.co/contact",
+        url: "https://wp-libre-preview.draftbox.co/contact",
       },
     ],
   },
@@ -37,19 +37,19 @@ module.exports = {
     navigation: [
       {
         label: "Home",
-        url: "https://wp-balsa-preview.draftbox.co/",
+        url: "https://wp-libre-preview.draftbox.co/",
       },
       {
         label: "Sitemap",
-        url: "https://wp-balsa-preview.draftbox.co/sitemap.xml",
+        url: "https://wp-libre-preview.draftbox.co/sitemap.xml",
       },
       {
         label: "RSS",
-        url: "https://wp-balsa-preview.draftbox.co/rss.xml",
+        url: "https://wp-libre-preview.draftbox.co/rss.xml",
       },
       {
         label: "Contact",
-        url: "https://wp-balsa-preview.draftbox.co/contact",
+        url: "https://wp-libre-preview.draftbox.co/contact",
       },
       {
         label: "External Link",
