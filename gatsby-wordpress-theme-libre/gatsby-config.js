@@ -9,7 +9,7 @@ const siteConfigDefaults = require(`./src/utils/siteConfigDefaults`);
  * Further info 👉🏼 https://www.gatsbyjs.org/docs/gatsby-config/
  *
  */
-module.exports = themeOptions => {
+module.exports = (themeOptions) => {
   const siteConfig = themeOptions.siteConfig || siteConfigDefaults;
   const wordpressConfig = themeOptions.wordpressConfig;
 
@@ -21,14 +21,14 @@ module.exports = themeOptions => {
        */
       {
         resolve: `gatsby-source-wordpress`,
-        options: wordpressConfig
+        options: wordpressConfig,
       },
       {
         resolve: `gatsby-source-filesystem`,
         options: {
           path: path.join(__dirname, `src`, `pages`),
-          name: `pages`
-        }
+          name: `pages`,
+        },
       },
       // Setup for optimized images.
       // See https://www.gatsbyjs.org/packages/gatsby-image/
@@ -36,8 +36,8 @@ module.exports = themeOptions => {
         resolve: `gatsby-source-filesystem`,
         options: {
           path: path.join(__dirname, `src`, `images`),
-          name: `images`
-        }
+          name: `images`,
+        },
       },
       `gatsby-plugin-sharp`,
       `gatsby-transformer-sharp`,
@@ -50,7 +50,7 @@ module.exports = themeOptions => {
                         edges {
                           node {
                             id
-                            slug
+                            slug:permaLinkSlug
                             date
                           }
                         }
@@ -74,24 +74,24 @@ module.exports = themeOptions => {
                     }`,
           mapping: {
             allWordpressPost: {
-              sitemap: `posts`
+              sitemap: `posts`,
             },
             allWordpressTag: {
-              sitemap: `tags`
+              sitemap: `tags`,
             },
             allWordpressWpUsers: {
-              sitemap: `authors`
-            }
+              sitemap: `authors`,
+            },
           },
           exclude: [
             `/dev-404-page`,
             `/404`,
             `/404.html`,
-            `/offline-plugin-app-shell-fallback`
+            `/offline-plugin-app-shell-fallback`,
           ],
           createLinkInHead: true,
-          addUncaughtPages: true
-        }
+          addUncaughtPages: true,
+        },
       },
       `gatsby-plugin-catch-links`,
       `gatsby-plugin-react-helmet`,
@@ -106,8 +106,8 @@ module.exports = themeOptions => {
           background_color: siteConfig.backgroundColor,
           theme_color: siteConfig.themeColor,
           display: `standalone`,
-          icon: "static/favicon.png"
-        }
+          icon: "static/favicon.png",
+        },
       },
       {
         resolve: `gatsby-plugin-feed`,
@@ -124,14 +124,14 @@ module.exports = themeOptions => {
           feeds: [
             {
               serialize: ({ query: { site, allWordpressPost } }) => {
-                return allWordpressPost.edges.map(edge => {
+                return allWordpressPost.edges.map((edge) => {
                   return {
                     title: edge.node.title,
                     description: edge.node.excerpt,
                     date: edge.node.date,
-                    url: site.siteMetadata.siteUrl + "/" + edge.node.slug,
-                    guid: site.siteMetadata.siteUrl + "/" + edge.node.slug,
-                    custom_elements: [{ "content:encoded": edge.node.content }]
+                    url: site.siteMetadata.siteUrl + edge.node.slug,
+                    guid: site.siteMetadata.siteUrl + edge.node.slug,
+                    custom_elements: [{ "content:encoded": edge.node.content }],
                   };
                 });
               },
@@ -140,7 +140,7 @@ module.exports = themeOptions => {
                   allWordpressPost(sort: {fields: date, order: DESC}) {
                     edges {
                       node {
-                        slug
+                        slug: permaLinkSlug
                         content
                         title
                         excerpt
@@ -152,9 +152,9 @@ module.exports = themeOptions => {
               `,
               output: "/rss.xml",
               title: siteConfig.siteTitleMeta,
-            }
-          ]
-        }
+            },
+          ],
+        },
       },
       {
         resolve: "@armada-inc/gatsby-plugin-amp",
@@ -166,8 +166,8 @@ module.exports = themeOptions => {
           relAmpHtmlPattern: `{{canonicalBaseUrl}}{{pathname}}{{pathIdentifier}}`,
           useAmpClientIdApi: true,
           dirName: __dirname,
-          themePath: `src/amp-styles/post.amp.css`
-        }
+          themePath: `src/amp-styles/post.amp.css`,
+        },
       },
       {
         resolve: `gatsby-plugin-remove-generator`,
@@ -175,6 +175,6 @@ module.exports = themeOptions => {
           content: `Draftbox`,
         },
       },
-    ]
+    ],
   };
 };
