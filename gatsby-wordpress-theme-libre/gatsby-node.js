@@ -57,7 +57,7 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
         resolve(source, context) {
           if (source.link) {
             const pathName = new URL(source.link).pathname;
-            return pathName;
+            return pathName.endsWith("/") ? pathName : pathName + "/";
           } else {
             return "";
           }
