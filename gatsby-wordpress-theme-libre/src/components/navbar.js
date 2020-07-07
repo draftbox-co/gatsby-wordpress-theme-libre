@@ -7,10 +7,6 @@ const Navbar = () => {
 
   const data = useStaticQuery(graphql`
     query MyQuery {
-      wpSiteMetaData {
-        ...WordpressSiteMetaData
-      }
-
       allWordpressPage {
         edges {
           node {
@@ -37,6 +33,8 @@ const Navbar = () => {
             linkedin
             github
           }
+          siteTitle
+          siteDescription
         }
       }
     }
@@ -46,6 +44,8 @@ const Navbar = () => {
   const siteUrl = data.site.siteMetadata.siteUrl;
   const apiUrl = data.site.siteMetadata.apiUrl;
   const socialLinks = data.site.siteMetadata.socialLinks;
+  const siteTitle = data.site.siteMetadata.siteTitle;
+  const siteDescription = data.site.siteMetadata.siteDescription;
 
   useEffect(() => {
     const siteHeader = document.querySelector(".site-header");
@@ -72,10 +72,10 @@ const Navbar = () => {
       <div className="site-branding">
         <h1 className="site-title">
           <Link to="/" rel="home">
-            <span dangerouslySetInnerHTML={{__html:data.wpSiteMetaData.name}}></span>
+            <span dangerouslySetInnerHTML={{__html: siteTitle}}></span>
           </Link>
         </h1>
-        <p className="site-description" dangerouslySetInnerHTML={{__html: data.wpSiteMetaData.description}}></p>
+        <p className="site-description" dangerouslySetInnerHTML={{__html: siteDescription}}></p>
       </div>
       <div className="nav-wrapper">
         {" "}

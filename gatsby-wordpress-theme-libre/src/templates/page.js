@@ -4,11 +4,11 @@ import Navbar from "../components/navbar";
 import Footer from "../components/footer";
 import ArticleMeta from "../components/meta/article-meta";
 
-const Page = ({ data }) => {
+const Page = ({ data, location }) => {
   return (
     <>
       <Layout>
-        <ArticleMeta data={data.wordpressPage} />
+        <ArticleMeta data={data.wordpressPage} amp={false} location={location} />
         <div className="home blog wp-embed-responsive">
           <div id="page" className="hfeed site">
             <Navbar />

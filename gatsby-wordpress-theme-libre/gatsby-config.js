@@ -100,7 +100,7 @@ module.exports = (themeOptions) => {
       {
         resolve: `gatsby-plugin-manifest`,
         options: {
-          name: siteConfig.siteTitleMeta,
+          name: siteConfig.siteTitle,
           short_name: siteConfig.shortTitle,
           start_url: `/`,
           background_color: siteConfig.backgroundColor,
@@ -151,7 +151,7 @@ module.exports = (themeOptions) => {
                 }
               `,
               output: "/rss.xml",
-              title: siteConfig.siteTitleMeta,
+              title: siteConfig.siteTitle,
             },
           ],
         },

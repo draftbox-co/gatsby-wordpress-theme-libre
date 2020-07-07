@@ -16,11 +16,15 @@ const SubscribeForm = () => {
 
   const data = useStaticQuery(graphql`
     query SiteData {
-      wpSiteMetaData {
-        ...WordpressSiteMetaData
+      site {
+        siteMetadata {
+          siteTitle
+        }
       }
     }
   `);
+
+  const siteTitle = data.site.siteMetadata.siteTitle;
 
   return (
     <div className="subscribe-form" id="subscribe">
@@ -28,7 +32,7 @@ const SubscribeForm = () => {
         {succeeded && (
           <h1 className="subscribe-title">
             <span
-              dangerouslySetInnerHTML={{ __html: `You’ve successfully subscribed to ${data.wpSiteMetaData.name}.` }}
+              dangerouslySetInnerHTML={{ __html: `You’ve successfully subscribed to ${siteTitle}.` }}
             ></span>
           </h1>
         )}
@@ -37,7 +41,7 @@ const SubscribeForm = () => {
             <h1 className="subscribe-title">
               Subscribe to{" "}
               <span
-                dangerouslySetInnerHTML={{ __html: data.wpSiteMetaData.name }}
+                dangerouslySetInnerHTML={{ __html: siteTitle }}
               ></span>
             </h1>
             <p className="subscribe-description">

@@ -4,9 +4,6 @@ import { Link, useStaticQuery } from "gatsby";
 const Footer = () => {
   const data = useStaticQuery(graphql`
     query FooterSiteData {
-      wpSiteMetaData {
-        ...WordpressSiteMetaData
-      }
       site {
         siteMetadata {
           siteUrl
@@ -18,6 +15,7 @@ const Footer = () => {
               url
             }
           }
+          siteTitle
         }
       }
     }
@@ -26,12 +24,13 @@ const Footer = () => {
   const navigation = data.site.siteMetadata.footer.navigation;
   const siteUrl = data.site.siteMetadata.siteUrl;
   const apiUrl = data.site.siteMetadata.apiUrl;
+  const siteTitle = data.site.siteMetadata.siteTitle;
 
   return (
     <div className="footer-container">
       <footer id="colophon" className="site-footer" role="contentinfo">
         <div className="copyright">
-          <span dangerouslySetInnerHTML={{__html:  copyright ? copyright: data.wpSiteMetaData.name}}></span>
+          <span dangerouslySetInnerHTML={{__html:  copyright ? copyright: siteTitle}}></span>
   {" "}© {new Date().getFullYear()}
         </div>
 

@@ -31,7 +31,7 @@ const Post = ({ data, location }) => {
 
   return (
     <Layout>
-      <ArticleMeta data={data.wordpressPost} />
+      <ArticleMeta data={data.wordpressPost} amp={false} location={location} />
       <div
         className="post-template-default single single-post single-format-standard wp-embed-responsive singular"
         style={{ overflowX: "hidden" }}

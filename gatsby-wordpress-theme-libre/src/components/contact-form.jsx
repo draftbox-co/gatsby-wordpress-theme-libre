@@ -7,19 +7,16 @@ import { useStaticQuery, graphql } from "gatsby";
 const ContactForm = () => {
 
   const {
-    wpSiteMetaData: { name },
-    site: {siteMetadata: {contactWidget}}
+    site: {siteMetadata: {contactWidget, siteTitle}}
   } = useStaticQuery(graphql`
     query {
-      wpSiteMetaData {
-        ...WordpressSiteMetaData
-      }
       site {
         siteMetadata {
           contactWidget {
             title
             successMessage
           }
+          siteTitle
         }
       }
     }
@@ -74,7 +71,7 @@ const ContactForm = () => {
                     {!succeeded && (
                       <>
                         <h1 className="entry-title-header">
-                        <span dangerouslySetInnerHTML={{ __html: contactWidget.title ? contactWidget.title : `Contact ` + name }}></span>
+                        <span dangerouslySetInnerHTML={{ __html: contactWidget.title ? contactWidget.title : `Contact ` + siteTitle }}></span>
                         </h1>
                         <form
                           className="form-content"

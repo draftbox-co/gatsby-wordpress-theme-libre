@@ -93,29 +93,7 @@ export default PostTemplate;
 export const pageQuery = graphql`
   query($slug: String!) {
     wordpressPost(permaLinkSlug: { eq: $slug }) {
-      title
-      plainExcerpt
-      slug: permaLinkSlug
-      content
-      date(formatString: "DD MMMM YYYY")
-      featured_media: featured_media_custom {
-        localFile {
-          childImageSharp {
-            fluid {
-              src
-            }
-          }
-          publicURL
-        }
-      }
-      author {
-        name
-        slug
-      }
-      tags: tags_custom {
-        name
-        slug
-      }
+      ...WordPressPostData
     }
   }
 `;

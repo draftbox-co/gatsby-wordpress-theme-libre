@@ -52,16 +52,17 @@ export const wordPressPostData = graphql`
     }
     plainTitle
     sticky
+    modified(formatString: "MMMM DD YYYY")
   }
 `;
 
-export const wordpressSiteMetaData = graphql`
-  fragment WordpressSiteMetaData on WPSiteMetaData {
-    name: siteName
-    description: siteDescription
-    language: language
-  }
-`;
+// export const wordpressSiteMetaData = graphql`
+//   fragment WordpressSiteMetaData on WPSiteMetaData {
+//     name: siteName
+//     description: siteDescription
+//     language: language
+//   }
+// `;
 
 export const wordpressPageData = graphql`
   fragment wordpressPageData on wordpress__PAGE {
@@ -71,5 +72,7 @@ export const wordpressPageData = graphql`
     plainExcerpt
     content
     plainTitle
+    date(formatString: "MMMM DD YYYY")
+    modified(formatString: "MMMM DD YYYY")
   }
 `;

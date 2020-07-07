@@ -2,67 +2,195 @@ import React from "react";
 import Helmet from "react-helmet";
 import { graphql, useStaticQuery } from "gatsby";
 import url from "url";
-import { globalHistory } from "@reach/router";
-import capitalize from "../../utils/capitalizeString";
-import htmlToText from "html-to-text";
+import _ from "lodash";
 
-const ArticleMeta = ({ data, amp }) => {
+const capitalize = (str) => {
+  if (str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  } else {
+    return "";
+  }
+};
+
+
+const ArticleMeta = ({ data, amp, location }) => {
   const queryData = useStaticQuery(graphql`
     query {
-      wpSiteMetaData {
-        ...WordpressSiteMetaData
-      }
       site {
         siteMetadata {
           siteUrl
+          siteTitle
+          metadata {
+            title
+            description
+          }
+          twitterCard {
+            title
+            description
+            imageUrl
+            username
+          }
+          facebookCard {
+            title
+            description
+            imageUrl
+            appId
+          }
+          siteDescription
+          language
+          logoUrl
+          iconUrl
+          coverUrl
+          alternateLogoUrl
+          shareImageWidth
+          shareImageHeight
         }
       }
     }
   `);
-  const {
-    wpSiteMetaData: { name, language },
-  } = queryData;
   const baseUrl = queryData.site.siteMetadata.siteUrl;
-  const canonicalUrl = url.resolve(baseUrl, globalHistory.location.pathname);
+  const canonicalUrl = url.resolve(baseUrl, location.pathname);
 
-  const feature_image = data.featured_media && data.featured_media.localFile;
-  let plainName = htmlToText.fromString(name);
+  const feature_image = data.featured_media?.localFile?.publicURL;
+
+  const config = queryData.site.siteMetadata;
+
+  const facebookImageUrl = feature_image
+    ? url.resolve(config.siteUrl, feature_image)
+    : config.facebookCard.imageUrl
+    ? url.resolve(config.siteUrl, config.facebookCard.imageUrl)
+    : config.coverUrl
+    ? url.resolve(config.siteUrl, config.coverUrl)
+    : null;
+
+  const twitterImageUrl = feature_image
+  ? url.resolve(config.siteUrl, feature_image)
+  : config.twitterCard.imageUrl
+  ? url.resolve(config.siteUrl, config.twitterCard.imageUrl)
+  : config.coverUrl
+  ? url.resolve(config.siteUrl, config.coverUrl)
+  : null;
+
+  const author = data.author;
+  const publicTags = _.map(data.tags, (tag) => tag.name);
+  const primaryTag = publicTags[0] || ``;
+  const shareImage = feature_image
+    ? url.resolve(config.siteUrl, feature_image)
+    : config.coverUrl ||
+      config.facebookCard.imageUrl ||
+      config.twitterCard.imageUrl
+    ? url.resolve(
+        config.siteUrl,
+        config.coverUrl ||
+          config.facebookCard.imageUrl ||
+          config.twitterCard.imageUrl
+      )
+    : null;
+  const publisherLogo =
+    config.logoUrl || config.alternateLogoUrl
+      ? url.resolve(config.siteUrl, config.logoUrl || config.alternateLogoUrl)
+      : null;
+
+  const jsonLd = {
+    "@context": `https://schema.org/`,
+    "@type": `Article`,
+    author: author ? {
+      "@type": `Person`,
+      name: author.name,
+      image: undefined,
+      sameAs: undefined,
+    } : null,
+    keywords: publicTags.length ? publicTags.join(`, `) : undefined,
+    headline: data.plainTitle || config.siteTitle,
+    url: canonicalUrl,
+    datePublished: data.date,
+    dateModified: data.modified,
+    image: shareImage
+      ? {
+          "@type": `ImageObject`,
+          url: shareImage,
+          width: config.shareImageWidth,
+          height: config.shareImageHeight,
+        }
+      : undefined,
+    publisher: {
+      "@type": `Organization`,
+      name: config.siteTitle,
+      logo: {
+        "@type": `ImageObject`,
+        url: publisherLogo,
+        width: 60,
+        height: 60,
+      },
+    },
+    description: data.plainExcerpt || config.siteDescription,
+    mainEntityOfPage: {
+      "@type": `WebPage`,
+      "@id": config.siteUrl,
+    },
+  };
+
   return (
     <>
-      <Helmet htmlAttributes={{ lang: language }}>
-        <title>{`${plainName} | ${capitalize(data.plainTitle)}`}</title>
+      <Helmet>
+        <title>{capitalize(data.plainTitle)}</title>
         {!amp && <link rel="ampHtml" href={`${canonicalUrl}/amp`} />}
         <meta name="description" content={data.plainExcerpt} />
         {!amp && <link rel="canonical" href={canonicalUrl} />}
-        <meta property="og:site_name" content={name} />
-        <meta property="og:type" content="website" />
+
+        <meta property="og:site_name" content={config.siteTitle} />
+        <meta property="og:type" content="article" />
         <meta
           property="og:title"
-          content={`${name} | ${capitalize(data.plainTitle)}`}
+          content={data.plainTitle || config.siteTitle}
         />
-        <meta property="og:description" content={data.plainExcerpt} />
+        <meta
+          property="og:description"
+          content={data.plainExcerpt || config.siteDescription}
+        />
         <meta property="og:url" content={canonicalUrl} />
-        {feature_image && (
-          <meta
-            property="og:image"
-            content={feature_image.publicURL}
-          />
-        )}
+        <meta
+          property="article:published_time"
+          content={new Date(data.date).toISOString()}
+        />
+        <meta
+          property="article:modified_time"
+          content={new Date(data.modified).toISOString()}
+        />
+        {publicTags.map((keyword, i) => (
+          <meta property="article:tag" content={keyword} key={i} />
+        ))}
+
+        {author && <meta property="article:author" content={author.name} />}
+
         <meta
           name="twitter:title"
-          content={`${name} | ${capitalize(data.plainTitle)}`}
+          content={data.plainTitle || config.siteTitle}
         />
-        <meta name="twitter:description" content={data.plainExcerpt} />
+        <meta
+          name="twitter:description"
+          content={data.plainExcerpt || config.siteDescription}
+        />
         <meta name="twitter:url" content={canonicalUrl} />
-        {feature_image && (
+        {author && <meta name="twitter:label1" content="Written by" />}
+        {author && <meta name="twitter:data1" content={author.name} />}
+        {primaryTag && <meta name="twitter:label2" content="Filed under" />}
+        {primaryTag && <meta name="twitter:data2" content={primaryTag} />}
+
+        {twitterImageUrl && (
           <meta name="twitter:card" content="summary_large_image" />
         )}
-        {feature_image && (
-          <meta
-            name="twitter:image"
-            content={feature_image.publicURL}
-          />
+        {twitterImageUrl && <meta name="twitter:image" content={twitterImageUrl} />}
+        {facebookImageUrl && <meta property="og:image" content={facebookImageUrl} />}
+        {config.twitterCard.username && (
+          <meta name="twitter:site" content={config.twitterCard.username} />
         )}
+        {config.facebookCard.appId !== "" && (
+          <meta property="fb:app_id" content={config.facebookCard.appId} />
+        )}
+        <script type="application/ld+json">
+          {JSON.stringify(jsonLd, undefined, 4)}
+        </script>
       </Helmet>
     </>
   );
