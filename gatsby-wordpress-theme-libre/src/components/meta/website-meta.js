@@ -95,7 +95,7 @@ const WebsiteMeta = () => {
 
   return (
     <>
-      <Helmet htmlAttributes={{language:config.language}}>
+      <Helmet htmlAttributes={{lang:config.language}}>
         <title>{config.metadata.title || config.siteTitle}</title>
         <meta
           name="description"
@@ -152,6 +152,9 @@ const WebsiteMeta = () => {
         )}
         {config.twitterCard.imageUrl && (
           <meta name="twitter:image" content={twitterImageUrl} />
+        )}
+        {config.twitterCard.imageUrl && (
+          <meta name="twitter:card" content="summary_large_image" />
         )}
         <script type="application/ld+json">
           {JSON.stringify(jsonLd, undefined, 4)}

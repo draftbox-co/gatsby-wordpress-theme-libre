@@ -132,7 +132,7 @@ const ArticleMeta = ({ data, amp, location }) => {
 
   return (
     <>
-      <Helmet>
+      <Helmet htmlAttributes={{lang:queryData.site.siteMetadata.language}}>
         <title>{capitalize(data.plainTitle)}</title>
         {!amp && <link rel="ampHtml" href={`${canonicalUrl}/amp`} />}
         <meta name="description" content={data.plainExcerpt} />
