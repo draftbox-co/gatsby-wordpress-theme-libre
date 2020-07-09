@@ -15,7 +15,7 @@ const PostCard = ({ index, node }) => {
       <header className="entry-header">
         <h2 className="entry-title">
           <Link
-            to={`/${node.slug}`}
+            to={`${node.slug}`}
             dangerouslySetInnerHTML={{ __html: node.title }}
           ></Link>
         </h2>
@@ -46,7 +46,7 @@ const PostCard = ({ index, node }) => {
               aria-hidden="true"
               aria-label={node.featured_media.title}
               title={node.featured_media.title}
-              to={`/${node.slug}`}
+              to={`${node.slug}`}
               className="no-line"
             >
               {node.featured_media.localFile.childImageSharp &&

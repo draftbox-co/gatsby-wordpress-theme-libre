@@ -31,6 +31,11 @@ export const wordPressPostData = graphql`
             src
           }
         }
+        seo: childImageSharp {
+          fixed(width: 1200, quality: 100) {
+            src
+          }
+        }
         publicURL
       }
       alt_text
@@ -79,6 +84,11 @@ export const wordpressPageData = graphql`
         childImageSharp {
           fluid(maxWidth: 2000, sizes: "90") {
             ...GatsbyImageSharpFluid
+          }
+        }
+        seo: childImageSharp {
+          fixed(width: 1200, quality: 100) {
+            src
           }
         }
       }
