@@ -12,7 +12,6 @@ const capitalize = (str) => {
   }
 };
 
-
 const ArticleMeta = ({ data, amp, location }) => {
   const queryData = useStaticQuery(graphql`
     query {
@@ -64,12 +63,12 @@ const ArticleMeta = ({ data, amp, location }) => {
     : null;
 
   const twitterImageUrl = feature_image
-  ? url.resolve(config.siteUrl, feature_image)
-  : config.twitterCard.imageUrl
-  ? url.resolve(config.siteUrl, config.twitterCard.imageUrl)
-  : config.coverUrl
-  ? url.resolve(config.siteUrl, config.coverUrl)
-  : null;
+    ? url.resolve(config.siteUrl, feature_image)
+    : config.twitterCard.imageUrl
+    ? url.resolve(config.siteUrl, config.twitterCard.imageUrl)
+    : config.coverUrl
+    ? url.resolve(config.siteUrl, config.coverUrl)
+    : null;
 
   const author = data.author;
   const publicTags = _.map(data.tags, (tag) => tag.name);
@@ -94,12 +93,14 @@ const ArticleMeta = ({ data, amp, location }) => {
   const jsonLd = {
     "@context": `https://schema.org/`,
     "@type": `Article`,
-    author: author ? {
-      "@type": `Person`,
-      name: author.name,
-      image: undefined,
-      sameAs: undefined,
-    } : null,
+    author: author
+      ? {
+          "@type": `Person`,
+          name: author.name,
+          image: undefined,
+          sameAs: undefined,
+        }
+      : null,
     keywords: publicTags.length ? publicTags.join(`, `) : undefined,
     headline: data.plainTitle || config.siteTitle,
     url: canonicalUrl,
@@ -116,12 +117,14 @@ const ArticleMeta = ({ data, amp, location }) => {
     publisher: {
       "@type": `Organization`,
       name: config.siteTitle,
-      logo: {
-        "@type": `ImageObject`,
-        url: publisherLogo,
-        width: 60,
-        height: 60,
-      },
+      logo: publisherLogo
+        ? {
+            "@type": `ImageObject`,
+            url: publisherLogo,
+            width: 60,
+            height: 60,
+          }
+        : undefined,
     },
     description: data.plainExcerpt || config.siteDescription,
     mainEntityOfPage: {
@@ -132,7 +135,7 @@ const ArticleMeta = ({ data, amp, location }) => {
 
   return (
     <>
-      <Helmet htmlAttributes={{lang:queryData.site.siteMetadata.language}}>
+      <Helmet htmlAttributes={{ lang: queryData.site.siteMetadata.language }}>
         <title>{capitalize(data.plainTitle)}</title>
         {!amp && <link rel="ampHtml" href={`${canonicalUrl}/amp`} />}
         <meta name="description" content={data.plainExcerpt} />
@@ -180,8 +183,12 @@ const ArticleMeta = ({ data, amp, location }) => {
         {twitterImageUrl && (
           <meta name="twitter:card" content="summary_large_image" />
         )}
-        {twitterImageUrl && <meta name="twitter:image" content={twitterImageUrl} />}
-        {facebookImageUrl && <meta property="og:image" content={facebookImageUrl} />}
+        {twitterImageUrl && (
+          <meta name="twitter:image" content={twitterImageUrl} />
+        )}
+        {facebookImageUrl && (
+          <meta property="og:image" content={facebookImageUrl} />
+        )}
         {config.twitterCard.username && (
           <meta name="twitter:site" content={config.twitterCard.username} />
         )}

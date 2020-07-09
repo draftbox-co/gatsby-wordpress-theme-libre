@@ -60,9 +60,13 @@ const WebsiteMeta = () => {
 
   shareImage = shareImage ? url.resolve(config.siteUrl, shareImage) : null;
 
-  const facebookImageUrl = config.facebookCard.imageUrl ? url.resolve(config.siteUrl, config.facebookCard.imageUrl) : null;
+  const facebookImageUrl = config.facebookCard.imageUrl
+    ? url.resolve(config.siteUrl, config.facebookCard.imageUrl)
+    : null;
 
-  const twitterImageUrl = config.twitterCard.imageUrl ? url.resolve(config.siteUrl, config.twitterCard.imageUrl) : null;
+  const twitterImageUrl = config.twitterCard.imageUrl
+    ? url.resolve(config.siteUrl, config.twitterCard.imageUrl)
+    : null;
 
   const jsonLd = {
     "@context": `https://schema.org/`,
@@ -79,12 +83,14 @@ const WebsiteMeta = () => {
     publisher: {
       "@type": `Organization`,
       name: siteTitle,
-      logo: {
-        "@type": `ImageObject`,
-        url: publisherLogo,
-        width: 60,
-        height: 60,
-      },
+      logo: publisherLogo
+        ? {
+            "@type": `ImageObject`,
+            url: publisherLogo,
+            width: 60,
+            height: 60,
+          }
+        : undefined,
     },
     mainEntityOfPage: {
       "@type": `WebPage`,
@@ -95,7 +101,7 @@ const WebsiteMeta = () => {
 
   return (
     <>
-      <Helmet htmlAttributes={{lang:config.language}}>
+      <Helmet htmlAttributes={{ lang: config.language }}>
         <title>{config.metadata.title || config.siteTitle}</title>
         <meta
           name="description"
