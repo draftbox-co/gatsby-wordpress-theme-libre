@@ -2,16 +2,6 @@
 # yarn lockfile v1
 
 
-"@armada-inc/gatsby-plugin-amp@^0.2.3":
-  version "0.2.3"
-  resolved "https://registry.yarnpkg.com/@armada-inc/gatsby-plugin-amp/-/gatsby-plugin-amp-0.2.3.tgz#27b0796dd2851644238e45b4ab03ef74e4bcaa46"
-  integrity sha512-UuZkWSM7Kzvk8Zuu8+hmLpfNm9e7DMfTm1WYr6qWssOvQpxmFm3VNjIdJPrlBo4II7cmeMw11z4z+gNkKF9d6A==
-  dependencies:
-    jsdom "^13.0.0"
-    lodash.flattendeep "^4.4.0"
-    minimatch "^3.0.4"
-    react "^16.6.1"
-
 "@babel/code-frame@7.5.5":
   version "7.5.5"
   resolved "https://registry.yarnpkg.com/@babel/code-frame/-/code-frame-7.5.5.tgz#bc0782f6d69f7b7d49531219699b988f669a8f9d"
@@ -1293,6 +1283,16 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
+"@draftbox-co/gatsby-plugin-amp@^0.2.4":
+  version "0.2.4"
+  resolved "https://registry.yarnpkg.com/@draftbox-co/gatsby-plugin-amp/-/gatsby-plugin-amp-0.2.4.tgz#736717349fe9d0961d2b16ad3ebb45cb80629c0e"
+  integrity sha512-nERnqPbfvzCr20aH2z2XWcHRLHdbIhh+D3wZg8SBw/1b0JYGU2vZxVeXaV7RngV1VMKQiZV/ty0UVXy4tinXBw==
+  dependencies:
+    jsdom "^13.0.0"
+    lodash.flattendeep "^4.4.0"
+    minimatch "^3.0.4"
+    react "^16.6.1"
+
 "@ember-data/rfc395-data@^0.0.4":
   version "0.0.4"
   resolved "https://registry.yarnpkg.com/@ember-data/rfc395-data/-/rfc395-data-0.0.4.tgz#ecb86efdf5d7733a76ff14ea651a1b0ed1f8a843"
@@ -1738,11 +1738,6 @@
   resolved "https://registry.yarnpkg.com/@types/debug/-/debug-0.0.30.tgz#dc1e40f7af3b9c815013a7860e6252f6352a84df"
   integrity sha512-orGL5LXERPYsLov6CWs3Fh6203+dXzJkR7OnddIr2514Hsecwc8xRpzCapshBbKFImCsvS/mk6+FWiN5LyZJAQ==
 
-"@types/eslint-visitor-keys@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@types/eslint-visitor-keys/-/eslint-visitor-keys-1.0.0.tgz#1ee30d79544ca84d68d4b3cdb0af4f205663dd2d"
-  integrity sha512-OCutwjDZ4aFS6PB1UZ988C4YgwlBHJd6wCeQqaLdmadZ/7e+w79+hbMUFC1QXDNCmdyoRfAFdm0RypzwR+Qpag==
-
 "@types/events@*":
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/@types/events/-/events-3.0.0.tgz#2862f3f58a9a7f7c3e78d79f130dd4d71c25c2a7"
@@ -1918,6 +1913,11 @@
   version "2.30.0"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/parser/-/parser-2.30.0.tgz#7681c305a6f4341ae2579f5e3a75846c29eee9ce"
   integrity sha512-9kDOxzp0K85UnpmPJqUzdWaCNorYYgk1yZmf4IKzpeTlSAclnFsrLjfwD9mQExctLoLoGAUXq1co+fbr+3HeFw==
+  dependencies:
+    "@types/eslint-visitor-keys" "^1.0.0"
+    "@typescript-eslint/experimental-utils" "2.30.0"
+    "@typescript-eslint/typescript-estree" "2.30.0"
+    eslint-visitor-keys "^1.1.0"
 
 "@typescript-eslint/typescript-estree@2.30.0":
   version "2.30.0"

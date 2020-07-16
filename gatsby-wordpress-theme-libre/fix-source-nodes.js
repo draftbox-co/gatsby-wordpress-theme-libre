@@ -45,7 +45,7 @@ const createTag = {
 
 const currentTimeImage = new Date().getTime();
 const createImage = {
-  wordpress_id: currentTimeImage,
+  wordpress_id: `wordpress-media-placeholder`,
   date: new Date().toISOString(),
   guid:
     "https://wordpress.theasdfghjkl.com/wp-content/uploads/2020/05/wordpress-balsa.png",
@@ -113,19 +113,19 @@ const createImage = {
     replies: [
       {
         embeddable: true,
-        href:
-          `https://wordpress.theasdfghjkl.com/wp-json/wp/v2/comments?post=${currentTimeImage}`,
+        href: `https://wordpress.theasdfghjkl.com/wp-json/wp/v2/comments?post=${currentTimeImage}`,
       },
     ],
   },
-  id: currentTimeImage.toString(),
-  author___NODE: currentTimeImage.toString(),
+  id: `wordpress-media-placeholder`,
+  author___NODE: `wordpress-media-placeholder`,
   path: "/wordpress-balsa/",
 };
 
 module.exports = async function sourceNodes({
   actions,
   getNodesByType,
+  getNodes,
   store,
   cache,
   createNodeId,
@@ -135,9 +135,15 @@ module.exports = async function sourceNodes({
 }) {
   const { createNode } = actions;
 
-  const wordPressTagExists = getNodesByType("wordpress__TAG");
+  const wordPressTag = getNodesByType("wordpress__TAG");
 
-  if (!wordPressTagExists || wordPressTagExists.length === 0) {
+  const wordPressTagExists =
+    wordPressTag &&
+    wordPressTag.length > 0 &&
+    wordPressTag[0].internal &&
+    wordPressTag[0].internal.owner === "gatsby-source-wordpress";
+
+  if (!wordPressTagExists) {
     let node = {
       ...createTag,
       children: [],
@@ -150,33 +156,43 @@ module.exports = async function sourceNodes({
     createNode(node);
   }
 
-  const mediaExists = getNodesByType("wordpress__wp_media");
+  const wordpressMedia = getNodesByType("wordpress__wp_media");
 
-  if (!mediaExists || mediaExists.length === 0) {
-    
+  const mediaExists =
+    wordpressMedia &&
+    wordpressMedia.length > 0 &&
+    wordpressMedia[0].internal &&
+    wordpressMedia[0].internal.owner === "gatsby-source-wordpress";
+
+  if (!mediaExists) {
     const encodedSourceUrl = encodeURI(createImage.source_url);
-    const mediaDataCacheKey = `wordpress-media-${createImage.wordpress_id}`;
+    const mediaDataCacheKey = `wordpress-media-placeholder`;
 
     try {
-      const fileNode = await createRemoteFileNode({
-        url: encodedSourceUrl,
-        store,
-        cache,
-        createNode,
-        createNodeId,
-        getCache,
-        parentNodeId: createImage.id,
-        reporter,
-      });
+      const cachedFileNode = await cache.get(mediaDataCacheKey);
 
-      if (fileNode) {
-        fileNodeID = fileNode.id;
-        await cache.set(mediaDataCacheKey, {
-          fileNodeID,
-          modified: createImage.modified,
+      if (cachedFileNode) {
+        createImage.localFile___NODE = cachedFileNode.fileNodeID;
+      } else {
+        const fileNode = await createRemoteFileNode({
+          url: encodedSourceUrl,
+          store,
+          cache,
+          createNode,
+          createNodeId,
+          getCache,
+          parentNodeId: createImage.id,
+          reporter,
         });
 
-        createImage.localFile___NODE = fileNodeID;
+        if (fileNode) {
+          fileNodeID = fileNode.id;
+          await cache.set(mediaDataCacheKey, {
+            fileNodeID,
+            modified: createImage.modified,
+          });
+          createImage.localFile___NODE = fileNodeID;
+        }
       }
 
       let node = {
@@ -191,7 +207,7 @@ module.exports = async function sourceNodes({
 
       createNode(node);
     } catch (e) {
-      console.log(e, "error creating remote nodeF");
+      console.log(e, "error creating remote node");
       // Ignore
     }
   }
