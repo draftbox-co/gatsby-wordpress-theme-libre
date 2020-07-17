@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "gatsby";
 
-const NotFound = () => {
+const OfflinePage = () => {
   return (
     <div className="error-message-container">
       <div className="error-message">
@@ -17,4 +17,4 @@ const NotFound = () => {
   );
 };
 
-export default NotFound;
+export default OfflinePage;
