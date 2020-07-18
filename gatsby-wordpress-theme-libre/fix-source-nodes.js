@@ -1,4 +1,6 @@
 const { createRemoteFileNode } = require(`gatsby-source-filesystem`);
+const fetch = require("node-fetch");
+const FormData = require("form-data");
 const currentTimeTag = new Date().getTime();
 const createTag = {
   wordpress_id: currentTimeTag,
@@ -122,28 +124,52 @@ const createImage = {
   path: "/wordpress-balsa/",
 };
 
-module.exports = async function sourceNodes({
-  actions,
-  getNodesByType,
-  getNodes,
-  store,
-  cache,
-  createNodeId,
-  createContentDigest,
-  getCache,
-  reporter,
-}) {
-  const { createNode } = actions;
+module.exports = async function sourceNodes(
+  {
+    actions,
+    getNodesByType,
+    getNodes,
+    store,
+    cache,
+    createNodeId,
+    createContentDigest,
+    getCache,
+    reporter,
+  },
+  { wordpressConfig }
+) {
+  const { createNode, deleteNode } = actions;
 
-  const wordPressTag = getNodesByType("wordpress__TAG");
+  let url;
 
-  const wordPressTagExists =
-    wordPressTag &&
-    wordPressTag.length > 0 &&
-    wordPressTag[0].internal &&
-    wordPressTag[0].internal.owner === "gatsby-source-wordpress";
+  let accessToken;
 
-  if (!wordPressTagExists) {
+  let remoteWordPressTagCount;
+  let remoteWordPressMediaCount;
+
+  if (wordpressConfig.hostingWPCOM) {
+    url = `https://public-api.wordpress.com/wp/v2/sites/${wordpressConfig.baseUrl}`;
+    accessToken = await getWPCOMAccessToken(wordpressConfig.auth);
+  } else {
+    url = `https://${wordpressConfig.baseUrl}/wp-json/wp/v2`;
+  }
+
+  remoteWordPressMediaCount = await getWordPressEntityCount(
+    `${url}/media`,
+    accessToken
+  );
+  remoteWordPressTagCount = await getWordPressEntityCount(
+    `${url}/tags`,
+    accessToken
+  );
+
+  const wordPressTags = getNodesByType("wordpress__TAG");
+
+  const originalTagSourceExists = wordPressTags.filter(
+    (wordPressTag) => wordPressTag.internal.owner === "gatsby-source-wordpress"
+  );
+
+  if (remoteWordPressTagCount == 0 || !originalTagSourceExists) {
     let node = {
       ...createTag,
       children: [],
@@ -156,15 +182,14 @@ module.exports = async function sourceNodes({
     createNode(node);
   }
 
-  const wordpressMedia = getNodesByType("wordpress__wp_media");
+  const wordpressMedias = getNodesByType("wordpress__wp_media");
 
-  const mediaExists =
-    wordpressMedia &&
-    wordpressMedia.length > 0 &&
-    wordpressMedia[0].internal &&
-    wordpressMedia[0].internal.owner === "gatsby-source-wordpress";
+  const originalMediaSourceExists = wordpressMedias.filter(
+    (wordpressMedia) =>
+      wordpressMedia.internal.owner === "gatsby-source-wordpress"
+  );
 
-  if (!mediaExists) {
+  if (remoteWordPressMediaCount == 0 || !originalMediaSourceExists) {
     const encodedSourceUrl = encodeURI(createImage.source_url);
     const mediaDataCacheKey = `wordpress-media-placeholder`;
 
@@ -212,3 +237,46 @@ module.exports = async function sourceNodes({
     }
   }
 };
+
+async function getWPCOMAccessToken(_auth) {
+  let result;
+  const oauthUrl = `https://public-api.wordpress.com/oauth2/token`;
+
+  try {
+    const form = new FormData();
+    form.append("client_id", _auth.wpcom_app_clientId);
+    form.append("client_secret", _auth.wpcom_app_clientSecret);
+    form.append("username", _auth.wpcom_user);
+    form.append("password", _auth.wpcom_pass);
+    form.append("grant_type", `password`);
+
+    const response = await fetch(oauthUrl, { method: "POST", body: form });
+    result = await response.json();
+    result = result.access_token;
+  } catch (e) {
+    console.log(e);
+  }
+
+  return result;
+}
+
+async function getWordPressEntityCount(url, accessToken) {
+  const getOptions = () => {
+    let o = {
+      method: `get`,
+    };
+
+    if (accessToken) {
+      o.headers = {
+        Authorization: `Bearer ${accessToken}`,
+      };
+    }
+
+    return o;
+  };
+  const options = getOptions();
+  const response = await fetch(url, options);
+  const data = await response.json();
+
+  return data.length;
+}
