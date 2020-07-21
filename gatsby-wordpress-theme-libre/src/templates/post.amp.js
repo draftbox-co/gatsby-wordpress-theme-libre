@@ -15,7 +15,7 @@ const PostTemplate = ({ data, location, pageContext }) => {
         <nav className="blog-title">
           <Link to="/">
             <span
-              dangerouslySetInnerHTML={{ __html: data.wordpressPost.title }}
+              dangerouslySetInnerHTML={{ __html: pageContext.title }}
             ></span>
           </Link>
         </nav>
@@ -79,7 +79,7 @@ const PostTemplate = ({ data, location, pageContext }) => {
 
           <div className="comment-button-container">
             <button>
-              <a href={`${data.wordpressPost.slug}`}>Leave a comment</a>
+              <a href={`${data.wordpressPost.slug}`}>View original article</a>
             </button>
           </div>
         </article>
