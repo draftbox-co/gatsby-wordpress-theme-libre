@@ -1,6 +1,6 @@
 {
   "name": "@draftbox-co/gatsby-wordpress-theme-libre",
-  "version": "1.0.39",
+  "version": "1.0.40",
   "license": "MIT",
   "resolutions": {
     "sharp": "0.23.4"
@@ -67,6 +67,7 @@
     "html-to-text": "^5.1.1",
     "node-fetch": "^2.6.0",
     "react-helmet": "^5.2.1",
+    "react-intersection-observer": "^8.26.2",
     "reading-time": "^1.2.0"
   }
 }

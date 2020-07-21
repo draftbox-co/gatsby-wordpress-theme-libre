@@ -12,6 +12,7 @@ import twitterShare from "../images/twitter-share.svg";
 import linkedInShare from "../images/linkedin.svg";
 import mailShare from "../images/mail.svg";
 import CopyLink from "../components/copy-link";
+import { InView } from "react-intersection-observer";
 
 const Post = ({ data, location }) => {
   const [href, sethref] = useState("");
@@ -28,6 +29,14 @@ const Post = ({ data, location }) => {
   const linkedInShareUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${href}&title=${data.wordpressPost.plainTitle}`;
 
   const mailShareUrl = `mailto:?subject=${data.wordpressPost.plainTitle}&body=${href}`;
+
+  const [showComments, setshowComments] = useState(false);
+
+  const handleCommentsVisibility = (inView) => {
+    if (inView && !showComments) {
+      setshowComments(true);
+    }
+  };
 
   return (
     <Layout>
@@ -245,7 +254,7 @@ const Post = ({ data, location }) => {
                     <div className="nav-links">
                       {data.prev && (
                         <div className="nav-previous">
-                          <Link to={`/${data.prev.slug}`} rel="prev">
+                          <Link to={`${data.prev.slug}`} rel="prev">
                             <span className="meta-nav">Previous Post</span>{" "}
                             <span
                               dangerouslySetInnerHTML={{
@@ -258,7 +267,7 @@ const Post = ({ data, location }) => {
 
                       {data.next && (
                         <div className="nav-next">
-                          <Link to={`/${data.next.slug}`} rel="next">
+                          <Link to={`${data.next.slug}`} rel="next">
                             <span className="meta-nav">Next Post</span>{" "}
                             <span
                               dangerouslySetInnerHTML={{
@@ -271,9 +280,19 @@ const Post = ({ data, location }) => {
                     </div>{" "}
                   </nav>
                 </article>
+                <InView
+                  as="div"
+                  onChange={(inView) => handleCommentsVisibility(inView)}
+                ></InView>
+                <div>
+                  {process.env.GATSBY_DISQUS_SHORTNAME && showComments && (
+                    <Disqus />
+                  )}
+                  {process.env.GATSBY_FB_APP_ID && showComments && (
+                    <FbComments href={href} />
+                  )}
+                </div>
 
-                <Disqus />
-                <FbComments href={href} />
                 <SubscribeForm />
               </main>
             </div>
