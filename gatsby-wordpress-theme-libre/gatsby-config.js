@@ -110,7 +110,6 @@ module.exports = (themeOptions) => {
           icon: "static/favicon.png",
         },
       },
-      'gatsby-plugin-remove-serviceworker',
       {
         resolve: `gatsby-plugin-feed`,
         options: {
