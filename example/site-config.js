@@ -16,6 +16,7 @@ module.exports = {
   themeColor: "#15171A", // Used for Offline Manifest
   apiUrl: "https://wordpress.theasdfghjkl.com",
   subscribeWidget: {
+    visible: false,
     title: "Subscribe to Draftbox",
     helpText: "Get the latest posts delivered right to your inbox.",
     successMessage: "Thanks for subscribing to Draftbox.",
@@ -63,6 +64,12 @@ module.exports = {
     instagram: "https://www.instagram.com/",
     linkedin: "https://linkedin.com/",
     github: "https://github.com/draftbox-co",
+    whatsapp: "",
+    pinterest: "",
+    youtube: "",
+    dribbble: "",
+    behance: "",
+    externalLink: "",
   },
   contactWidget: {
     title: "Contact Built with Draftbox",
@@ -95,4 +102,32 @@ module.exports = {
   iconUrl: "favicon.png",
   coverUrl: "cover.jpg",
   alternateLogoUrl: "logo.png",
+  themeConfig: {
+    fonts: [
+      {
+        family: "Libre Baskerville",
+        variants: ["400", "700"],
+        fontDisplay: "swap",
+        strategy: "selfHosted",
+      },
+    ],
+    variables: [
+      {
+        varName: "--primary-font",
+        value: "Libre Baskerville",
+      },
+      {
+        varName: "--primary-font-normal",
+        value: "400",
+      },
+      {
+        varName: "--primary-font-bold",
+        value: "700",
+      },
+      {
+        varName: "--primary-color",
+        value: "#404040",
+      },
+    ],
+  },
 };

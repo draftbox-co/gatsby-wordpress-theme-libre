@@ -14,10 +14,12 @@ import { graphql, Link } from "gatsby";
 const Page = ({ data, location }) => {
 
   const [href, sethref] = useState("");
+  const [origin, setOrigin] = useState("");
 
   useEffect(() => {
     if (typeof window !== "undefined") {
       sethref(window.location.href);
+      setOrigin(window.location.origin);
     }
   }, []);
   const twitterShareUrl = `https://twitter.com/share?text=${data.wordpressPage.plainTitle}&url=${href}`;
@@ -27,6 +29,15 @@ const Page = ({ data, location }) => {
   const linkedInShareUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${href}&title=${data.wordpressPage.plainTitle}`;
 
   const mailShareUrl = `mailto:?subject=${data.wordpressPage.plainTitle}&body=${href}`;
+
+  let pinterestShareUrl = `https://www.pinterest.com/pin/create/button/?url=${href}&description=${data.wordpressPage.plainTitle}`
+
+  if (data.wordpressPage.featured_media && data.wordpressPage.featured_media.localFile && data.wordpressPage.featured_media.localFile.publicURL) {
+    pinterestShareUrl += `&media=${origin + data.wordpressPage.featured_media.localFile.publicURL}`;
+  }
+
+  const whatsAppShareUrl = `https://wa.me/?text=${encodeURIComponent(data.wordpressPage.plainTitle + "\n" + href)}`;
+
   return (
     <>
       <Layout>
@@ -187,6 +198,24 @@ const Page = ({ data, location }) => {
                               src={linkedInShare}
                               alt="LinkedIn Share"
                             />
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            href={pinterestShareUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <i className="icon icon-pinterest"></i>
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            href={whatsAppShareUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <i className="icon icon-whatsapp"></i>
                           </a>
                         </li>
                         <li>
