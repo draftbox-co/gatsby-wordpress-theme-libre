@@ -1,0 +1,75 @@
+{
+  "name": "@draftbox-co/gatsby-wordpress-theme-libre",
+  "version": "1.0.43-alpha-1",
+  "license": "MIT",
+  "resolutions": {
+    "sharp": "0.23.4"
+  },
+  "author": "Draftbox",
+  "homepage": "https://github.com/draftbox-co/",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/draftbox-co/gatsby-wordpress-theme-libre"
+  },
+  "engines": {
+    "node": ">= 8.9.0"
+  },
+  "bugs": {
+    "url": "https://github.com/draftbox-co/gatsby-wordpress-theme-libre/issues"
+  },
+  "keywords": [
+    "gatsby",
+    "gatsby-plugin",
+    "gatsby-theme",
+    "ghost",
+    "ghost-theme",
+    "casper",
+    "blogging",
+    "static-site",
+    "static-site-generator",
+    "gatsbyjs",
+    "react"
+  ],
+  "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "eslint": "^6.8.0",
+    "eslint-plugin-ghost": "^1.0.0",
+    "eslint-plugin-react": "^7.19.0",
+    "gatsby": "2.20.24",
+    "react": "^16.13.0",
+    "react-dom": "^16.13.0"
+  },
+  "peerDependencies": {
+    "gatsby": "2.20.24",
+    "react": "^16.13.0",
+    "react-dom": "^16.13.0"
+  },
+  "dependencies": {
+    "@draftbox-co/gatsby-plugin-amp": "^0.2.4",
+    "@draftbox-co/gatsby-plugin-css-variables": "^0.0.3",
+    "@draftbox-co/gatsby-plugin-webfonts": "^1.1.3",
+    "@reach/router": "^1.3.3",
+    "disqus-react": "^1.0.8",
+    "gatsby-awesome-pagination": "^0.3.5",
+    "gatsby-image": "^2.2.43",
+    "gatsby-plugin-advanced-sitemap": "^1.5.2",
+    "gatsby-plugin-catch-links": "^2.1.27",
+    "gatsby-plugin-feed": "^2.4.1",
+    "gatsby-plugin-force-trailing-slashes": "^1.0.4",
+    "gatsby-plugin-manifest": "^2.2.48",
+    "gatsby-plugin-react-helmet": "^3.1.23",
+    "gatsby-plugin-remove-generator": "^1.0.5",
+    "gatsby-plugin-sharp": "^2.4.11",
+    "gatsby-plugin-typescript": "^2.2.3",
+    "gatsby-source-filesystem": "^2.1.53",
+    "gatsby-source-wordpress": "^3.1.69",
+    "gatsby-transformer-sharp": "^2.3.18",
+    "html-to-text": "^5.1.1",
+    "lodash": "^4.17.19",
+    "node-fetch": "^2.6.0",
+    "react-helmet": "^5.2.1",
+    "react-intersection-observer": "^8.26.2",
+    "reading-time": "^1.2.0"
+  }
+}
