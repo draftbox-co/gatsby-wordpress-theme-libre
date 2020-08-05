@@ -30,6 +30,13 @@ module.exports = (themeOptions) => {
           name: `pages`,
         },
       },
+      {
+        resolve: `gatsby-source-filesystem`,
+        options: {
+          path: path.join(__dirname, `static`),
+          name: `static`,
+        },
+      },
       // Setup for optimized images.
       // See https://www.gatsbyjs.org/packages/gatsby-image/
       {
@@ -88,8 +95,8 @@ module.exports = (themeOptions) => {
             `/404`,
             `/404.html`,
             `/offline-plugin-app-shell-fallback`,
-            '/offline',
-            '/offline.html'
+            "/offline",
+            "/offline.html",
           ],
           createLinkInHead: true,
           addUncaughtPages: true,

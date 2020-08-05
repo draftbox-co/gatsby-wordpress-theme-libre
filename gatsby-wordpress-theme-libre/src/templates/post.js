@@ -36,11 +36,19 @@ const Post = ({ data, location, pageContext }) => {
 
   let pinterestShareUrl = `https://www.pinterest.com/pin/create/button/?url=${href}&description=${data.wordpressPost.plainTitle}`;
 
-  if (data.wordpressPost.featured_media && data.wordpressPost.featured_media.localFile && data.wordpressPost.featured_media.localFile.publicURL) {
-    pinterestShareUrl += `&media=${origin + data.wordpressPost.featured_media.localFile.publicURL}`;
+  if (
+    data.wordpressPost.featured_media &&
+    data.wordpressPost.featured_media.localFile &&
+    data.wordpressPost.featured_media.localFile.publicURL
+  ) {
+    pinterestShareUrl += `&media=${
+      origin + data.wordpressPost.featured_media.localFile.publicURL
+    }`;
   }
 
-  const whatsAppShareUrl = `https://wa.me/?text=${encodeURIComponent(data.wordpressPost.plainTitle + "\n" + href)}`;
+  const whatsAppShareUrl = `https://wa.me/?text=${encodeURIComponent(
+    data.wordpressPost.plainTitle + "\n" + href
+  )}`;
 
   const [showComments, setshowComments] = useState(false);
 
@@ -230,7 +238,7 @@ const Post = ({ data, location, pageContext }) => {
                             target="_blank"
                             rel="noopener noreferrer"
                           >
-                           <img
+                            <img
                               className="h-4"
                               src={whatsAppShare}
                               alt="WhatsApp Share"
@@ -329,7 +337,7 @@ const Post = ({ data, location, pageContext }) => {
                     <FbComments href={href} />
                   )}
                 </div>
-                {pageContext.subscribeWidget && pageContext.subscribeWidget.visible && <SubscribeForm />}
+                <SubscribeForm />
               </main>
             </div>
           </div>

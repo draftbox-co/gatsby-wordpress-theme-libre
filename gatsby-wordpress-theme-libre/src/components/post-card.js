@@ -88,12 +88,12 @@ const PostCard = ({ index, node }) => {
             Posted in{" "}
             {node.tags.map((tag, index, arr) => {
               return (
-                <>
+                <React.Fragment key={index}>
                   <Link to={`/tag/${tag.slug}`} key={index} rel="tag">
                     {tag.name}
                   </Link>
                   {index !== arr.length - 1 && ", "}
-                </>
+                </React.Fragment>
               );
             })}
           </span>

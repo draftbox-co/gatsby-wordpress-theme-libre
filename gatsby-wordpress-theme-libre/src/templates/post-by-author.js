@@ -14,13 +14,25 @@ const PostByAuthor = ({ data }) => (
         <div id="content" className="site-content">
           <div id="primary" className="content-area">
             <main id="main" className="site-main">
-              <header className="page-header">
-				        <h1 className="page-title">Author: 
-                  <span className="vcard">{" "}Team Draftbox</span>
-                </h1>
-                <div className="taxonomy-description">Lightning fast, secure front-end for your WordPress or Ghost blog,  without coding.
-                </div>	
-              </header>
+              {data.wordpressWpUsers &&
+                (data.wordpressWpUsers.name ||
+                  data.wordpressWpUsers.description) && (
+                  <header className="page-header">
+                    {data.wordpressWpUsers.name && (
+                      <h1 className="page-title">
+                        Author:{" "}
+                        <span className="vcard">
+                          {data.wordpressWpUsers.name}
+                        </span>
+                      </h1>
+                    )}
+                    {data.wordpressWpUsers.description && (
+                      <div className="taxonomy-description">
+                        {data.wordpressWpUsers.description}
+                      </div>
+                    )}
+                  </header>
+                )}
               {data.allWordpressPost.edges.map(({ node }, index) => (
                 <PostCard key={index} node={node} />
               ))}
@@ -37,6 +49,10 @@ export default PostByAuthor;
 
 export const pageQuery = graphql`
   query($slug: String) {
+    wordpressWpUsers(slug: { eq: $slug }) {
+      name
+      description
+    }
     allWordpressPost(filter: { author: { slug: { eq: $slug } } }) {
       edges {
         node {

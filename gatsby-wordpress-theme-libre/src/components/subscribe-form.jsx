@@ -15,16 +15,23 @@ const SubscribeForm = () => {
   };
 
   const data = useStaticQuery(graphql`
-    query SiteData {
+    query {
       site {
         siteMetadata {
-          siteTitle
+          subscribeWidget {
+            visible
+            title
+            helpText
+            successMessage
+          }
         }
       }
     }
   `);
 
-  const siteTitle = data.site.siteMetadata.siteTitle;
+  if (!data.site.siteMetadata.subscribeWidget.visible) {
+    return null;
+  }
 
   return (
     <div className="subscribe-form" id="subscribe">
@@ -32,20 +39,23 @@ const SubscribeForm = () => {
         {succeeded && (
           <h1 className="subscribe-title">
             <span
-              dangerouslySetInnerHTML={{ __html: `You’ve successfully subscribed to ${siteTitle}.` }}
+              dangerouslySetInnerHTML={{
+                __html: data.site.siteMetadata.subscribeWidget.successMessage,
+              }}
             ></span>
           </h1>
         )}
         {!succeeded && (
           <>
-            <h1 className="subscribe-title">
-              Subscribe to{" "}
+            <h1 className="subscribe-title">  
               <span
-                dangerouslySetInnerHTML={{ __html: siteTitle }}
+                dangerouslySetInnerHTML={{
+                  __html: data.site.siteMetadata.subscribeWidget.title,
+                }}
               ></span>
             </h1>
             <p className="subscribe-description">
-              Get the latest posts delivered right to your inbox.
+              {data.site.siteMetadata.subscribeWidget.helpText}
             </p>
             <div>
               <label className="hidden" htmlFor="email">
