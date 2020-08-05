@@ -267,7 +267,7 @@ const Navbar = () => {
                       target="_blank"
                       rel="noreferrer noopener"
                     >
-                      <i className="icon icon-link"></i>
+                      <i className="icon icon-link-1"></i>
                     </a>
                   </li>
                 )}
