@@ -16,7 +16,7 @@ module.exports = {
   themeColor: "#15171A", // Used for Offline Manifest
   apiUrl: "https://wordpress.theasdfghjkl.com",
   subscribeWidget: {
-    visible: false,
+    visible: true,
     title: "Subscribe to Draftbox",
     helpText: "Get the latest posts delivered right to your inbox.",
     successMessage: "Thanks for subscribing to Draftbox.",
