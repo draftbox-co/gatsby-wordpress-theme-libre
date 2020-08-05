@@ -14,6 +14,14 @@ const PostByTag = ({ data, pageContext }) => (
         <div id="content" className="site-content">
           <div id="primary" className="content-area">
             <main id="main" className="site-main">
+              <header class="page-header">
+				        <h1 class="page-title">Tag: 
+                  <span className="vcard">{" "}Benefits</span>
+                </h1>
+                <div class="taxonomy-description">
+                  <p>Benefits of using Draftbox for your existing WordPress or Ghost blog.</p>
+                </div>
+              </header>
               {data.allWordpressPost.edges.map(({ node }, index) => (
                 <PostCard key={index} node={node} />
               ))}

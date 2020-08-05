@@ -168,8 +168,8 @@ const Post = ({ data, location, pageContext }) => {
                       </span>
                     )}
                   </footer>
-                  <div className="social-icons-container flex items-center max-w-3xl mt-8 mx-4 lg:mx-auto">
-                    <span className="mr-2 text-lg text-gray-700">Share:</span>
+                  <div className="social-share social-icons-container flex items-center max-w-3xl mt-8 mx-4 lg:mx-auto">
+                    <span className="social-share-label">Share:</span>
                     <div className="social-icons">
                       <ul className="flex">
                         <li>
@@ -276,13 +276,12 @@ const Post = ({ data, location, pageContext }) => {
                       </h2>
                     </div>
                     <p className="author-bio">
-                      {data.wordpressPost.author.description}
+                      {data.wordpressPost.author.description}{" "}
                       <Link
                         className="author-link"
                         to={`/author/${data.wordpressPost.author.slug}`}
                         rel="author"
                       >
-                        {" "}
                         View all posts by {data.wordpressPost.author.name}{" "}
                       </Link>
                     </p>
@@ -333,11 +332,6 @@ const Post = ({ data, location, pageContext }) => {
                 {pageContext.subscribeWidget && pageContext.subscribeWidget.visible && <SubscribeForm />}
               </main>
             </div>
-            <div
-              id="secondary"
-              className="widget-area"
-              role="complementary"
-            ></div>
           </div>
           <Footer />
         </div>

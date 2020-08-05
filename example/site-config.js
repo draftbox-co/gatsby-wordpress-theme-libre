@@ -110,8 +110,18 @@ module.exports = {
         fontDisplay: "swap",
         strategy: "selfHosted",
       },
+      {
+        family: "Source Code Pro",
+        variants: ["400", "700"],
+        fontDisplay: "swap",
+        strategy: "selfHosted",
+      },
     ],
     variables: [
+      {
+        varName: "--page-background",
+        value: "#ede6dd",
+      },
       {
         varName: "--primary-font",
         value: "Libre Baskerville",
@@ -126,8 +136,25 @@ module.exports = {
       },
       {
         varName: "--primary-color",
-        value: "#404040",
+        value: "#438d8d",
       },
+      {
+        varName: "--secondary-font",
+        value: "Source Code Pro",
+      },
+      {
+        varName: "--secondary-font-normal",
+        value: "400",
+      },
+      {
+        varName: "--secondary-font-bold",
+        value: "700",
+      },
+      {
+        varName: "--secondary-color",
+        value: "#5e4f40",
+      },
+
     ],
   },
 };

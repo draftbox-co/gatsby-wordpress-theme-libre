@@ -10,8 +10,10 @@ import mailShare from "../images/mail.svg";
 import CopyLink from "../components/copy-link";
 import SubscribeForm from "../components/subscribe-form";
 import { graphql, Link } from "gatsby";
+import pinterestShare from "../images/pinterest.svg";
+import whatsAppShare from "../images/whatsapp-new.svg";
 
-const Page = ({ data, location }) => {
+const Page = ({ data, location, pageContext }) => {
 
   const [href, sethref] = useState("");
   const [origin, setOrigin] = useState("");
@@ -157,8 +159,8 @@ const Page = ({ data, location }) => {
                       </span>
                     )}
                   </footer>
-                  <div className="social-icons-container flex items-center max-w-3xl mt-8 mx-4 lg:mx-auto">
-                    <span className="mr-2 text-lg text-gray-700">Share:</span>
+                  <div className="social-share social-icons-container flex items-center max-w-3xl mt-8 mx-4 lg:mx-auto">
+                    <span className="social-share-label">Share:</span>
                     <div className="social-icons">
                       <ul className="flex">
                         <li>
@@ -206,7 +208,11 @@ const Page = ({ data, location }) => {
                             target="_blank"
                             rel="noopener noreferrer"
                           >
-                            <i className="icon icon-pinterest"></i>
+                            <img
+                              className="h-4"
+                              src={pinterestShare}
+                              alt="Pinterest Share"
+                            />
                           </a>
                         </li>
                         <li>
@@ -215,7 +221,11 @@ const Page = ({ data, location }) => {
                             target="_blank"
                             rel="noopener noreferrer"
                           >
-                            <i className="icon icon-whatsapp"></i>
+                           <img
+                              className="h-4"
+                              src={whatsAppShare}
+                              alt="WhatsApp Share"
+                            />
                           </a>
                         </li>
                         <li>
@@ -237,39 +247,9 @@ const Page = ({ data, location }) => {
                       </ul>
                     </div>
                   </div>
-                  <div className="entry-author">
-                    <div className="author-avatar">
-                      <img
-                        alt={data.wordpressPage.author.name}
-                        src={data.wordpressPage.author.avatar_urls.wordpress_96}
-                        className="avatar avatar-100 photo jetpack-lazy-image jetpack-lazy-image--handled"
-                        height={100}
-                        width={100}
-                      />
-                    </div>
-
-                    <div className="author-heading">
-                      <h2 className="author-title">
-                        Published by{" "}
-                        <span className="author-name">
-                          {data.wordpressPage.author.name}
-                        </span>
-                      </h2>
-                    </div>
-                    <p className="author-bio">
-                      {data.wordpressPage.author.description}
-                      <Link
-                        className="author-link"
-                        to={`/author/${data.wordpressPage.author.slug}`}
-                        rel="author"
-                      >
-                        {" "}
-                        View all posts by {data.wordpressPage.author.name}{" "}
-                      </Link>
-                    </p>
-                  </div>
+                  <hr />
                 </article>
-                <SubscribeForm />
+                {pageContext.subscribeWidget && pageContext.subscribeWidget.visible && <SubscribeForm />}
               </main>
             </div>
           </div>

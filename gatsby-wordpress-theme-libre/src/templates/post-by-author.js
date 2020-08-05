@@ -14,6 +14,13 @@ const PostByAuthor = ({ data }) => (
         <div id="content" className="site-content">
           <div id="primary" className="content-area">
             <main id="main" className="site-main">
+              <header className="page-header">
+				        <h1 className="page-title">Author: 
+                  <span className="vcard">{" "}Team Draftbox</span>
+                </h1>
+                <div className="taxonomy-description">Lightning fast, secure front-end for your WordPress or Ghost blog,  without coding.
+                </div>	
+              </header>
               {data.allWordpressPost.edges.map(({ node }, index) => (
                 <PostCard key={index} node={node} />
               ))}

@@ -332,6 +332,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
         component: pageTemplate,
         context: {
           slug: page.node.slug,
+          subscribeWidget: subscribeWidget,
         },
       });
     });

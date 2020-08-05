@@ -74,6 +74,10 @@ const Navbar = () => {
   }, []);
 
   return (
+    <>
+    <Link to="/" rel="home">
+			<img src="https://defaultcustomheadersdata.files.wordpress.com/2016/07/design2.jpg?resize=1088,300" width="1088" height="300" alt="" className="custom-header" />
+		</Link>
     <header id="masthead" className="site-header" role="banner">
       <div className="site-branding">
         <h1 className="site-title">
@@ -273,6 +277,7 @@ const Navbar = () => {
         </nav>
       </div>
     </header>
+    </>
   );
 };
 
