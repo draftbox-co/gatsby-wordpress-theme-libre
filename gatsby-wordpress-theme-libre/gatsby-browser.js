@@ -56,6 +56,7 @@ let injected = false;
 let injectedTwitterScript = false;
 
 export const onRouteUpdate = ({ location: { hash } }) => {
+
   if (hash) {
     window.setTimeout(scrollTo(hash), 10);
   }

@@ -13,7 +13,7 @@ module.exports = (themeOptions) => {
   const siteConfig = themeOptions.siteConfig || siteConfigDefaults;
   const wordpressConfig = themeOptions.wordpressConfig;
 
-  return {
+  const configOptions = {
     siteMetadata: siteConfig,
     plugins: [
       /**
@@ -28,6 +28,13 @@ module.exports = (themeOptions) => {
         options: {
           path: path.join(__dirname, `src`, `pages`),
           name: `pages`,
+        },
+      },
+      {
+        resolve: `gatsby-source-filesystem`,
+        options: {
+          path: path.join(__dirname, `static`),
+          name: `static`,
         },
       },
       // Setup for optimized images.
@@ -88,8 +95,8 @@ module.exports = (themeOptions) => {
             `/404`,
             `/404.html`,
             `/offline-plugin-app-shell-fallback`,
-            '/offline',
-            '/offline.html'
+            "/offline",
+            "/offline.html",
           ],
           createLinkInHead: true,
           addUncaughtPages: true,
@@ -176,6 +183,30 @@ module.exports = (themeOptions) => {
           content: `Draftbox`,
         },
       },
+      {
+        resolve: `@draftbox-co/gatsby-plugin-css-variables`,
+        options: {
+          variables: siteConfig.themeConfig.variables,
+        },
+      },
     ],
   };
+
+  if (siteConfig.themeConfig.fonts && siteConfig.themeConfig.fonts.length > 0) {
+    configOptions.plugins.push({
+      resolve: `@draftbox-co/gatsby-plugin-webfonts`,
+      options: {
+        fonts: {
+          google: siteConfig.themeConfig.fonts,
+        },
+        formats: ["woff2", "woff"],
+        useMinify: true,
+        usePreload: true,
+        usePreconnect: true,
+        blacklist: ["/amp"],
+      },
+    });
+  }
+
+  return configOptions;
 };

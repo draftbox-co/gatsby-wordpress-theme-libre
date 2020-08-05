@@ -13,13 +13,17 @@ import linkedInShare from "../images/linkedin.svg";
 import mailShare from "../images/mail.svg";
 import CopyLink from "../components/copy-link";
 import { InView } from "react-intersection-observer";
+import pinterestShare from "../images/pinterest.svg";
+import whatsAppShare from "../images/whatsapp-new.svg";
 
-const Post = ({ data, location }) => {
+const Post = ({ data, location, pageContext }) => {
   const [href, sethref] = useState("");
+  const [origin, setOrigin] = useState("");
 
   useEffect(() => {
     if (typeof window !== "undefined") {
       sethref(window.location.href);
+      setOrigin(window.location.origin);
     }
   }, []);
   const twitterShareUrl = `https://twitter.com/share?text=${data.wordpressPost.plainTitle}&url=${href}`;
@@ -29,6 +33,22 @@ const Post = ({ data, location }) => {
   const linkedInShareUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${href}&title=${data.wordpressPost.plainTitle}`;
 
   const mailShareUrl = `mailto:?subject=${data.wordpressPost.plainTitle}&body=${href}`;
+
+  let pinterestShareUrl = `https://www.pinterest.com/pin/create/button/?url=${href}&description=${data.wordpressPost.plainTitle}`;
+
+  if (
+    data.wordpressPost.featured_media &&
+    data.wordpressPost.featured_media.localFile &&
+    data.wordpressPost.featured_media.localFile.publicURL
+  ) {
+    pinterestShareUrl += `&media=${
+      origin + data.wordpressPost.featured_media.localFile.publicURL
+    }`;
+  }
+
+  const whatsAppShareUrl = `https://wa.me/?text=${encodeURIComponent(
+    data.wordpressPost.plainTitle + "\n" + href
+  )}`;
 
   const [showComments, setshowComments] = useState(false);
 
@@ -156,8 +176,8 @@ const Post = ({ data, location }) => {
                       </span>
                     )}
                   </footer>
-                  <div className="social-icons-container flex items-center max-w-3xl mt-8 mx-4 lg:mx-auto">
-                    <span className="mr-2 text-lg text-gray-700">Share:</span>
+                  <div className="social-share social-icons-container flex items-center max-w-3xl mt-8 mx-4 lg:mx-auto">
+                    <span className="social-share-label">Share:</span>
                     <div className="social-icons">
                       <ul className="flex">
                         <li>
@@ -201,6 +221,32 @@ const Post = ({ data, location }) => {
                         </li>
                         <li>
                           <a
+                            href={pinterestShareUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <img
+                              className="h-4"
+                              src={pinterestShare}
+                              alt="Pinterest Share"
+                            />
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            href={whatsAppShareUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <img
+                              className="h-4"
+                              src={whatsAppShare}
+                              alt="WhatsApp Share"
+                            />
+                          </a>
+                        </li>
+                        <li>
+                          <a
                             href={mailShareUrl}
                             target="_blank"
                             rel="noopener noreferrer"
@@ -238,13 +284,12 @@ const Post = ({ data, location }) => {
                       </h2>
                     </div>
                     <p className="author-bio">
-                      {data.wordpressPost.author.description}
+                      {data.wordpressPost.author.description}{" "}
                       <Link
                         className="author-link"
                         to={`/author/${data.wordpressPost.author.slug}`}
                         rel="author"
                       >
-                        {" "}
                         View all posts by {data.wordpressPost.author.name}{" "}
                       </Link>
                     </p>
@@ -292,15 +337,9 @@ const Post = ({ data, location }) => {
                     <FbComments href={href} />
                   )}
                 </div>
-
                 <SubscribeForm />
               </main>
             </div>
-            <div
-              id="secondary"
-              className="widget-area"
-              role="complementary"
-            ></div>
           </div>
           <Footer />
         </div>

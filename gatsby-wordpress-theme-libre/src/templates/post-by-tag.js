@@ -14,6 +14,22 @@ const PostByTag = ({ data, pageContext }) => (
         <div id="content" className="site-content">
           <div id="primary" className="content-area">
             <main id="main" className="site-main">
+              {data.wordpressTag &&
+                (data.wordpressTag.name || data.wordpressTag.description) && (
+                  <header className="page-header">
+                    {data.wordpressTag.name && (
+                      <h1 className="page-title">
+                        Tag:
+                        <span className="vcard"> {data.wordpressTag.name}</span>
+                      </h1>
+                    )}
+                    {data.wordpressTag.description && (
+                      <div className="taxonomy-description">
+                        <p>{data.wordpressTag.description}</p>
+                      </div>
+                    )}
+                  </header>
+                )}
               {data.allWordpressPost.edges.map(({ node }, index) => (
                 <PostCard key={index} node={node} />
               ))}
@@ -30,6 +46,10 @@ export default PostByTag;
 
 export const pageQuery = graphql`
   query($slug: String) {
+    wordpressTag(slug: { eq: $slug }) {
+      name
+      description
+    }
     allWordpressPost(
       filter: { tags_custom: { elemMatch: { slug: { eq: $slug } } } }
     ) {

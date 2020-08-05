@@ -255,6 +255,9 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
           siteMetadata {
             postsPerPage
             siteTitle
+            subscribeWidget {
+              visible
+            }
           }
         }
 
@@ -276,6 +279,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   const tags = result.data.allWordpressTag.edges;
   const pages = result.data.allWordpressPage.edges;
   const siteTitle = result.data.site.siteMetadata.siteTitle;
+  const subscribeWidget = result.data.site.siteMetadata.subscribeWidget;
 
   posts.forEach((post, i, arr) => {
     createPage({
@@ -285,6 +289,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
         slug: post.node.slug,
         next: i === arr.length - 1 ? null : arr[i + 1].node.id,
         prev: i !== 0 ? arr[i - 1].node.id : null,
+        subscribeWidget: subscribeWidget,
       },
     });
 
@@ -327,6 +332,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
         component: pageTemplate,
         context: {
           slug: page.node.slug,
+          subscribeWidget: subscribeWidget,
         },
       });
     });
