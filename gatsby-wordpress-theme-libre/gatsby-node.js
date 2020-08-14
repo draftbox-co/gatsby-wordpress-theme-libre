@@ -258,6 +258,8 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
             subscribeWidget {
               visible
             }
+            coverUrl
+            siteUrl
           }
         }
 
@@ -280,6 +282,8 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   const pages = result.data.allWordpressPage.edges;
   const siteTitle = result.data.site.siteMetadata.siteTitle;
   const subscribeWidget = result.data.site.siteMetadata.subscribeWidget;
+  const siteUrl =  result.data.site.siteMetadata.siteUrl;
+  const coverUrl =  result.data.site.siteMetadata.coverUrl;
 
   posts.forEach((post, i, arr) => {
     createPage({
@@ -342,6 +346,10 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     items: posts,
     itemsPerPage: postsPerPage,
     component: indexTemplate,
+    context: {
+      coverUrl: coverUrl,
+      siteUrl: siteUrl
+    },
     pathPrefix: ({ pageNumber }) => {
       if (pageNumber === 0) {
         return `/`;

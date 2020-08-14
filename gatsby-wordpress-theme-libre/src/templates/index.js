@@ -6,22 +6,24 @@ import Pagination from "../components/pagination";
 import Footer from "../components/footer";
 import WebsiteMeta from "../components/meta/website-meta";
 import { Link } from "gatsby";
+import url from "url";
 
 const Index = ({ data, pageContext }) => {
+  const {coverUrl, siteUrl} = pageContext
   return (
     <>
       <Layout>
         <WebsiteMeta />
         <div className="home blog wp-embed-responsive">
           <div id="page" className="hfeed site">
-            {data.site.siteMetadata.coverUrl && (
+            {coverUrl && (
               <div
                 className="custom-header-container"
                 style={{ height: "200px" }}
               >
                 <Link to="/" rel="home">
                   <img
-                    src={data.site.siteMetadata.coverUrl}
+                    src={url.resolve(siteUrl,coverUrl)}
                     alt=""
                     className="custom-header"
                   />
@@ -60,12 +62,6 @@ export const pageQuery = graphql`
         node {
           ...WordPressPostData
         }
-      }
-    }
-
-    site {
-      siteMetadata {
-        coverUrl
       }
     }
   }
