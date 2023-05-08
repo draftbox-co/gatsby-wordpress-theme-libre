@@ -60,7 +60,7 @@
     "gatsby-plugin-manifest": "^2.2.48",
     "gatsby-plugin-react-helmet": "^3.1.23",
     "gatsby-plugin-remove-generator": "^1.0.5",
-    "gatsby-plugin-sharp": "^2.4.11",
+    "gatsby-plugin-sharp": "^4.25.1",
     "gatsby-plugin-typescript": "^2.2.3",
     "gatsby-source-filesystem": "^2.1.53",
     "gatsby-source-wordpress": "^3.1.69",
